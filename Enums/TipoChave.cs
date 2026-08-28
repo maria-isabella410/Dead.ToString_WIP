@@ -4,6 +4,6 @@ public enum TipoChave{
     SalaDeArmas,
     Laboratorio,
     SalaDeAula,
-    ArmarioHospital,
+    EstoqueHospital,
     SalaBiblioteca
 }

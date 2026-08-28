@@ -7,23 +7,23 @@ public class PortasDoJogo
 {
     public static Porta CriarPortaSalaDeArmas()
     {
-        return new Porta("Sala de armas", TipoChave.SalaDeArmas);
+        return new Porta("Porta da sala de armas", TipoChave.SalaDeArmas);
     }
     public static Porta CriarPortaSalaDeAula()
     {
-        return new Porta("Sala de aula", TipoChave.SalaDeAula);
+        return new Porta("Porta da sala de aula", TipoChave.SalaDeAula);
     }
     public static Porta CriarPortaSalaBiblioteca()
     {
-        return new Porta("Sala da biblioteca", TipoChave.SalaBiblioteca);
+        return new Porta("Porta da sala da biblioteca", TipoChave.SalaBiblioteca);
     }
     public static Porta CriarPortaArmarioHospital()
     {
-        return new Porta("Armário do hospital", TipoChave.ArmarioHospital);
+        return new Porta("Porta do armário do hospital", TipoChave.EstoqueHospital);
     }
-    public static Porta CriarPortaLaboratorio()
+    public static Porta CriarPortaSalaLaboratorio()
     {
-        return new Porta("Laboratório", TipoChave.Laboratorio);
+        return new Porta("Porta da sala do laboratório", TipoChave.Laboratorio);
     }
 
 }

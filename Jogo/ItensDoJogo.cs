@@ -65,13 +65,13 @@ public class ItensDoJogo
     {
         return new Chave("Chave da biblioteca", "A chave abre a sala de arquivos confidenciais da biblioteca. Com ela, você consegue encontrar os arquivos que o cientista Freddie precisa.", TipoChave.SalaBiblioteca);
     }
-    public static Chave CriarChaveArmarioHospital()
+    public static Chave CriarChaveEstoqueHospital()
     {
-        return new Chave("Chave do estoque do hospital", "A chave que abre a sala de estoque do hospital. Com ela, você consegue encontrar diversos itens de cura.", TipoChave.ArmarioHospital);
+        return new Chave("Chave do estoque do hospital", "A chave que abre a sala de estoque do hospital. Com ela, você consegue encontrar diversos itens de cura.", TipoChave.EstoqueHospital);
     }
     public static Chave CriarChaveLaboratorio()
     {
-        return new Chave("Chave do hall do laboratório", "A chave que dá acesso às áreas restritas do laboratório. Com ela, você consegue chegar à sala de testes e ajudar o cientista Freddie a concluir a pesquisa dele.", TipoChave.Laboratorio);
+        return new Chave("Chave do hall do laboratório", "A chave que dá acesso às áreas restritas do laboratório. Com ela, você consegue chegar à área de experimentos e ajudar o cientista Freddie a concluir a pesquisa dele.", TipoChave.Laboratorio);
     }
     
     //itens comuns

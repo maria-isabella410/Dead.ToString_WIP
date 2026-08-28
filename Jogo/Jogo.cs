@@ -222,27 +222,39 @@ public class Jogo
                     switch (escolhaDirecao)
                     {
                         case opcoesDirecao.Norte:
-                            if(Jogador.LocalAtual.Norte.Porta != null && Jogador.LocalAtual.Norte.Porta.Aberta)
+                            if(Jogador.LocalAtual.Norte != null)
                             {
                                 Jogador.LocalAtual = Jogador.LocalAtual.Norte;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Esse local está trancado.");
-                            }
-                            
+
+                                Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
+                            }                           
 
                             break;
                         case opcoesDirecao.Leste:
-                            Jogador.LocalAtual = Jogador.LocalAtual.Leste;
+                            if(Jogador.LocalAtual.Leste != null)
+                            {
+                                Jogador.LocalAtual = Jogador.LocalAtual.Leste;
+
+                                Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
+                            }                             
                             
                             break;
                         case opcoesDirecao.Oeste:
-                            Jogador.LocalAtual = Jogador.LocalAtual.Oeste;
-                            
+                            if(Jogador.LocalAtual.Oeste != null)
+                            {
+                                Jogador.LocalAtual = Jogador.LocalAtual.Oeste;
+
+                                Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
+                            } 
+
                             break;
-                        case opcoesDirecao.Sul:
-                            Jogador.LocalAtual = Jogador.LocalAtual.Sul;
+                        case opcoesDirecao.Sul:                            
+                            if(Jogador.LocalAtual.Sul != null)
+                            {
+                                Jogador.LocalAtual = Jogador.LocalAtual.Sul;
+
+                                Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
+                            }                             
                     
                             break;
                         default:

@@ -13,7 +13,7 @@ public class Local
     public Local? Sul {get; set;}
     public Local? Leste {get; set;}
     public Local? Oeste {get; set;}
-    public Sala? SalaTrancada {get; set;}
+    public List<Sala> Salas {get; private set;}
     // public Porta? Porta {get; set;}
     public List<Item> Itens {get; private set;}
     public List<Npc> Npcs {get; private set;}
@@ -27,6 +27,7 @@ public class Local
         Itens = new List<Item>();
         Npcs = new List<Npc>();
         Zombies = new List<Zombie>();
+        Salas = new List<Sala>();
     }
 
     public void AdicionarItens(Item item)
@@ -40,6 +41,10 @@ public class Local
     public void AdicionarZombie(Zombie zombie)
     {
         Zombies.Add(zombie);
+    }
+    public void AdicionarSala(Sala sala)
+    {
+        Salas.Add(sala);
     }
     public static void DescreverLocal(Local local)
     {
