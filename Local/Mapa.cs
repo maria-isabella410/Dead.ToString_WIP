@@ -9,7 +9,7 @@ namespace rpgMapa;
 
 public class Mapa
 {
-    private List<Local> Locais {get; set;}
+    public List<Local> Locais {get; set;}
     public Local ruaPrincipal {get; private set;}
     public Local mercado {get; private set;}
     public Local igreja {get; private set;}

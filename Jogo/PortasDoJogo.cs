@@ -10,23 +10,23 @@ public class PortasDoJogo
 {
     public static Porta CriarPortaSalaDeArmas(Mapa mapa)
     {
-        return new Porta("Sala de armas", TipoChave.SalaDeArmas);
+        return new Porta(SalasDoJogo.criarSalaDeArmas(mapa), TipoChave.SalaDeArmas);
     }
     public static Porta CriarPortaSalaDeAula(Mapa mapa)
     {
-        return new Porta("Sala de aula", TipoChave.SalaDeAula);
+        return new Porta(SalasDoJogo.criarSalaDeAula(mapa), TipoChave.SalaDeAula);
     }
-    public static Porta CriarPortaSalaBiblioteca(Mapa mapa)
+    public static Porta CriarPortaSalaArquivos(Mapa mapa)
     {
-        return new Porta("Sala da biblioteca", TipoChave.SalaBiblioteca);
+        return new Porta(SalasDoJogo.criarSalaDeArquivosBiblioteca(mapa), TipoChave.SalaBiblioteca);
     }
-    public static Porta CriarPortaArmarioHospital(Mapa mapa)
+    public static Porta CriarPortaEstoqueHospital(Mapa mapa)
     {
-        return new Porta("Armário do hospital", TipoChave.ArmarioHospital);
+        return new Porta(SalasDoJogo.criarEstoqueHospital(mapa), TipoChave.EstoqueHospital);
     }
-    public static Porta CriarPortaLaboratorio()
+    public static Porta CriarPortaAreaExperimentos(Mapa mapa)
     {
-        return new Porta("Laboratório", TipoChave.Laboratorio);
+        return new Porta(SalasDoJogo.criarAreaExperimentosLaboratorio(mapa), TipoChave.Laboratorio);
     }
 
 }
