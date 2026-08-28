@@ -1,17 +1,18 @@
 using rpgChave;
+using rpgSala;
 using rpgTipoChave;
 
 namespace rpgPorta;
 
 public class Porta
 {
-    public String Nome {get; private set;}
+    public Sala SalaPertencente {get; private set;}
     public TipoChave ChaveNecessaria {get; set;}
     public Boolean Aberta {get; private set;}
 
-    public Porta(String nome, TipoChave chavenecessaria)
+    public Porta(Sala salapertencente, TipoChave chavenecessaria)
     {
-        this.Nome = nome;
+        this.SalaPertencente = salapertencente;
         this.ChaveNecessaria = chavenecessaria;
     }
     

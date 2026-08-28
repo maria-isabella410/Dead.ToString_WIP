@@ -119,4 +119,8 @@ public class ItensDoJogo
     {
         return new Item("Coleira do Billy", "Uma coleira vermelha com o nome 'Billy' escrito.");
     }
+    public static Item CriarCaixaBandagens()
+    {
+        return new Item("Caixa de bandagens", "Uma caixa com 3 bandagens. Que sorte.");
+    }
 }

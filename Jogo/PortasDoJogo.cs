@@ -1,29 +1,32 @@
 using rpgTipoChave;
 using rpgPorta;
+using rpgSalasDoJogo;
+using rpgSala;
+using rpgMapa;
 
 namespace rpgPortasDoJogo;
 
 public class PortasDoJogo
 {
-    public static Porta CriarPortaSalaDeArmas()
+    public static Porta CriarPortaSalaDeArmas(Mapa mapa)
     {
-        return new Porta("Porta da sala de armas", TipoChave.SalaDeArmas);
+        return new Porta("Sala de armas", TipoChave.SalaDeArmas);
     }
-    public static Porta CriarPortaSalaDeAula()
+    public static Porta CriarPortaSalaDeAula(Mapa mapa)
     {
-        return new Porta("Porta da sala de aula", TipoChave.SalaDeAula);
+        return new Porta("Sala de aula", TipoChave.SalaDeAula);
     }
-    public static Porta CriarPortaSalaBiblioteca()
+    public static Porta CriarPortaSalaBiblioteca(Mapa mapa)
     {
-        return new Porta("Porta da sala da biblioteca", TipoChave.SalaBiblioteca);
+        return new Porta("Sala da biblioteca", TipoChave.SalaBiblioteca);
     }
-    public static Porta CriarPortaArmarioHospital()
+    public static Porta CriarPortaArmarioHospital(Mapa mapa)
     {
-        return new Porta("Porta do armário do hospital", TipoChave.EstoqueHospital);
+        return new Porta("Armário do hospital", TipoChave.ArmarioHospital);
     }
-    public static Porta CriarPortaSalaLaboratorio()
+    public static Porta CriarPortaLaboratorio()
     {
-        return new Porta("Porta da sala do laboratório", TipoChave.Laboratorio);
+        return new Porta("Laboratório", TipoChave.Laboratorio);
     }
 
 }
