@@ -8,7 +8,7 @@ public class Porta
 {
     public Sala SalaPertencente {get; private set;}
     public TipoChave ChaveNecessaria {get; set;}
-    public Boolean Aberta {get; private set;}
+    public Boolean Aberta {get; set;}
 
     public Porta(Sala salapertencente, TipoChave chavenecessaria)
     {

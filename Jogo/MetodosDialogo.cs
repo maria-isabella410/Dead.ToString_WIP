@@ -2,6 +2,7 @@ using rpgJogador;
 using rpgJogo;
 using rpgNpc;
 using rpgTopicoDialogo;
+using rpgMissao;
 
 namespace rpgMetodosDialogo;
 
@@ -128,15 +129,13 @@ public class MetodosDialogo
                     
                     break;    
             }
-            //dps adicionar dialogo de missao completa
+            
         }
 
-        if (npc.ConversouTudo && !Jogador.MissaoAtual.Concluida)
+        if (npc.ConversouTudo && !Missao.MissaoValida(Jogador))
         {
             Console.WriteLine("Estou esperando...");
-        }
-
-        if(npc.ConversouTudo && Jogador.MissaoAtual.Concluida)
+        } else if(npc.ConversouTudo && Missao.MissaoValida(Jogador))
         {
             Console.WriteLine(npc.Dialogo.MissaoConcluida.Replace("{nome}", Jogador.Nome));
         }

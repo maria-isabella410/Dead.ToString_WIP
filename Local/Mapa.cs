@@ -133,26 +133,6 @@ public class Mapa
             floresta.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
         }
 
-        //igreja
-        igreja.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
-
-        if(Chance(50))
-        {
-            igreja.AdicionarItens(ItensDoJogo.CriarBandagem());
-        }
-        if(Chance(40))
-        {
-            igreja.AdicionarItens(ItensDoJogo.CriarAgua());
-        }
-        if(Chance(10))
-        {
-            igreja.AdicionarItens(ItensDoJogo.CriarKitMed());
-        }
-        if(Chance(50))
-        {
-            igreja.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
-        }
-
         //rua principal
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarAgua());
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarBandagem());
@@ -168,21 +148,6 @@ public class Mapa
         }
 
         //delegacia
-        delegacia.AdicionarItens(ItensDoJogo.CriarPistola());
-        delegacia.AdicionarItens(ItensDoJogo.CriarChaveSalaDeArmas());
-
-        if(Chance(80))
-        {
-            delegacia.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
-        }
-        if(Chance(40))
-        {
-            delegacia.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
-        }
-        if(Chance(30))
-        {
-            delegacia.AdicionarItens(ItensDoJogo.CriarBandagem());
-        }
 
         //posto de gasolina
         postoDeGasolina.AdicionarItens(ItensDoJogo.CriarAgua());
@@ -203,40 +168,6 @@ public class Mapa
         if(Chance(50))
         {
             postoDeGasolina.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
-        }
-
-        //mercado
-        mercado.AdicionarItens(ItensDoJogo.CriarAgua());
-        mercado.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
-        mercado.AdicionarItens(ItensDoJogo.CriarBandagem());
-
-        if(Chance(30))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
-        }
-        if(Chance(30))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarAgua());
-        }
-        if(Chance(70))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarBandagem());
-        }
-        if(Chance(30))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarKitMed());
-        }
-        if(Chance(25))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarSpray());
-        }
-        if(Chance(50))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
-        }
-        if(Chance(40))
-        {
-            mercado.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
         }
 
         //casa abandonada
@@ -277,19 +208,6 @@ public class Mapa
         if(Chance(20))
         {
             escola.AdicionarItens(ItensDoJogo.CriarAgua());
-        }
-
-        //biblioteca
-        biblioteca.AdicionarItens(ItensDoJogo.CriarChaveSalaBiblioteca());
-        biblioteca.AdicionarItens(ItensDoJogo.CriarDiario());
-
-        if(Chance(20))
-        {
-            biblioteca.AdicionarItens(ItensDoJogo.CriarAgua());
-        }
-        if(Chance(20))
-        {
-            biblioteca.AdicionarItens(ItensDoJogo.CriarBandagem());
         }
 
         //hospital
@@ -337,13 +255,7 @@ public class Mapa
     }
     private void AdicionarNpcs()
     {
-        igreja.AdicionarNpc(NpcsDoJogo.CriaPadre());
-        floresta.AdicionarNpc(NpcsDoJogo.CriaCachorro());
-        delegacia.AdicionarNpc(NpcsDoJogo.CriaPolicial());
-        escola.AdicionarNpc(NpcsDoJogo.CriaProfessora());
-        escola.AdicionarNpc(NpcsDoJogo.CriaCrianca());
-        hospital.AdicionarNpc(NpcsDoJogo.CriaEnfermeira()); 
-        laboratorio.AdicionarNpc(NpcsDoJogo.CriaCientista());
+        floresta.AdicionarNpc(NpcsDoJogo.CriaCachorro());        
     }
     private void AdicionarZombies()
     {

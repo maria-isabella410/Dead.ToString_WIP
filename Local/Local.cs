@@ -14,7 +14,6 @@ public class Local
     public Local? Leste {get; set;}
     public Local? Oeste {get; set;}
     public List<Sala> Salas {get; private set;}
-    // public Porta? Porta {get; set;}
     public List<Item> Itens {get; private set;}
     public List<Npc> Npcs {get; private set;}
     public List<Zombie> Zombies {get; private set;}
