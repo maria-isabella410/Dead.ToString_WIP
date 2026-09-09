@@ -33,6 +33,8 @@ public class Jogo
 
         Mapa = new Mapa(random);
 
+        SalasDoJogo salasDoJogo = new SalasDoJogo(Mapa);
+
         Console.WriteLine("Qual será seu nome?");
         Console.Write("--> ");
 
@@ -47,13 +49,28 @@ public class Jogo
             MenuPrincipal();
 
             int opcao = Convert.ToInt32(Console.ReadLine());
+
+            if(opcao < 0 || opcao > 5)
+            {
+                Console.WriteLine("Entrada inválida!");
+
+                return;
+            }
+            if(opcao == 0)
+            {
+                Encerrar();
+
+                emExecucao = false;
+
+                return;
+            }
         
             opcoesMenu escolha = (opcoesMenu)opcao;
 
             switch (escolha)
             {
                 case opcoesMenu.Explorar:
-                    Explorar(Jogador, Jogador.LocalAtual.Itens, Jogador.LocalAtual.Zombies, Jogador.LocalAtual.Npcs);                    
+                    Explorar(Jogador, Jogador.LocalAtual.Itens, Jogador.LocalAtual.Zombies, Jogador.LocalAtual.Npcs);                                        
                     break;
 
                 case opcoesMenu.AbrirMapa:
@@ -70,13 +87,6 @@ public class Jogo
 
                 case opcoesMenu.IrParaOutroLocal:
                     IrParaOutroLocal();
-                    break;
-
-                case opcoesMenu.EncerrarJogo:                    
-                    Encerrar();
-
-                    emExecucao = false;
-
                     break;
 
                 default:
@@ -108,8 +118,7 @@ public class Jogo
         AbrirMapa = 2,
         AbrirInventario = 3,
         VerificarStatus = 4,
-        IrParaOutroLocal = 5,
-        EncerrarJogo = 0
+        IrParaOutroLocal = 5
     }
     private void MenuInventario()
     {
@@ -126,8 +135,7 @@ public class Jogo
     {
         InspecionarItem = 1,
         ConsumirItem = 2,
-        DescartarItem = 3,
-        Voltar = 0
+        DescartarItem = 3
     }
     public void MenuMapa()
     {
@@ -140,19 +148,25 @@ public class Jogo
     }
     public void MenuExplorar()
     {
-        Console.WriteLine("[1] Procurar itens");
-        Console.WriteLine("[2] Checar os arredores por zombies");
-        Console.WriteLine("[3] Procurar sobreviventes");
-        Console.WriteLine("[4] Examinar salas");
-        Console.WriteLine("[0] Ir embora");
+        Console.WriteLine("[1] Explorar arredores");
+        Console.WriteLine("[0] Ir embora");        
     }
     private enum opcoesExplorar
     {
+        ExplorarArredores = 1
+    }
+    public void MenuExplorarSala()
+    {
+        Console.WriteLine("[1] Procurar itens");
+        Console.WriteLine("[2] Checar os arredores por zombies");
+        Console.WriteLine("[3] Procurar sobreviventes");
+        Console.WriteLine("[0] Voltar");
+    }
+    private enum opcoesExplorarSala
+    {
         ProcurarItens = 1,
         ChecarArredores = 2,
-        ProcurarSobreviventes = 3,
-        ExaminarSalas = 4,
-        IrEmbora = 0
+        ProcurarSobreviventes = 3
     }
     public void Introducao(Jogador Jogador)
     {
@@ -179,40 +193,68 @@ public class Jogo
 
         int escolhaExplorar = Convert.ToInt32(Console.ReadLine());
 
-        if(escolhaExplorar < 0 || escolhaExplorar > 4)
+        if(escolhaExplorar < 0 || escolhaExplorar > 2)
         {
             Console.WriteLine("Entrada inválida!");
+
+            return;
         }
-        else
+        if(escolhaExplorar == 0)
         {
-            opcoesExplorar opcaoExplorar = (opcoesExplorar)escolhaExplorar;
+            return;
+        }
+        opcoesExplorar opcaoExplorar = (opcoesExplorar)escolhaExplorar;
 
-            switch (opcaoExplorar)
-            {
-                case opcoesExplorar.ProcurarItens:
-                    ProcurarItens(itensLocal);                    
-                    break;
+        switch (opcaoExplorar)
+        {
+            case opcoesExplorar.ExplorarArredores:
+                EscolherSala();
+                ExplorarSala(itensLocal, zombiesLocal, npcsLocal);
 
-                case opcoesExplorar.ChecarArredores:
-                    ExplorarArredores(zombiesLocal);
-                    break;
+                break;
+            default:
+                Console.WriteLine("Entrada inválida!");
 
-                case opcoesExplorar.ProcurarSobreviventes:
-                    ProcurarSobreviventes(npcsLocal);
-                    break;
+                break;
+        }
+    }
+    public void ExplorarSala(List<Item> itensSala, List<Zombie> zombiesSala, List<Npc> npcsSala)
+    {
+        MenuExplorarSala();
+        Console.WriteLine("O que deseja fazer?");
+        MenuExplorar();
+        Console.Write("--> ");   
 
-                case opcoesExplorar.ExaminarSalas:
-                    EscolherSala();
-                    break;
+        int escolhaExplorarSala = Convert.ToInt32(Console.ReadLine());
 
-                case opcoesExplorar.IrEmbora:
-                    return;
+        if(escolhaExplorarSala < 0 || escolhaExplorarSala > 3)
+        {
+            Console.WriteLine("Entrada inválida!");
+            return;
+        }
+        if(escolhaExplorarSala == 0)
+        {
+            return;
+        }
+        opcoesExplorarSala opcaoExplorarSala = (opcoesExplorarSala)escolhaExplorarSala;
 
-                default:
-                    Console.WriteLine("Entrada inválida!");
-                    break;
-            }
-        }    
+        switch (opcaoExplorarSala)
+        {
+            case opcoesExplorarSala.ProcurarItens:
+                ProcurarItens(itensSala); 
+                break;
+            case opcoesExplorarSala.ChecarArredores:
+                ExplorarArredores(zombiesSala);                    
+                break;
+
+            case opcoesExplorarSala.ProcurarSobreviventes:
+                ProcurarSobreviventes(npcsSala);
+                break;
+
+            default:
+                Console.WriteLine("Entrada inválida!");
+                break;
+        }
     }
     public void MostrarStatus()
     {
@@ -276,27 +318,21 @@ public class Jogo
 
         Console.WriteLine("Para onde deseja ir?");
 
-        Sala salaTrancada = null;
-
         List<Sala> salasDisponiveis = Jogador.LocalAtual.Salas.Where(sala => sala != Jogador.SalaAtual).ToList();
         
-        int j = 1;
+        for(int i = 0; i < salasDisponiveis.Count; i++)
+        {
+            Sala sala = salasDisponiveis[i];
 
-        foreach(Sala sala in salasDisponiveis)
-            {                      
-                if(sala.PortaTrancada != null)
-                {
-                    Console.WriteLine($"[{j}] {sala.Nome} - Trancada");
-
-                    salaTrancada = sala;
-                }
-                else
-                {
-                    Console.WriteLine($"[{j}] {sala.Nome}");
-                }
-                j++;                             
-                                                                
-            }                                  
+            if(sala.PortaTrancada != null && !sala.PortaTrancada.Aberta)
+            {
+                Console.WriteLine($"[{i + 1}] {sala.Nome} - Trancada");
+            }
+            else
+            {
+                Console.WriteLine($"[{i + 1}] {sala.Nome}");
+            }
+        }                               
 
         Console.WriteLine("[0] Voltar");
         DivisaoDeLinha();
@@ -304,54 +340,52 @@ public class Jogo
 
         int opcaoEscolhidaSala = Convert.ToInt32(Console.ReadLine());
 
-        if(opcaoEscolhidaSala < 0 || opcaoEscolhidaSala > Jogador.LocalAtual.Salas.Count)
+        if(opcaoEscolhidaSala < 0 || opcaoEscolhidaSala > salasDisponiveis.Count)
         {
             Console.WriteLine("Entrada inválida!");
+            return;
         }
-        else if(opcaoEscolhidaSala == 0)
+        if(opcaoEscolhidaSala == 0)
         {
             return;
         }
-        else
+
+        Sala salaEscolhida = salasDisponiveis[opcaoEscolhidaSala - 1];
+
+
+        if(salaEscolhida.PortaTrancada != null && !salaEscolhida.PortaTrancada.Aberta)
         {
-            if(salaTrancada != null && salasDisponiveis[opcaoEscolhidaSala - 1] == salaTrancada)
+            List<Chave> chaves = Jogador.Inventario.ListarChaves();
+
+            Console.WriteLine($"Você não pode entrar nessa sala sem a {salaEscolhida.PortaTrancada.ChaveNecessaria}.");
+
+            foreach(Chave chave in chaves)
             {
-                List<Chave> chaves = Jogador.Inventario.ListarChaves();
-
-                Console.WriteLine($"Você não pode entrar nessa sala sem a {salaTrancada.PortaTrancada.ChaveNecessaria}.");
-
-                Boolean temChave = false;
-
-                foreach(Chave chave in chaves)
+                if(chave.Tipo == salaEscolhida.PortaTrancada.ChaveNecessaria)
                 {
-                    if(chave.Tipo == salaTrancada.PortaTrancada.ChaveNecessaria)
-                    {
-                        Console.WriteLine("Você consegue abrir a porta.");
-                        Console.WriteLine("Agora, você tem acesso a " + salaTrancada.Nome);
+                    Console.WriteLine("Você consegue abrir a porta.");
+                    Console.WriteLine($"Agora, você tem acesso a {salaEscolhida.Nome}.");
 
-                        salaTrancada.PortaTrancada.Aberta = true;
+                    salaEscolhida.PortaTrancada.Aberta = true;
 
-                        salaTrancada = null;
+                    Jogador.Inventario.DescartarItem(chave);
 
-                        Jogador.Inventario.DescartarItem(chave);
+                    Console.WriteLine($"{chave.Nome} foi descartada.");
 
-                        Console.WriteLine($"{chave.Nome} foi descartada.");
-
-                        temChave = true;
-
-                        break;
-                    }
+                    break;
                 }
-                if(!temChave) Console.WriteLine("Você não tem a chave necessária para abrir essa porta.");
             }
-            if(salaTrancada == null)
+            if (!salaEscolhida.PortaTrancada.Aberta)
             {
-                Jogador.SalaAtual = salasDisponiveis[opcaoEscolhidaSala - 1];
+                Console.WriteLine("Você não tem a chave necessária para abrir essa porta.");
 
-                Console.WriteLine("Agora, você está em " + Jogador.SalaAtual.Nome);
-                Console.WriteLine(Jogador.SalaAtual.Descricao);
-            }            
+                return;
+            } 
         }
+        Jogador.SalaAtual = salaEscolhida;
+
+        Console.WriteLine($"Agora, você está em {Jogador.SalaAtual.Nome}.");
+        Console.WriteLine(Jogador.SalaAtual.Descricao);          
     }
     public void AtualizarMissao(Jogador jogador)
     {
@@ -443,45 +477,6 @@ public class Jogo
                 }
 
                 break;
-            // case opcoesInventario.UsarChave:
-                // List<Chave> chaves = Jogador.Inventario.ListarChaves();
-
-                // if(Jogador.Inventario.ListarChaves().Count == 0)
-                // {
-                //     Console.WriteLine("Você não possui nenhuma chave em seu inventário.");
-                    
-                //     return;
-                // }
-
-                // Console.WriteLine("Qual chave deseja usar?");
-
-                // for(int i = 0; i < chaves.Count; i++)
-                // {
-                //     Console.WriteLine($"[{i + 1}] {chaves[i].Nome}");
-                // }
-
-                // DivisaoDeLinha();
-
-                // Console.Write("--> ");
-
-                // int escolhaChave = Convert.ToInt32(Console.ReadLine());
-
-                // if(escolhaChave < 0 || escolhaChave > chaves.Count)
-                // {
-                //     Console.WriteLine("Entrada inválida!");
-                // }
-                // else
-                // {
-                //     //ARRUMAR ISSO DPS
-                //     // if()
-                //     // {
-                //     //     Jogador.LocalAtual.SalaTrancada.Porta.Abrir(chaves[escolhaChave - 1]);
-                //     // }
-
-                //     DivisaoDeLinha();
-                // }                          
-
-                // break;
             case opcoesInventario.DescartarItem:
                 Console.WriteLine("Qual item deseja descartar?");
 
@@ -494,58 +489,6 @@ public class Jogo
                 Jogador.Inventario.DescartarItem(itens[idDescarte - 1]);
 
                 Console.WriteLine($"O item {itens[idDescarte - 1].Nome} foi descartado!");
-
-                break;
-        }
-    }
-    public void MoverJogador()
-    {
-        EscolherDirecao(Jogador.LocalAtual);
-
-        Char opcaoDirecao = Convert.ToChar(Console.ReadLine().ToUpper());
-
-        opcoesDirecao escolhaDirecao = (opcoesDirecao)opcaoDirecao;
-
-        switch (escolhaDirecao)
-        {
-            case opcoesDirecao.Norte:
-                if(Jogador.LocalAtual.Norte != null)
-                {
-                    Jogador.LocalAtual = Jogador.LocalAtual.Norte;
-
-                    Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
-                }
-
-                break;
-            case opcoesDirecao.Leste:
-            if(Jogador.LocalAtual.Leste != null)
-                {
-                    Jogador.LocalAtual = Jogador.LocalAtual.Leste;
-
-                    Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
-                }                          
-                
-                break;
-            case opcoesDirecao.Oeste:
-            if(Jogador.LocalAtual.Oeste != null)
-                {
-                    Jogador.LocalAtual = Jogador.LocalAtual.Oeste; 
-
-                    Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
-                }
-                                            
-                break;
-            case opcoesDirecao.Sul:
-            if(Jogador.LocalAtual.Sul != null)
-                {
-                    Jogador.LocalAtual = Jogador.LocalAtual.Sul;
-
-                    Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
-                }
-                                    
-                break;
-            default:
-                Console.WriteLine("Entrada inválida!");
 
                 break;
         }
@@ -748,6 +691,7 @@ public class Jogo
                 if(Jogador.LocalAtual.Norte!= null)
                 {
                     Jogador.LocalAtual = Jogador.LocalAtual.Norte;
+                    Jogador.SalaAtual = null;
 
                     Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
                 }                            
@@ -757,6 +701,7 @@ public class Jogo
                 if(Jogador.LocalAtual.Leste!= null)
                 {
                     Jogador.LocalAtual = Jogador.LocalAtual.Leste;
+                    Jogador.SalaAtual = null;
 
                     Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
                 }                              
@@ -766,6 +711,7 @@ public class Jogo
                 if(Jogador.LocalAtual.Oeste!= null)
                 {
                     Jogador.LocalAtual = Jogador.LocalAtual.Oeste;
+                    Jogador.SalaAtual = null;
 
                     Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
                 }                              
@@ -775,6 +721,7 @@ public class Jogo
                 if(Jogador.LocalAtual.Sul!= null)
                 {
                     Jogador.LocalAtual = Jogador.LocalAtual.Sul;
+                    Jogador.SalaAtual = null;
 
                     Console.WriteLine("Agora, você está em: " + Jogador.LocalAtual.Nome);
                 }                              

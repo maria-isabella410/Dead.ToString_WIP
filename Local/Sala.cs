@@ -8,10 +8,10 @@ namespace rpgSala;
 
 public class Sala
 {
-    public String Nome;
-    public String Descricao;
-    public Local LocalPertencente;
-    public Porta? PortaTrancada;
+    public String Nome {get; private set;}
+    public String Descricao {get; private set;}
+    public Local LocalPertencente {get; private set;}
+    public Porta? PortaTrancada {get; private set;}
     public List<Item> Itens {get; private set;}
     public List<Npc> Npcs {get; private set;}
     public List<Zombie> Zombies {get; private set;}    

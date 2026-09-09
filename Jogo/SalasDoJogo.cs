@@ -9,12 +9,62 @@ namespace rpgSalasDoJogo;
 
 public class SalasDoJogo
 {   
-    public Random random;
-    public Mapa mapa;
-    public SalasDoJogo(){
-        this.random = new Random();
-        this.mapa = new Mapa(random);
+    public Random random {get; private set;}
+    public Mapa Mapa {get; private set;}
 
+    //delegacia
+    private Sala recepcaoDelegacia;
+    private Sala vestiarioDelegacia;
+    private Sala salaDeArmas;
+
+    //biblioteca
+    private Sala recepcaoBiblioteca;
+    private Sala salaEstudosBiblioteca;
+    private Sala salaDeArquivosBiblioteca;
+
+    //mercado
+    private Sala corredoresMercado;
+    private Sala estoqueMercado;
+    private Sala escritorioGerenteMercado;
+
+    //escola
+    private Sala patioEscola;
+    private Sala corredoresEscola;
+    private Sala refeitorioEscola;
+    private Sala enfermariaEscola;
+    private Sala salaDeAula;
+
+    //laboratório
+    private Sala hallEntradaLaboratorio;
+    private Sala salaDeSegurancaLaboratorio;
+    private Sala areaExperimentosLaboratorio;
+
+    //casa abandonada
+    private Sala salaCasa;
+    private Sala quartoCasa;
+    private Sala cozinhaCasa;
+    private Sala poraoCasa;
+
+    //igreja
+    private Sala presbiterioIgreja;
+    private Sala sacristiaIgreja;
+
+    //posto de gasolina
+    private Sala lojaConvenienciaPosto;
+    private Sala patioPosto;
+    private Sala garagemPosto;
+
+    //hospital
+    private Sala recepcaoHospital;
+    private Sala utiHospital;
+    private Sala necroterioHospital;
+    private Sala estoqueHospital;
+
+    public SalasDoJogo(Mapa mapa){
+        this.random = new Random();
+        this.Mapa = mapa;
+
+        CriarInstanciaSalas(mapa);
         AdicionarSalas(mapa);
         AdicionarNpcs(mapa);
         AdicionarItens(mapa);
@@ -167,175 +217,423 @@ public class SalasDoJogo
     {
         return random.Next(100) < porcentagem;
     }
+    public void CriarInstanciaSalas(Mapa mapa)
+    {
+        salaDeArmas = criarSalaDeArmas(mapa);
+        salaDeAula = criarSalaDeAula(mapa);
+        salaDeArquivosBiblioteca = criarSalaDeArquivosBiblioteca(mapa);
+        estoqueHospital = criarEstoqueHospital(mapa);
+        areaExperimentosLaboratorio = criarAreaExperimentosLaboratorio(mapa);
+
+        recepcaoDelegacia = criarRecepcaoDelegacia(mapa);
+        vestiarioDelegacia = criarVestiarioDelegacia(mapa);
+
+        recepcaoBiblioteca = criarRecepcaoBiblioteca(mapa);
+        salaEstudosBiblioteca = criarSalaEstudosBiblioteca(mapa);
+
+        corredoresMercado = criarCorredoresMercado(mapa);
+        estoqueMercado = criarEstoqueMercado(mapa);
+        escritorioGerenteMercado = criarEscritorioGerenteMercado(mapa);
+
+        patioEscola = criarPatioEscola(mapa);
+        corredoresEscola = criarCorredoresEscola(mapa);
+        refeitorioEscola = criarRefeitorioEscola(mapa);
+        enfermariaEscola = criarEnfermariaEscola(mapa);
+
+        hallEntradaLaboratorio = criarHallEntradaLaboratorio(mapa);
+        salaDeSegurancaLaboratorio = criarSalaDeSegurancaLaboratorio(mapa);
+
+        salaCasa = criarSalaCasa(mapa);
+        quartoCasa = criarQuartoCasa(mapa);
+        cozinhaCasa = criarCozinhaCasa(mapa);
+        poraoCasa = criarPoraoCasa(mapa);
+
+        presbiterioIgreja = criarPresbiterioIgreja(mapa);
+        sacristiaIgreja = criarSacristiaIgreja(mapa);
+
+        lojaConvenienciaPosto = criarLojaConvenienciaPosto(mapa);
+        patioPosto = criarPatioPosto(mapa);
+        garagemPosto = criarGaragemPosto(mapa);
+
+        recepcaoHospital = criarRecepcaoHospital(mapa);
+        utiHospital = criarUTIHospital(mapa);
+        necroterioHospital = criarNecroterioHospital(mapa);
+    }
 
     //add salas
     private void AdicionarSalas(Mapa mapa)
     {
         //delegacia
-        mapa.delegacia.AdicionarSala(criarRecepcaoDelegacia(mapa));
-        mapa.delegacia.AdicionarSala(criarVestiarioDelegacia(mapa));
-        mapa.delegacia.AdicionarSala(criarSalaDeArmas(mapa));
+        mapa.delegacia.AdicionarSala(recepcaoDelegacia);
+        mapa.delegacia.AdicionarSala(vestiarioDelegacia);
+        mapa.delegacia.AdicionarSala(salaDeArmas);
 
         //biblioteca
-        mapa.biblioteca.AdicionarSala(criarRecepcaoBiblioteca(mapa));
-        mapa.biblioteca.AdicionarSala(criarSalaEstudosBiblioteca(mapa));
-        mapa.biblioteca.AdicionarSala(criarSalaDeArquivosBiblioteca(mapa));
+        mapa.biblioteca.AdicionarSala(recepcaoBiblioteca);
+        mapa.biblioteca.AdicionarSala(salaEstudosBiblioteca);
+        mapa.biblioteca.AdicionarSala(salaDeArquivosBiblioteca);
 
         //mercado
-        mapa.mercado.AdicionarSala(criarCorredoresMercado(mapa));
-        mapa.mercado.AdicionarSala(criarEstoqueMercado(mapa));  
-        mapa.mercado.AdicionarSala(criarEscritorioGerenteMercado(mapa));
+        mapa.mercado.AdicionarSala(corredoresMercado);
+        mapa.mercado.AdicionarSala(estoqueMercado);  
+        mapa.mercado.AdicionarSala(escritorioGerenteMercado);
 
         //escola
-        mapa.escola.AdicionarSala(criarPatioEscola(mapa));
-        mapa.escola.AdicionarSala(criarRefeitorioEscola(mapa));
-        mapa.escola.AdicionarSala(criarCorredoresEscola(mapa));
-        mapa.escola.AdicionarSala(criarEnfermariaEscola(mapa));
-        mapa.escola.AdicionarSala(criarSalaDeAula(mapa));        
+        mapa.escola.AdicionarSala(patioEscola);
+        mapa.escola.AdicionarSala(corredoresEscola);
+        mapa.escola.AdicionarSala(refeitorioEscola);
+        mapa.escola.AdicionarSala(enfermariaEscola);
+        mapa.escola.AdicionarSala(salaDeAula);        
 
         //laboratorio
-        mapa.laboratorio.AdicionarSala(criarHallEntradaLaboratorio(mapa));
-        mapa.laboratorio.AdicionarSala(criarSalaDeSegurancaLaboratorio(mapa));
-        mapa.laboratorio.AdicionarSala(criarAreaExperimentosLaboratorio(mapa));
+        mapa.laboratorio.AdicionarSala(hallEntradaLaboratorio);
+        mapa.laboratorio.AdicionarSala(salaDeSegurancaLaboratorio);
+        mapa.laboratorio.AdicionarSala(areaExperimentosLaboratorio);
 
         //casa abandonada
-        mapa.casaAbandonada.AdicionarSala(criarSalaCasa(mapa));
-        mapa.casaAbandonada.AdicionarSala(criarCozinhaCasa(mapa));
-        mapa.casaAbandonada.AdicionarSala(criarQuartoCasa(mapa));
-        mapa.casaAbandonada.AdicionarSala(criarPoraoCasa(mapa));
+        mapa.casaAbandonada.AdicionarSala(salaCasa);
+        mapa.casaAbandonada.AdicionarSala(quartoCasa);
+        mapa.casaAbandonada.AdicionarSala(cozinhaCasa);
+        mapa.casaAbandonada.AdicionarSala(poraoCasa);
 
         //igreja
-        mapa.igreja.AdicionarSala(criarPresbiterioIgreja(mapa));
-        mapa.igreja.AdicionarSala(criarSacristiaIgreja(mapa));
+        mapa.igreja.AdicionarSala(presbiterioIgreja);
+        mapa.igreja.AdicionarSala(sacristiaIgreja);
 
         //posto de gasolina
-        mapa.postoDeGasolina.AdicionarSala(criarLojaConvenienciaPosto(mapa));
-        mapa.postoDeGasolina.AdicionarSala(criarPatioPosto(mapa));
-        mapa.postoDeGasolina.AdicionarSala(criarGaragemPosto(mapa));
+        mapa.postoDeGasolina.AdicionarSala(lojaConvenienciaPosto);
+        mapa.postoDeGasolina.AdicionarSala(patioPosto);
+        mapa.postoDeGasolina.AdicionarSala(garagemPosto);
 
         //hospital
-        mapa.hospital.AdicionarSala(criarRecepcaoHospital(mapa));
-        mapa.hospital.AdicionarSala(criarUTIHospital(mapa));
-        mapa.hospital.AdicionarSala(criarNecroterioHospital(mapa));
-        mapa.hospital.AdicionarSala(criarEstoqueHospital(mapa));
+        mapa.hospital.AdicionarSala(recepcaoHospital);
+        mapa.hospital.AdicionarSala(utiHospital);
+        mapa.hospital.AdicionarSala(necroterioHospital);
+        mapa.hospital.AdicionarSala(estoqueHospital);
     }
 
     //add itens, npcs e zombies
     private void AdicionarNpcs(Mapa mapa)
     {
-        criarPresbiterioIgreja(mapa).AdicionarNpc(NpcsDoJogo.CriaPadre());
+        presbiterioIgreja.AdicionarNpc(NpcsDoJogo.CriaPadre());
 
-        criarRecepcaoDelegacia(mapa).AdicionarNpc(NpcsDoJogo.CriaPolicial());
+        recepcaoDelegacia.AdicionarNpc(NpcsDoJogo.CriaPolicial());
 
-        criarRefeitorioEscola(mapa).AdicionarNpc(NpcsDoJogo.CriaProfessora());
+        corredoresEscola.AdicionarNpc(NpcsDoJogo.CriaProfessora());
 
-        criarSalaDeAula(mapa).AdicionarNpc(NpcsDoJogo.CriaCrianca());
+        salaDeAula.AdicionarNpc(NpcsDoJogo.CriaCrianca());
 
-        criarUTIHospital(mapa).AdicionarNpc(NpcsDoJogo.CriaEnfermeira()); 
+        utiHospital.AdicionarNpc(NpcsDoJogo.CriaEnfermeira()); 
 
-        criarSalaDeSegurancaLaboratorio(mapa).AdicionarNpc(NpcsDoJogo.CriaCientista());
+        salaDeSegurancaLaboratorio.AdicionarNpc(NpcsDoJogo.CriaCientista());
     }      
     private void AdicionarItens(Mapa mapa)
     {
         //delegacia
-        criarRecepcaoDelegacia(mapa).AdicionarItens(ItensDoJogo.CriarPistola());
+        recepcaoDelegacia.AdicionarItens(ItensDoJogo.CriarPistola());
 
         if(Chance(80))
         {
-            criarRecepcaoDelegacia(mapa).AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
+            recepcaoDelegacia.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
         }
         if(Chance(40))
         {
-            criarSalaDeArmas(mapa).AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
+            salaDeArmas.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
         }
         if(Chance(30))
         {
-            criarVestiarioDelegacia(mapa).AdicionarItens(ItensDoJogo.CriarBandagem());
+            vestiarioDelegacia.AdicionarItens(ItensDoJogo.CriarBandagem());
         }        
 
         //biblioteca
-        criarSalaEstudosBiblioteca(mapa).AdicionarItens(ItensDoJogo.CriarChaveSalaBiblioteca());
-        criarSalaDeArquivosBiblioteca(mapa).AdicionarItens(ItensDoJogo.CriarDiario());
+        salaEstudosBiblioteca.AdicionarItens(ItensDoJogo.CriarChaveSalaBiblioteca());
+        salaDeArquivosBiblioteca.AdicionarItens(ItensDoJogo.CriarDiario());
 
         if(Chance(20))
         {
-            criarSalaEstudosBiblioteca(mapa).AdicionarItens(ItensDoJogo.CriarAgua());
+            salaEstudosBiblioteca.AdicionarItens(ItensDoJogo.CriarAgua());
         }
         if(Chance(20))
         {
-            criarRecepcaoBiblioteca(mapa).AdicionarItens(ItensDoJogo.CriarBandagem());
+            recepcaoBiblioteca.AdicionarItens(ItensDoJogo.CriarBandagem());
         }
         if(Chance(20))
         {
-            criarRecepcaoBiblioteca(mapa).AdicionarItens(ItensDoJogo.CriarBandagem());
+            recepcaoBiblioteca.AdicionarItens(ItensDoJogo.CriarBandagem());
         }        
 
         //mercado
-        criarCorredoresMercado(mapa).AdicionarItens(ItensDoJogo.CriarAgua());
-        criarCorredoresMercado(mapa).AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+        corredoresMercado.AdicionarItens(ItensDoJogo.CriarAgua());
+        corredoresMercado.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
 
         if(Chance(70))
         {
-            criarEstoqueHospital(mapa).AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+            estoqueMercado.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
         }
         if(Chance(70))
         {
-            criarEstoqueHospital(mapa).AdicionarItens(ItensDoJogo.CriarAgua());
-        }
-        if(Chance(40))
-        {
-            criarCorredoresMercado(mapa).AdicionarItens(ItensDoJogo.CriarBandagem());
+            estoqueMercado.AdicionarItens(ItensDoJogo.CriarAgua());
         }
         if(Chance(30))
         {
-            criarEstoqueHospital(mapa).AdicionarItens(ItensDoJogo.CriarKitMed());
+            estoqueMercado.AdicionarItens(ItensDoJogo.CriarKitMed());
+        }        
+        if(Chance(40))
+        {
+            corredoresMercado.AdicionarItens(ItensDoJogo.CriarBandagem());
         }
         if(Chance(25))
         {
-            criarEscritorioGerenteMercado(mapa).AdicionarItens(ItensDoJogo.CriarSpray());
+            escritorioGerenteMercado.AdicionarItens(ItensDoJogo.CriarSpray());
         }
         if(Chance(50))
         {
-            criarEscritorioGerenteMercado(mapa).AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
+            escritorioGerenteMercado.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
         }
         if(Chance(40))
         {
-            criarEscritorioGerenteMercado(mapa).AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
+            escritorioGerenteMercado.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
         }        
 
         //escola
+        enfermariaEscola.AdicionarItens(ItensDoJogo.CriarChaveSalaDeAula());
+        corredoresEscola.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+
+        if(Chance(60))
+        {
+            enfermariaEscola.AdicionarItens(ItensDoJogo.CriarBandagem());
+        }
+        if(Chance(20))
+        {
+            enfermariaEscola.AdicionarItens(ItensDoJogo.CriarAgua());
+        }
+        if(Chance(30))
+        {
+            corredoresEscola.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+        }
+        if(Chance(20))
+        {
+            corredoresEscola.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
+        }
+        if(Chance(20))
+        {
+            patioEscola.AdicionarItens(ItensDoJogo.CriarAgua());
+        }
 
         //laboratorio
+        areaExperimentosLaboratorio.AdicionarItens(ItensDoJogo.CriarAntidoto());
+
+        if(Chance(40))
+        {
+            hallEntradaLaboratorio.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(30))
+        {
+            hallEntradaLaboratorio.AdicionarItens(ItensDoJogo.CriarKitMed());
+        }   
+        if(Chance(40))
+        {
+            salaDeSegurancaLaboratorio.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(30))
+        {
+            salaDeSegurancaLaboratorio.AdicionarItens(ItensDoJogo.CriarKitMed());
+        } 
+        if(Chance(30))
+        {
+            salaDeSegurancaLaboratorio.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
+        }     
 
         //casa abandonada
+        salaCasa.AdicionarItens(ItensDoJogo.CriarAgua());
+        quartoCasa.AdicionarItens(ItensDoJogo.CriarLanterna());
+        poraoCasa.AdicionarItens(ItensDoJogo.CriarPilhas());
 
-        //igreja
-        criarPresbiterioIgreja(mapa).AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
-        
-        if(Chance(50))
+        if(Chance(60))
         {
-            criarSacristiaIgreja(mapa).AdicionarItens(ItensDoJogo.CriarBandagem());
+            cozinhaCasa.AdicionarItens(ItensDoJogo.CriarBandagem());
+        }
+        if(Chance(85))
+        {
+            cozinhaCasa.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+        }
+        if(Chance(30))
+        {
+            quartoCasa.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(60))
+        {
+            poraoCasa.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
         }
         if(Chance(40))
         {
-            criarSacristiaIgreja(mapa).AdicionarItens(ItensDoJogo.CriarAgua());
+            poraoCasa.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
+        }        
+
+        //igreja
+        presbiterioIgreja.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+        
+        if(Chance(50))
+        {
+            sacristiaIgreja.AdicionarItens(ItensDoJogo.CriarBandagem());
+        }
+        if(Chance(40))
+        {
+            sacristiaIgreja.AdicionarItens(ItensDoJogo.CriarAgua());
         }
         if(Chance(10))
         {
-            criarSacristiaIgreja(mapa).AdicionarItens(ItensDoJogo.CriarKitMed());
+            sacristiaIgreja.AdicionarItens(ItensDoJogo.CriarKitMed());
         }
         if(Chance(50))
         {
-            criarPresbiterioIgreja(mapa).AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
+            presbiterioIgreja.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
         }    
 
         //posto de gasolina
+        lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarAgua());
+        patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
+
+        if(Chance(90))
+        {
+            lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+        }
+        if(Chance(50))
+        {
+            lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarBandagem());
+        }
+        if(Chance(30))
+        {
+            patioPosto.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(60))
+        {
+            garagemPosto.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
+        }        
 
         //hospital
+        recepcaoHospital.AdicionarItens(ItensDoJogo.CriarChaveEstoqueHospital());
+
+        if(Chance(50))
+        {
+            necroterioHospital.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(50))
+        {
+            necroterioHospital.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(40))
+        {
+            utiHospital.AdicionarItens(ItensDoJogo.CriarAgua());
+        }
+        if(Chance(90))
+        {
+            utiHospital.AdicionarItens(ItensDoJogo.CriarSpray());
+        }
+        if(Chance(90))
+        {
+            utiHospital.AdicionarItens(ItensDoJogo.CriarBandagem());
+        }
+        if(Chance(30))
+        {
+            utiHospital.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
+        }             
+        if(Chance(40))
+        {
+            recepcaoHospital.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
+        }   
     }
     private void AdicionarZombies(Mapa mapa)
     {
-        
-    }  
-                                                                              
+        //delegacia
+        recepcaoDelegacia.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        vestiarioDelegacia.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+
+        if(Chance(50))
+        {
+            vestiarioDelegacia.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        }
+
+        //igreja
+        sacristiaIgreja.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+
+        if(Chance(50))
+        {
+            presbiterioIgreja.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        }
+        if(Chance(10))
+        {
+            sacristiaIgreja.AdicionarZombie(ZombiesDoJogo.CriaZombieJumper());
+        }        
+
+        //posto de gasolina
+        patioPosto.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        lojaConvenienciaPosto.AdicionarZombie(ZombiesDoJogo.CriaZombieJumper());        
+        garagemPosto.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+
+        if(Chance(50))
+        {
+            garagemPosto.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        }        
+
+        //mercado
+        corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+
+        if(Chance(40))
+        {
+            corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        }
+        if(Chance(5))
+        {
+            escritorioGerenteMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieTank());
+        }        
+
+        //casa abandonada
+        poraoCasa.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+
+        if(Chance(40))
+        {
+            quartoCasa.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        }        
+        if(Chance(40))
+        {
+            cozinhaCasa.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        }         
+
+        //escola
+        refeitorioEscola.AdicionarZombie(ZombiesDoJogo.CriaZombieTank());
+        enfermariaEscola.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        patioEscola.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+
+        if(Chance(20))
+        {
+            patioEscola.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        }        
+
+        //biblioteca
+        recepcaoBiblioteca.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());        
+
+        //hospital
+        recepcaoHospital.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        utiHospital.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        necroterioHospital.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        necroterioHospital.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+
+        if(Chance(40))
+        {
+            utiHospital.AdicionarZombie(ZombiesDoJogo.CriaZombieJumper());
+        }
+        if(Chance(60))
+        {
+            necroterioHospital.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        }        
+
+        //laboratorio
+        salaDeSegurancaLaboratorio.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        salaDeSegurancaLaboratorio.AdicionarZombie(ZombiesDoJogo.CriaZombieJumper());
+        hallEntradaLaboratorio.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        hallEntradaLaboratorio.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        areaExperimentosLaboratorio.AdicionarZombie(ZombiesDoJogo.CriaZombieFinal());    
+    }                                                                                
 }
