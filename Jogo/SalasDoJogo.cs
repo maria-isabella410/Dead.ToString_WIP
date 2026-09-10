@@ -8,7 +8,7 @@ using rpgZombiesDoJogo;
 namespace rpgSalasDoJogo;
 
 public class SalasDoJogo
-{   
+{  
     public Random random {get; private set;}
     public Mapa Mapa {get; private set;}
 
@@ -60,8 +60,8 @@ public class SalasDoJogo
     private Sala necroterioHospital;
     private Sala estoqueHospital;
 
-    public SalasDoJogo(Mapa mapa){
-        this.random = new Random();
+    public SalasDoJogo(Mapa mapa, Random random){
+        this.random = random;
         this.Mapa = mapa;
 
         CriarInstanciaSalas(mapa);

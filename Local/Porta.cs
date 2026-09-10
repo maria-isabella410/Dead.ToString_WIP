@@ -7,10 +7,10 @@ namespace rpgPorta;
 public class Porta
 {
     public Sala SalaPertencente {get; private set;}
-    public TipoChave ChaveNecessaria {get; set;}
+    public Chave ChaveNecessaria {get; set;}
     public Boolean Aberta {get; set;}
 
-    public Porta(Sala salapertencente, TipoChave chavenecessaria)
+    public Porta(Sala salapertencente, Chave chavenecessaria)
     {
         this.SalaPertencente = salapertencente;
         this.ChaveNecessaria = chavenecessaria;
@@ -18,7 +18,7 @@ public class Porta
     
     public void Abrir(Chave chave)
     {
-        if(chave.Tipo == ChaveNecessaria)
+        if(chave == ChaveNecessaria)
         {
             this.Aberta = true;
             Console.WriteLine("Você abriu a porta!");

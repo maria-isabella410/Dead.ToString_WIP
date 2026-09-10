@@ -4,6 +4,7 @@ using rpgArma;
 using rpgConsumivel;
 using rpgItem;
 using rpgChave;
+using rpgJogador;
 
 namespace rpgInventario;
 
@@ -11,6 +12,7 @@ public class Inventario
 {
     private List<Item> Itens {get; set;}
     public int Capacidade {get; set;} = 10;
+    public int EspacosOcupados {get {return Itens.Count;}}
 
     public Inventario(int capacidade)
     {
@@ -18,9 +20,7 @@ public class Inventario
         this.Capacidade = capacidade;
     }
     public List<Item> ListarItens()
-    {
-        List<Item> itens = new List<Item>();
-        
+    {        
         return Itens;
     }
     public void InspecionarItem(Item item)
@@ -70,12 +70,21 @@ public class Inventario
 
         return chaves;
     }
-    public void GuardarItem(Item item)
+    public Boolean GuardarItem(Item item, Jogador jogador)
     {
+        if(Itens.Count >= Capacidade)
+        {
+            Console.WriteLine($"Seu inventário está cheio. Descarte um item para coletar o outro. [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]");
+
+            return false;
+        }
+
         Itens.Add(item);
+
+        return true;
     }
     public void DescartarItem(Item item)
     {
-        Itens.Remove(item); 
+        Itens.Remove(item);
     }
 }
