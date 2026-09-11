@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using rpgItem;
 using rpgItensDoJogo;
 using rpgJogador;
+using rpgMissoesDoJogo;
 
 namespace rpgMissao;
 
@@ -10,10 +11,10 @@ public class Missao
     public String NomeDaMissao {get; set;}
     public Item? ItemNecessario;
     public String Descricao {get; set;}
-    public Item Recompensa {get; set;}
+    public Item? Recompensa {get; set;}
     public bool Concluida {get; set;} = false;
 
-    public Missao(String nomedamissao, String descricao, Item? itemnecessario, Item recompensa)
+    public Missao(String nomedamissao, String descricao, Item? itemnecessario, Item? recompensa)
     {
         this.NomeDaMissao = nomedamissao;
         this.Descricao = descricao;
@@ -23,6 +24,10 @@ public class Missao
 
     public static Boolean MissaoValida(Jogador jogador)
     {
+        if (jogador.MissaoAtual == MissoesDoJogo.CriaMissaoPadre() && jogador.BillyEncontrado)
+        {
+            return true;
+        }
         List<Item> itens = jogador.Inventario.ListarItens();
 
         Boolean contemItem = false;
@@ -34,7 +39,7 @@ public class Missao
                 contemItem = true;
             }
         }
-        if (contemItem)
+        if(contemItem)
         {
             return true;
         }

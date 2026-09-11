@@ -69,7 +69,7 @@ public class ItensDoJogo
     {
         return new Chave("Chave do estoque do hospital", "A chave que abre a sala de estoque do hospital. Com ela, você consegue encontrar diversos itens de cura.", TipoChave.EstoqueHospital);
     }
-    public static Chave CriarChaveLaboratorio()
+    public static Chave CriarChaveAreaExperimentos()
     {
         return new Chave("Chave do hall do laboratório", "A chave que dá acesso às áreas restritas do laboratório. Com ela, você consegue chegar à área de experimentos e ajudar o cientista Freddie a concluir a pesquisa dele.", TipoChave.Laboratorio);
     }
@@ -77,11 +77,11 @@ public class ItensDoJogo
     //itens comuns
     public static Item CriarMapaDaCidade()
     {
-        return new Item("Mapa da cidade", "Explorar a cidade se torna uma tarefa mais fácil.");
+        return new Item("Mapa da cidade", "Explorar a cidade se torna uma tarefa mais fácil. (Não ocupa espaço no inventário)");
     }
     public static Item CriarMochila()
     {
-        return new Item("Mochila", "Permite carregar um número maior de itens.");
+        return new Item("Mochila", "Permite carregar um número maior de itens. (Inventário 10 -> 15)");
     }
     public static Item CriarPeDeCabra()
     {
@@ -90,14 +90,6 @@ public class ItensDoJogo
     public static Item CriarColete()
     {
         return new Item("Colete balístico", "Graças ao material resistente, os ataques têm menos efeito.");
-    }
-    public static Item CriarLanterna()
-    {
-        return new Item("Lanterna", "Ideal para locais escuros.");
-    }
-    public static Item CriarPilhas()
-    {
-        return new Item("Pilhas para lanterna", "Para manter sua lanterna funcionando.");
     }
 
     //munição

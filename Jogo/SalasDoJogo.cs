@@ -331,6 +331,7 @@ public class SalasDoJogo
     {
         //delegacia
         recepcaoDelegacia.AdicionarItens(ItensDoJogo.CriarPistola());
+        salaDeArmas.AdicionarItens(ItensDoJogo.CriarColete());
 
         if(Chance(80))
         {
@@ -446,8 +447,6 @@ public class SalasDoJogo
 
         //casa abandonada
         salaCasa.AdicionarItens(ItensDoJogo.CriarAgua());
-        quartoCasa.AdicionarItens(ItensDoJogo.CriarLanterna());
-        poraoCasa.AdicionarItens(ItensDoJogo.CriarPilhas());
 
         if(Chance(60))
         {
@@ -493,6 +492,7 @@ public class SalasDoJogo
         //posto de gasolina
         lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarAgua());
         patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
+        garagemPosto.AdicionarItens(ItensDoJogo.CriarPeDeCabra());
 
         if(Chance(90))
         {
@@ -513,6 +513,7 @@ public class SalasDoJogo
 
         //hospital
         recepcaoHospital.AdicionarItens(ItensDoJogo.CriarChaveEstoqueHospital());
+        estoqueHospital.AdicionarItens(ItensDoJogo.CriarCaixaBandagens());
 
         if(Chance(50))
         {

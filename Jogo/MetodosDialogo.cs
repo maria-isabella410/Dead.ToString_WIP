@@ -138,6 +138,8 @@ public class MetodosDialogo
         } else if(npc.ConversouTudo && Missao.MissaoValida(Jogador))
         {
             Console.WriteLine(npc.Dialogo.MissaoConcluida.Replace("{nome}", Jogador.Nome));
+
+            //arrumar dps
         }
     }
 }

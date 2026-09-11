@@ -2,11 +2,11 @@ namespace rpgSerVivo;
 
 public class SerVivo
 {
-    public int VidaMaxima {get; private set;}
+    public int VidaMaxima {get; set;}
     public int Vida {get; set;}
-    public int Ataque {get; private set;}
-    public int Defesa {get; private set;}
-    public int Agilidade {get; private set;}
+    public int Ataque {get; set;}
+    public int Defesa {get; set;}
+    public int Agilidade {get; set;}
 
     public SerVivo(int vidamaxima, int vida, int ataque, int defesa, int agilidade)
     {

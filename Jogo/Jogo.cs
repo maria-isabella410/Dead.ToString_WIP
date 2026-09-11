@@ -11,6 +11,7 @@ using rpgMetodosDialogo;
 using rpgMissao;
 using rpgSalasDoJogo;
 using rpgSala;
+using rpgMissoesDoJogo;
 
 namespace rpgJogo;
 
@@ -38,7 +39,7 @@ public class Jogo
 
         String nomeJogador = Console.ReadLine();
 
-        Jogador = new Jogador(100, 100, 30, 20, 25, nomeJogador, Mapa.ruaPrincipal, null);
+        Jogador = new Jogador(100, 100, 15, 10, 25, nomeJogador, Mapa.ruaPrincipal, null);
 
         Introducao(Jogador);
 
@@ -393,7 +394,19 @@ public class Jogo
 
             jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, Jogador);
                 
-            Console.WriteLine("Missão concluída!");
+            if(jogador.MissaoAtual.Recompensa != null)
+            {
+                Console.WriteLine($"Missão concluída! O item de recompensa [{jogador.MissaoAtual.Recompensa.Nome}] foi adicionado ao seu inventário.");
+            } 
+            if(jogador.MissaoAtual.Recompensa == null && jogador.MissaoAtual == MissoesDoJogo.CriaMissaoEnfermeira())
+            {                
+                Console.WriteLine("Missão concluída! A Enfermeira Grace irá tratar seus ferimentos.");
+
+                jogador.Vida = jogador.VidaMaxima;
+
+                Console.WriteLine("Após uma sessão de cuidados, você se sente muito melhor.");
+                Console.WriteLine($"HP: [{jogador.Vida} / {jogador.VidaMaxima}]");                
+            }            
 
             jogador.MissaoAtual = null;
         }
@@ -753,13 +766,11 @@ public class Jogo
 
                 DivisaoDeLinha();
 
-                switch (opcaoConversa)
+                if(opcaoConversa == 1)
                 {
-                    case 1:
-                        ConversarComNpc(npcsLocal[0], Jogador);
+                    ConversarComNpc(npcsLocal[0], Jogador);
+                }               
 
-                    break;
-                } 
                 if(opcaoConversa == 2)
                 {
                     return;
