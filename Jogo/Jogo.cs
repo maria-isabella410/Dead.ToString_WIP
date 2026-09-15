@@ -12,6 +12,8 @@ using rpgMissao;
 using rpgSalasDoJogo;
 using rpgSala;
 using rpgMissoesDoJogo;
+using rpgItensDoJogo;
+using rpgInventario;
 
 namespace rpgJogo;
 
@@ -621,6 +623,13 @@ public class Jogo
                 DivisaoDeLinha();
 
                 Item item = itensLocal[opcaoEscolhidaItem - 1];
+
+                if(item == ItensDoJogo.CriarMapaDaCidade() || item == ItensDoJogo.CriarMochila() || item == ItensDoJogo.CriarColete())
+                {
+                    Jogador.Inventario.EquiparItem(item, Jogador);
+
+                    itensLocal.RemoveAt(opcaoEscolhidaItem - 1);
+                }
 
                 bool conseguiuGuardar = Jogador.Inventario.GuardarItem(item, Jogador);
 

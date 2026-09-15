@@ -45,7 +45,7 @@ public class Combate
         Jogo.DivisaoDeLinha();
         Console.WriteLine($"Jogador: [{Jogador.Vida} / {Jogador.VidaMaxima}] HP");
         Console.WriteLine($"Zombie: [{Zombie.Vida} / {Zombie.VidaMaxima}] HP");
-        Console.WriteLine("Arma equipada: " + Jogador.ArmaEquipada);
+        Console.WriteLine("Arma equipada: " + Jogador.ArmaEquipada.Nome);
         if (Jogador.ArmaEquipada.PodeRecarregar())
         {
             Console.WriteLine($"Munição: [{Jogador.ArmaEquipada.Municao} / {Jogador.ArmaEquipada.CapacidadeMunicao}]");    
@@ -76,9 +76,9 @@ public class Combate
         {
             Jogo.DivisaoDeLinha();
 
-            Console.WriteLine("Ao escolher [1] Atacar, será seu Ataque - a Defesa do zombie. Você não pode atacar sem uma arma em mãos. O zombie vai tentar desviar.");
+            Console.WriteLine("Ao escolher [1] Atacar, será seu [Ataque - Defesa] do zombie. Você não pode atacar sem uma arma em mãos. O zombie vai tentar desviar.");
             
-            Console.WriteLine("Ao escolher [2] Desviar, você tenta desviar e, se conseguir, diminui pela metade a Defesa do zombie. Mas se não conseguir, você tomará 1/3 a mais de dano.");
+            Console.WriteLine("Ao escolher [2] Desviar, você tenta desviar e, se conseguir, diminui pela metade o dano do Ataque do zombie. Mas se não conseguir, você tomará 1/3 a mais de dano.");
             
             Console.WriteLine("Ao escolher [3] Equipar Arma, você escolhe uma de suas armas para empunhar.");
             
@@ -149,13 +149,15 @@ public class Combate
                 {
                     danoTomado = CalcularDano(null, Zombie, Jogador);
 
-                    Jogador.TomarDano(danoTomado + (danoTomado / 3));
+                    int danoTomadoTotal = danoTomado + (danoTomado / 3);
+
+                    Jogador.TomarDano(danoTomadoTotal);
 
                     Jogo.DivisaoDeLinha();
 
                     Console.WriteLine("Você não conseguiu desviar!");
 
-                    Console.WriteLine("Você tomou " + danoTomado + " de dano! (1/3 a mais aplicado).");
+                    Console.WriteLine($"Você tomou {danoTomadoTotal} de dano! [{danoTomado} + {danoTomado / 3} (Adicional de 1/3)]");
                 
                     Jogo.DivisaoDeLinha();
                 }
@@ -187,7 +189,7 @@ public class Combate
                 {
                     Jogador.EquiparArma(armas[escolhaArma - 1]);
 
-                    Console.WriteLine("Você equipou: " + Jogador.ArmaEquipada);
+                    Console.WriteLine("Você equipou: " + Jogador.ArmaEquipada.Nome);
                 }
 
                 break;

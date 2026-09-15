@@ -80,11 +80,17 @@ public class Inventario
             return false;
         }
 
+        Itens.Add(item);
+
+        return true;
+    }
+    public void EquiparItem(Item item, Jogador jogador)
+    {
         if(item == ItensDoJogo.CriarMapaDaCidade())
         {
             jogador.ContemMapa = true;
 
-            return true;
+            Console.WriteLine("Agora, você possui o mapa da cidade.");
         }
 
         if(item == ItensDoJogo.CriarMochila())
@@ -93,7 +99,7 @@ public class Inventario
 
             this.Capacidade = 15;
 
-            return true;
+            Console.WriteLine("Agora, você possui uma mochila. (Inventário capacidade: [10] -> [15])");
         }
 
         if(item == ItensDoJogo.CriarColete())
@@ -101,11 +107,9 @@ public class Inventario
             jogador.ColeteEquipado = true;
 
             jogador.Defesa += 20;
+
+            Console.WriteLine("Agora, você possui um colete. (Defesa: [10] -> [20])");
         }
-
-        Itens.Add(item);
-
-        return true;
     }
     public void DescartarItem(Item item)
     {

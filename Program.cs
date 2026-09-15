@@ -5,12 +5,13 @@ using rpgInventario;
 using rpgZombie;
 using rpgTipoZombie;
 using rpgMapa;
+using rpgJogo;
 
 namespace MainProgram;
 
 public class Program{
     public static void Main(string[] args)
     {
-        Console.WriteLine("Meu RPG de zombies! :)");
+        Jogo Jogo = new Jogo();
     }
 }
