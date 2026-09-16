@@ -17,13 +17,13 @@ public class MetodosDialogo
     }
     public void ConheceNpc(Jogador jogador, Npc npc)
     {
-        if (Jogador.ConheceNpc)
+        if (jogador.ConheceNpc)
         {
-            Console.WriteLine($"{npc.Nome}:");
+            Console.WriteLine($"\n{npc.Nome}:\n");
         }
         else
         {
-            Console.WriteLine("Pessoa desconhecida:");
+            Console.WriteLine("Pessoa desconhecida:\n");
         }
     }
     public int EscolherOpcao(params string[] opcoes)
@@ -40,15 +40,19 @@ public class MetodosDialogo
     }
     public void ApresentarJogador(Npc npc)
     {
-        Console.WriteLine("Pessoa desconhecida:");
+        ConheceNpc(Jogador, npc);
         Console.WriteLine(npc.Dialogo.Cumprimento);
 
-        Console.WriteLine("Você:");
-        Console.WriteLine($"Me chamo {Jogador.Nome}.");
+        Console.WriteLine("[1] Quem é você?");
+
+        //terminar dps (criar int pra opcao e tirar de jogador o atributo de conheceNpc)
+
+        Console.WriteLine("\nVocê:");
+        Console.WriteLine($"\nMe chamo {Jogador.Nome}.");
 
         if(npc.Dialogo.Introducao != null)
         {
-            Console.WriteLine("Pessoa desconhecida:");
+            ConheceNpc(Jogador, npc);
             Console.WriteLine(npc.Dialogo.Introducao.Replace("{nome}", Jogador.Nome));
         }
            
@@ -122,8 +126,8 @@ public class MetodosDialogo
             switch(escolha)
             {
                 case 1:
-                    Console.WriteLine("Você:");
-                    Console.WriteLine("Quem é você?");
+                    Console.WriteLine("Você:\n");
+                    Console.WriteLine("Quem é você?\n");
 
                     ConheceNpc(Jogador, npc);
                     
@@ -135,8 +139,8 @@ public class MetodosDialogo
 
                     break;
                 case 2:
-                    Console.WriteLine("Você:");
-                    Console.WriteLine("O que aconteceu?");
+                    Console.WriteLine("Você:\n");
+                    Console.WriteLine("O que aconteceu?\n");
                     ConheceNpc(Jogador, npc);
 
                     Console.WriteLine(npc.Dialogo.Historia.Replace("{nome}", Jogador.Nome));
@@ -145,8 +149,8 @@ public class MetodosDialogo
 
                     break;
                 case 3:
-                    Console.WriteLine("Você:");
-                    Console.WriteLine("Posso ajudar?");
+                    Console.WriteLine("Você:\n");
+                    Console.WriteLine("Posso ajudar?\n");
                     ConheceNpc(Jogador, npc);
 
                     OferecerMissao(npc);
@@ -156,8 +160,8 @@ public class MetodosDialogo
                     break;
                 case 4:
                     Console.WriteLine("Você:");
-                    Console.WriteLine("Preciso ir embora.")
-                    
+                    Console.WriteLine("Preciso ir embora.");
+
                     conversando = false;
 
                     return;
