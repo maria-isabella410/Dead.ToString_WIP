@@ -1,7 +1,7 @@
 # WIP - ainda em desenvolvimento!
 - ainda não dá pra testar! :p
 
-# RPG-Zombies
+# << SYSTEM.OUT.DEAD >>
 RPG de Apocalipse Zombie em C#, sem API, apenas em Console.
 
 # HISTÓRIA INICIAL
