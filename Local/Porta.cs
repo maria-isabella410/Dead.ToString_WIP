@@ -21,11 +21,11 @@ public class Porta
         if(chave == ChaveNecessaria)
         {
             this.Aberta = true;
-            Console.WriteLine("Você abriu a porta!");
+            Console.WriteLine("Você abriu a porta.");
         }
         else
         {
-            Console.WriteLine("Você não tem a chave necessária para abrir essa porta!");
+            Console.WriteLine("Você não tem a chave necessária para abrir essa porta.");
         }
     }
 }

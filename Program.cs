@@ -13,5 +13,6 @@ public class Program{
     public static void Main(string[] args)
     {
         Jogo Jogo = new Jogo();
+        Jogo.Iniciar();
     }
 }

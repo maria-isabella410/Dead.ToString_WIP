@@ -10,25 +10,25 @@ namespace rpgPortasDoJogo;
 
 public class PortasDoJogo
 {
-    public static Porta CriarPortaSalaDeArmas(Mapa mapa)
+    public static Porta CriarPortaSalaDeArmas(Mapa mapa, Sala sala)
     {
-        return new Porta(SalasDoJogo.criarSalaDeArmas(mapa), ItensDoJogo.CriarChaveSalaDeArmas());
+        return new Porta(sala, ItensDoJogo.CriarChaveSalaDeArmas());
     }
-    public static Porta CriarPortaSalaDeAula(Mapa mapa)
+    public static Porta CriarPortaSalaDeAula(Mapa mapa, Sala sala)
     {
-        return new Porta(SalasDoJogo.criarSalaDeAula(mapa), ItensDoJogo.CriarChaveSalaDeAula());
+        return new Porta(sala, ItensDoJogo.CriarChaveSalaDeAula());
     }
-    public static Porta CriarPortaSalaArquivos(Mapa mapa)
+    public static Porta CriarPortaSalaArquivos(Mapa mapa, Sala sala)
     {
-        return new Porta(SalasDoJogo.criarSalaDeArquivosBiblioteca(mapa), ItensDoJogo.CriarChaveSalaBiblioteca());
+        return new Porta(sala, ItensDoJogo.CriarChaveSalaBiblioteca());
     }
-    public static Porta CriarPortaEstoqueHospital(Mapa mapa)
+    public static Porta CriarPortaEstoqueHospital(Mapa mapa, Sala sala)
     {
-        return new Porta(SalasDoJogo.criarEstoqueHospital(mapa), ItensDoJogo.CriarChaveEstoqueHospital());
+        return new Porta(sala, ItensDoJogo.CriarChaveEstoqueHospital());
     }
-    public static Porta CriarPortaAreaExperimentos(Mapa mapa)
+    public static Porta CriarPortaAreaExperimentos(Mapa mapa, Sala sala)
     {
-        return new Porta(SalasDoJogo.criarAreaExperimentosLaboratorio(mapa), ItensDoJogo.CriarChaveAreaExperimentos());
+        return new Porta(sala, ItensDoJogo.CriarChaveAreaExperimentos());
     }
 
 }

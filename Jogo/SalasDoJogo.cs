@@ -4,6 +4,7 @@ using rpgSala;
 using rpgNpcsDoJogo;
 using rpgItensDoJogo;
 using rpgZombiesDoJogo;
+using rpgPorta;
 
 namespace rpgSalasDoJogo;
 
@@ -74,23 +75,23 @@ public class SalasDoJogo
     //salas trancadas
     public static Sala criarSalaDeArmas(Mapa mapa)
     {
-        return new Sala("Sala de armas", "Uma porta reforçada dá acesso a suportes de metal com escopetas, munições e coletes táticos. O arsenal que o policial Ethan precisava para resistir.", mapa.delegacia, PortasDoJogo.CriarPortaSalaDeArmas(mapa));
+        return new Sala("Sala de armas", "Uma porta reforçada dá acesso a suportes de metal com escopetas, munições e coletes táticos. O arsenal que o policial Ethan precisava para resistir.", mapa.delegacia, null);
     }
     public static Sala criarSalaDeAula(Mapa mapa)
     {
-        return new Sala("Sala de aula", "Carteiras empilhadas contra a porta e desenhos infantis na parede. No fundo do cômodo, a pequena Mary se esconde encolhida, assustada com o barulho dos infectados.", mapa.escola, PortasDoJogo.CriarPortaSalaDeAula(mapa));
+        return new Sala("Sala de aula", "Carteiras empilhadas contra a porta e desenhos infantis na parede. No fundo do cômodo, a pequena Mary se esconde encolhida, assustada com o barulho dos infectados.", mapa.escola, null);
     }
     public static Sala criarSalaDeArquivosBiblioteca(Mapa mapa)
     {
-        return new Sala("Sala de arquivos", "Prateleiras altas repletas de pastas confidenciais e documentos antigos. Em uma das mesas, há arquivos cruciais para as pesquisas do cientista Freddie.", mapa.biblioteca, PortasDoJogo.CriarPortaSalaArquivos(mapa));
+        return new Sala("Sala de arquivos", "Prateleiras altas repletas de pastas confidenciais e documentos antigos. Em uma das mesas, há arquivos cruciais para as pesquisas do cientista Freddie.", mapa.biblioteca, null);
     }
     public static Sala criarEstoqueHospital(Mapa mapa)
     {
-        return new Sala("Estoque do hospital", "Prateleiras organizadas e caixas lacradas contendo antissépticos, gazes, seringas e itens de cura essenciais para socorrer os feridos.", mapa.hospital, PortasDoJogo.CriarPortaEstoqueHospital(mapa));
+        return new Sala("Estoque do hospital", "Prateleiras organizadas e caixas lacradas contendo antissépticos, gazes, seringas e itens de cura essenciais para socorrer os feridos.", mapa.hospital, null);
     }
     public static Sala criarAreaExperimentosLaboratorio(Mapa mapa)
     {
-        return new Sala("Sala do laboratório", "Tubos de ensaio quebrados, centrífugas ainda ligadas e equipamentos de ponta. É aqui que o antídoto definitivo pode ser finalizado.", mapa.laboratorio, PortasDoJogo.CriarPortaAreaExperimentos(mapa));
+        return new Sala("Sala do laboratório", "Tubos de ensaio quebrados, centrífugas ainda ligadas e equipamentos de ponta. É aqui que o antídoto definitivo pode ser finalizado.", mapa.laboratorio, null);
     }  
 
     //salas comuns
@@ -220,6 +221,11 @@ public class SalasDoJogo
     public void CriarInstanciaSalas(Mapa mapa)
     {
         salaDeArmas = criarSalaDeArmas(mapa);
+
+        Porta portaSalaDeArmas = PortasDoJogo.CriarPortaSalaDeArmas(mapa, salaDeArmas);
+
+        salaDeArmas.AdicionarPorta(portaSalaDeArmas);
+
         salaDeAula = criarSalaDeAula(mapa);
         salaDeArquivosBiblioteca = criarSalaDeArquivosBiblioteca(mapa);
         estoqueHospital = criarEstoqueHospital(mapa);

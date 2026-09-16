@@ -22,6 +22,10 @@ public class Sala
         this.Descricao = descricao;
         this.LocalPertencente = localpertencente;
         this.PortaTrancada = portatrancada;
+
+        Itens = new List<Item>();
+        Npcs = new List<Npc>();
+        Zombies = new List<Zombie>();
     }
     public void AdicionarItens(Item item)
     {
@@ -34,5 +38,9 @@ public class Sala
     public void AdicionarZombie(Zombie zombie)
     {
         Zombies.Add(zombie);
+    }
+    public void AdicionarPorta(Porta porta)
+    {
+        PortaTrancada = porta;
     }
 }

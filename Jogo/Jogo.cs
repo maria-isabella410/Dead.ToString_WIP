@@ -36,7 +36,8 @@ public class Jogo
 
         SalasDoJogo salasDoJogo = new SalasDoJogo(Mapa, random);
 
-        Console.WriteLine("Qual será seu nome?");
+        Console.WriteLine("Olá, jogador! Seja bem-vindo(a) ao << System.Out.Dead >> !");
+        Console.WriteLine("Durante essa jornada, qual será seu nome?");
         Console.Write("--> ");
 
         String nomeJogador = Console.ReadLine();
@@ -203,48 +204,48 @@ public class Jogo
 
             Console.WriteLine("=======================");
             Console.WriteLine("O que deseja fazer?");
+        }       
 
-            while (true)
-            {            
-                MenuExplorar();
+        while (true)
+        {            
+            MenuExplorar();
 
-                int escolhaExplorar = Convert.ToInt32(Console.ReadLine());
+            int escolhaExplorar = Convert.ToInt32(Console.ReadLine());
 
-                if(escolhaExplorar == 0)
-                {
-                    Jogador.SalaAtual = null;
-                    return;
-                }
-
-                if(escolhaExplorar < 1 || escolhaExplorar > 3)
-                {
-                    Console.WriteLine("Entrada inválida!");
-
-                    continue;
-                }
-
-                opcoesExplorar opcaoExplorar = (opcoesExplorar)escolhaExplorar;
-
-                switch (opcaoExplorar)
-                {
-                    case opcoesExplorar.ProcurarItens:
-                        ProcurarItens(itensLocal); 
-                    break;
-
-                    case opcoesExplorar.ChecarArredores:
-                        ExplorarArredores(zombiesLocal);                    
-                    break;
-
-                    case opcoesExplorar.ProcurarSobreviventes:
-                        ProcurarSobreviventes(npcsLocal);
-                    break;
-
-                    default:
-                        Console.WriteLine("Entrada inválida!");
-                    break;
-                }                      
+            if(escolhaExplorar == 0)
+            {
+                Jogador.SalaAtual = null;
+                return;
             }
-        }        
+
+            if(escolhaExplorar < 1 || escolhaExplorar > 3)
+            {
+                Console.WriteLine("Entrada inválida!");
+
+                continue;
+            }
+
+            opcoesExplorar opcaoExplorar = (opcoesExplorar)escolhaExplorar;
+
+            switch (opcaoExplorar)
+            {
+                case opcoesExplorar.ProcurarItens:
+                    ProcurarItens(itensLocal); 
+                break;
+
+                case opcoesExplorar.ChecarArredores:
+                    ExplorarArredores(zombiesLocal);                    
+                break;
+
+                case opcoesExplorar.ProcurarSobreviventes:
+                    ProcurarSobreviventes(npcsLocal);
+                break;
+
+                default:
+                    Console.WriteLine("Entrada inválida!");
+                break;
+            }                      
+        } 
     }
     public void MostrarStatus()
     {
@@ -599,11 +600,6 @@ public class Jogo
 
             while(true)
             {
-                for(int i = 0; i < itensLocal.Count; i++)
-                {
-                    Console.WriteLine($"- {itensLocal[i].Nome}");
-                }
-
                 Console.WriteLine("Digite o item que deseja coletar ou [0] para Voltar.");
                 Console.Write("--> ");
 
