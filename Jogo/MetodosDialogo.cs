@@ -21,6 +21,7 @@ public class MetodosDialogo
             Console.WriteLine($"[{i+1}] {opcoes[i]}");
         }
 
+        Jogo.DivisaoDeLinha();
         Console.Write("--> ");
 
         return Convert.ToInt32(Console.ReadLine());
@@ -29,16 +30,18 @@ public class MetodosDialogo
     {
         Console.WriteLine(npc.Dialogo.Cumprimento);
 
-        Console.WriteLine($"Me chamo {Jogador.Nome}.");
+        Console.WriteLine($"\nMe chamo {Jogador.Nome}.");
 
         if(npc.Dialogo.Introducao != null)
         {
+            Console.WriteLine($"{npc.Nome}:");
             Console.WriteLine(npc.Dialogo.Introducao.Replace("{nome}", Jogador.Nome));
         }
            
     }
     public void OferecerMissao(Npc npc)
     {
+        Console.WriteLine($"{npc.Nome}:");
         Console.WriteLine(npc.Dialogo.Missao);
 
         Jogo.DivisaoDeLinha();
@@ -50,18 +53,20 @@ public class MetodosDialogo
         switch(escolha)
         {
             case 1:
+                Console.WriteLine($"{npc.Nome}:");
                 Console.WriteLine(npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", Jogador.Nome));
                 Jogador.MissaoAtual = npc.Missao;
 
                 break;
             case 2:
+                Console.WriteLine($"{npc.Nome}:");
                 Console.WriteLine(npc.Dialogo.DespedidaMissaoRecusada.Replace("{nome}", Jogador.Nome));
 
                 break;
             case 3:
                 return;
             default:
-                Console.WriteLine("Entrada inválida!");
+                Console.WriteLine("\nEntrada inválida!");
                 
                 break;
             }
@@ -103,18 +108,21 @@ public class MetodosDialogo
             switch(escolha)
             {
                 case 1:
+                    Console.WriteLine($"{npc.Nome}:");
                     ApresentarJogador(npc);
 
                     topicosFalados.Add(TopicoDialogo.Quem);
 
                     break;
                 case 2:
+                    Console.WriteLine($"{npc.Nome}:");
                     Console.WriteLine(npc.Dialogo.Historia.Replace("{nome}", Jogador.Nome));
 
                     topicosFalados.Add(TopicoDialogo.Historia);
 
                     break;
                 case 3:
+                    Console.WriteLine($"{npc.Nome}:");
                     OferecerMissao(npc);
 
                     topicosFalados.Add(TopicoDialogo.Missao);
@@ -125,7 +133,7 @@ public class MetodosDialogo
 
                     return;
                 default:
-                    Console.WriteLine("Entrada inválida!");
+                    Console.WriteLine("\nEntrada inválida!");
                     
                     break;    
             }
@@ -134,9 +142,11 @@ public class MetodosDialogo
 
         if (npc.ConversouTudo && !Missao.MissaoValida(Jogador))
         {
-            Console.WriteLine("Estou esperando...");
+            Console.WriteLine($"{npc.Nome}:");
+            Console.WriteLine("\nEstou esperando...");
         } else if(npc.ConversouTudo && Missao.MissaoValida(Jogador))
         {
+            Console.WriteLine($"{npc.Nome}:");
             Console.WriteLine(npc.Dialogo.MissaoConcluida.Replace("{nome}", Jogador.Nome));
 
             //arrumar dps

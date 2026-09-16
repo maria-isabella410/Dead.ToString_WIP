@@ -191,7 +191,7 @@ public class Mapa
     }
     public void MostrarLocalAtual(Jogador jogador)
     {
-        Console.WriteLine("Atualmente, você está em: ");
+        Console.WriteLine("\nAtualmente, você está em: \n");
         Local.DescreverLocal(jogador.LocalAtual);
     }
 }

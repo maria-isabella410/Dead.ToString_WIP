@@ -111,6 +111,12 @@ public class Inventario
             Console.WriteLine("Agora, você possui um colete. (Defesa: [10] -> [20])");
         }
     }
+    public void EquiparArma(Arma arma, Jogador jogador)
+    {
+        jogador.ArmaEquipada = arma;
+
+        Console.WriteLine("Você equipou a: " + arma.Nome);
+    }
     public void DescartarItem(Item item)
     {
         Itens.Remove(item);

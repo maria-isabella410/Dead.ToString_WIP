@@ -48,6 +48,6 @@ public class Local
     public static void DescreverLocal(Local local)
     {
         Console.WriteLine("Local: " + local.Nome);
-        Console.WriteLine("Descrição: " + local.Descricao);
+        Console.WriteLine("\nDescrição: " + local.Descricao);
     }
 }
