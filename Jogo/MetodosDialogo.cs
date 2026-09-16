@@ -3,6 +3,7 @@ using rpgJogo;
 using rpgNpc;
 using rpgTopicoDialogo;
 using rpgMissao;
+using System.Reflection.PortableExecutable;
 
 namespace rpgMetodosDialogo;
 
@@ -13,6 +14,17 @@ public class MetodosDialogo
     public MetodosDialogo(Jogador jogador)
     {
         this.Jogador = jogador;
+    }
+    public void ConheceNpc(Jogador jogador, Npc npc)
+    {
+        if (Jogador.ConheceNpc)
+        {
+            Console.WriteLine($"{npc.Nome}:");
+        }
+        else
+        {
+            Console.WriteLine("Pessoa desconhecida:");
+        }
     }
     public int EscolherOpcao(params string[] opcoes)
     {
@@ -28,13 +40,15 @@ public class MetodosDialogo
     }
     public void ApresentarJogador(Npc npc)
     {
+        Console.WriteLine("Pessoa desconhecida:");
         Console.WriteLine(npc.Dialogo.Cumprimento);
 
-        Console.WriteLine($"\nMe chamo {Jogador.Nome}.");
+        Console.WriteLine("Você:");
+        Console.WriteLine($"Me chamo {Jogador.Nome}.");
 
         if(npc.Dialogo.Introducao != null)
         {
-            Console.WriteLine($"{npc.Nome}:");
+            Console.WriteLine("Pessoa desconhecida:");
             Console.WriteLine(npc.Dialogo.Introducao.Replace("{nome}", Jogador.Nome));
         }
            
@@ -108,27 +122,42 @@ public class MetodosDialogo
             switch(escolha)
             {
                 case 1:
-                    Console.WriteLine($"{npc.Nome}:");
+                    Console.WriteLine("Você:");
+                    Console.WriteLine("Quem é você?");
+
+                    ConheceNpc(Jogador, npc);
+                    
                     ApresentarJogador(npc);
+
+                    Jogador.ConheceNpc = true;
 
                     topicosFalados.Add(TopicoDialogo.Quem);
 
                     break;
                 case 2:
-                    Console.WriteLine($"{npc.Nome}:");
+                    Console.WriteLine("Você:");
+                    Console.WriteLine("O que aconteceu?");
+                    ConheceNpc(Jogador, npc);
+
                     Console.WriteLine(npc.Dialogo.Historia.Replace("{nome}", Jogador.Nome));
 
                     topicosFalados.Add(TopicoDialogo.Historia);
 
                     break;
                 case 3:
-                    Console.WriteLine($"{npc.Nome}:");
+                    Console.WriteLine("Você:");
+                    Console.WriteLine("Posso ajudar?");
+                    ConheceNpc(Jogador, npc);
+
                     OferecerMissao(npc);
 
                     topicosFalados.Add(TopicoDialogo.Missao);
                     
                     break;
                 case 4:
+                    Console.WriteLine("Você:");
+                    Console.WriteLine("Preciso ir embora.")
+                    
                     conversando = false;
 
                     return;
@@ -142,11 +171,11 @@ public class MetodosDialogo
 
         if (npc.ConversouTudo && !Missao.MissaoValida(Jogador))
         {
-            Console.WriteLine($"{npc.Nome}:");
+            ConheceNpc(Jogador, npc);
             Console.WriteLine("\nEstou esperando...");
         } else if(npc.ConversouTudo && Missao.MissaoValida(Jogador))
         {
-            Console.WriteLine($"{npc.Nome}:");
+            ConheceNpc(Jogador, npc);
             Console.WriteLine(npc.Dialogo.MissaoConcluida.Replace("{nome}", Jogador.Nome));
 
             //arrumar dps
