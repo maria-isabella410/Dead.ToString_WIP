@@ -45,4 +45,11 @@ public class Missao
         }
         else return false;    
     }
+
+    public static void MissaoAceita(Jogador jogador)
+    {
+        Console.WriteLine("\nVocê aceitou uma missão!");
+        Console.WriteLine("\nMissão: " + jogador.MissaoAtual.NomeDaMissao);
+        Console.WriteLine("\nObjetivo: " + jogador.MissaoAtual.Descricao);
+    }
 }

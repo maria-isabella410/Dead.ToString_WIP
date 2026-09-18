@@ -863,11 +863,10 @@ public class Jogo
     private void ProcurarSobreviventes(List<Npc> npcsLocal)
     {
         if(npcsLocal.Count > 0)
-        {
-            foreach(Npc npc in npcsLocal) Console.WriteLine($"Há uma pessoa aqui: {npc.Nome}");
-
+        {   
             DivisaoDeLinha();
-            Console.WriteLine($"Deseja conversar com {npcsLocal[0].Nome}?");
+            Console.WriteLine($"Há uma pessoa aqui.\n");            
+            Console.WriteLine($"Deseja interagir com ela?");
             DivisaoDeLinha();
 
             while (true)
