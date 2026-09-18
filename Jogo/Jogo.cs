@@ -279,15 +279,14 @@ public class Jogo
             Console.WriteLine("Arma equipada: " + Jogador.ArmaEquipada.Nome);
         }
     }
-    public void ConversarComNpc(Npc npc)
+    public void ConversarComNpc(Npc Npc)
     {
         DivisaoDeLinha();
 
-        MetodosDialogo dialogo = new MetodosDialogo();
+        MetodosDialogo MetodosDialogo = new MetodosDialogo();
 
-        Console.WriteLine(npc.Dialogo.Saudacao);
-
-        // dialogo.ContinuarDialogo(npc);        
+        MetodosDialogo.EscolherOpcao(Jogador, Npc);
+             
     }
     public void EscolherDirecao(Local local)
     {
