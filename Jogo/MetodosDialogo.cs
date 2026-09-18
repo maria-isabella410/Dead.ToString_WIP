@@ -27,9 +27,9 @@ public class MetodosDialogo
     {
         List<DialogoOpcao> dialogoopcoes = new List<DialogoOpcao>
         {
-            new DialogoOpcao {"Quem é você?", QuemEvoce(Jogador, Npc)},
-            new DialogoOpcao {"O que aconteceu?", OqueAconteceu(Jogador, Npc)},
-            new DialogoOpcao {"Como posso ajudar?", ComoPossoAjudar(Jogador, Npc)}
+            new DialogoOpcao ("Quem é você?", () => QuemEvoce(Jogador, Npc)),
+            new DialogoOpcao ("O que aconteceu?", () => OqueAconteceu(Jogador, Npc)),
+            new DialogoOpcao ("Como posso ajudar?", () => ComoPossoAjudar(Jogador, Npc))
         };
 
         Console.WriteLine("Pessoa desconhecida: ");
@@ -54,14 +54,14 @@ public class MetodosDialogo
 
             if(opcao < 1 || opcao > dialogoopcoes.Count)
             {
-                Console.ReadLine("\nEntrada inválida!");
+                Console.WriteLine("\nEntrada inválida!");
 
                 continue;
             }
 
             int index = opcao - 1;
 
-            dialogoopcoes[index].action.Invoke();
+            dialogoopcoes[index].Action();
 
             dialogoopcoes.RemoveAt(index);
 
@@ -69,142 +69,154 @@ public class MetodosDialogo
         }
 
     }
-    public static void QuemEvoce(Jogador Jogador, Npc Npc)
+    public void QuemEvoce(Jogador Jogador, Npc Npc)
     {
-        Console.WriteLine($"{Jogador.Nome}:");
-        Console.WriteLine("— Quem é você?\n");
-
-        ConheceNpc(Jogador, Npc);
-        Console.WriteLine(Npc.Dialogo.Cumprimento);
-
-        Console.WriteLine("\n[1] Me chamo...");
-        Jogo.DivisaoDeLinha();
-        Console.Write("--> ");
-
-        int respondeNome = Convert.ToInt32(Console.ReadLine());
-
-        if(respondeNome == 0)
+        while (true)
         {
-            return; 
-        }
-        if(respondeNome != 1)
-        {
-            Console.WriteLine("\nEntrada inválida!");
+            Console.WriteLine($"{Jogador.Nome}:");
+            Console.WriteLine("— Quem é você?\n");
 
-            continue;
-        }
-
-        Console.WriteLine($"{Jogador.Nome}:");
-        Console.WriteLine($"— Me chamo {Jogador.Nome}.\n");
-
-        if(Npc.Introducao != null)
-        {
             ConheceNpc(Jogador, Npc);
-            Console.WriteLine(Npc.Dialogo.Introducao.Replace("{nome}", Jogador.Nome));
-        }
-        
-        ContadorDialogo--;
-    }
-    public static void OqueAconteceu(Jogador Jogador, Npc Npc)
-    {
-        Console.WriteLine($"\n{Jogador.Nome}:");
-        Console.WriteLine("— O que aconteceu?");
+            Console.WriteLine(Npc.Dialogo.Cumprimento);
 
-        ConheceNpc(Jogador, Npc);
-        Console.WriteLine("— " + Npc.Dialogo.Introducao + "\n");
-
-        if(Npc.HistoriaContinuacao != null)
-        {
-            Console.WriteLine("[1] Não sei se confio no que você diz.");
+            Console.WriteLine("\n[1] Me chamo...");
             Jogo.DivisaoDeLinha();
             Console.Write("--> ");
 
-            int respondeNaoConfia = Convert.ToInt32(Console.ReadLine());
+            int respondeNome = Convert.ToInt32(Console.ReadLine());
 
-            if(respondeNaoConfia == 0)
+            if(respondeNome == 0)
             {
-                return;
+                return; 
             }
-
-            if(respondeNaoConfia != 1)
+            if(respondeNome != 1)
             {
                 Console.WriteLine("\nEntrada inválida!");
 
                 continue;
             }
 
+            Console.WriteLine($"{Jogador.Nome}:");
+            Console.WriteLine($"— Me chamo {Jogador.Nome}.\n");
+
+            if(Npc.Dialogo.Introducao != null)
+            {
+                ConheceNpc(Jogador, Npc);
+                Console.WriteLine(Npc.Dialogo.Introducao.Replace("{nome}", Jogador.Nome));
+            }
+            
+            ContadorDialogo--;            
+        }
+
+    }
+    public void OqueAconteceu(Jogador Jogador, Npc Npc)
+    {
+        while (true)
+        {
             Console.WriteLine($"\n{Jogador.Nome}:");
-            Console.WriteLine("— Não sei se confio no que você diz.");
+            Console.WriteLine("— O que aconteceu?");
 
             ConheceNpc(Jogador, Npc);
-            Console.WriteLine("— " + Npc.Dialogo.HistoriaContinuacao + "\n");
+            Console.WriteLine("— " + Npc.Dialogo.Introducao + "\n");
+
+            if(Npc.Dialogo.HistoriaContinuacao != null)
+            {
+                Console.WriteLine("[1] Não sei se confio no que você diz.");
+                Jogo.DivisaoDeLinha();
+                Console.Write("--> ");
+
+                int respondeNaoConfia = Convert.ToInt32(Console.ReadLine());
+
+                if(respondeNaoConfia == 0)
+                {
+                    return;
+                }
+
+                if(respondeNaoConfia != 1)
+                {
+                    Console.WriteLine("\nEntrada inválida!");
+
+                    continue;
+                }
+
+                Console.WriteLine($"\n{Jogador.Nome}:");
+                Console.WriteLine("— Não sei se confio no que você diz.");
+
+                ConheceNpc(Jogador, Npc);
+                Console.WriteLine("— " + Npc.Dialogo.HistoriaContinuacao + "\n");
+            }
+
+            ContadorDialogo--;              
         }
-
-        ContadorDialogo--;        
+      
     }
-    public static void ComoPossoAjudar(Jogador Jogador, Npc Npc)
+    public void ComoPossoAjudar(Jogador Jogador, Npc Npc)
     {
-        Console.WriteLine($"\n{Jogador.Nome}:");
-        Console.WriteLine("— Como posso ajudar?");
-
-        if(Npc.Dialogo.Missao != null)
+        while (true)
         {
-           ConheceNpc(Jogador, Npc);
-            Console.WriteLine("— " + Npc.Dialogo.Missao + "\n");
+            Console.WriteLine($"\n{Jogador.Nome}:");
+            Console.WriteLine("— Como posso ajudar?");
 
-            Console.WriteLine("[1] Certo, posso ajudar.");
-            Console.WriteLine("[2] Desculpa, não posso ajudar.");
-            Jogo.DivisaoDeLinha();
-            Console.Write("--> ");
-
-            int respondeMissao = Convert.ToInt32(Console.ReadLine());
-
-            if(respondeMissao == 0)
+            if(Npc.Dialogo.Missao != null)
             {
-                return;
-            }
+            ConheceNpc(Jogador, Npc);
+                Console.WriteLine("— " + Npc.Dialogo.Missao + "\n");
 
-            if(respondeMissao < 1 || respondeMissao > 2)
-            {
-                Console.WriteLine("\nEntrada inválida!");
+                Console.WriteLine("[1] Certo, posso ajudar.");
+                Console.WriteLine("[2] Desculpa, não posso ajudar.");
+                Jogo.DivisaoDeLinha();
+                Console.Write("--> ");
 
-                continue;
-            }
+                int respondeMissao = Convert.ToInt32(Console.ReadLine());
 
-            switch (respondeMissao)
-            {
-                case 1:
-                    if(Jogador.MissaoAtual == null)
-                    {
+                if(respondeMissao == 0)
+                {
+                    return;
+                }
+
+                if(respondeMissao < 1 || respondeMissao > 2)
+                {
+                    Console.WriteLine("\nEntrada inválida!");
+
+                    continue;
+                }
+
+                switch (respondeMissao)
+                {
+                    case 1:
+                        if(Jogador.MissaoAtual == null)
+                        {
+                            Console.WriteLine($"\n{Jogador.Nome}:");
+                            Console.WriteLine("— Certo, posso ajudar.");
+
+                            ConheceNpc(Jogador, Npc);
+                            Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoAceitada + "\n");
+
+                            Jogador.MissaoAtual = Npc.Missao;
+
+                            Missao.MissaoAceita(Jogador);                        
+                        }
+                        else
+                        {
+                            Console.WriteLine("Você não pode aceitar outra missão enquanto a atual ainda não foi concluída.");
+
+                            break;
+                        }
+
+                    break;
+                    case 2:
                         Console.WriteLine($"\n{Jogador.Nome}:");
-                        Console.WriteLine("— Certo, posso ajudar.");
+                        Console.WriteLine("— Desculpa, não posso ajudar.");
 
                         ConheceNpc(Jogador, Npc);
-                        Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoAceitada + "\n");
+                        Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoRecusada + "\n");                    
+                    break;
+                }
+            }        
 
-                        Jogador.MissaoAtual = Npc.Missao;
-
-                        Missao.MissaoAceita(Jogador);                        
-                    }
-                    if(!Jogador.MissaoAtual != null)
-                    {
-                        Console.WriteLine("Você não pode aceitar outra missão enquanto a atual ainda não foi concluída.");
-
-                        break;
-                    }
-
-                break;
-                case 2:
-                    Console.WriteLine($"\n{Jogador.Nome}:");
-                    Console.WriteLine("— Desculpa, não posso ajudar.");
-
-                    ConheceNpc(Jogador, Npc);
-                    Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoRecusada + "\n");                    
-                break;
-            }
-        }        
-
-        ContadorDialogo--;        
+            ContadorDialogo--;              
+        }
+      
     }
     // public void ContinuarDialogo(Npc npc)
     // {

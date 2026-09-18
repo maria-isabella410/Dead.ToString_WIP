@@ -1,4 +1,4 @@
-namespace rpgDialogoOpcoes;
+namespace rpgDialogoOpcao;
 
 public class DialogoOpcao
 {

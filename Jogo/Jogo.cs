@@ -279,15 +279,15 @@ public class Jogo
             Console.WriteLine("Arma equipada: " + Jogador.ArmaEquipada.Nome);
         }
     }
-    public void ConversarComNpc(Npc npc, Jogador Jogador)
+    public void ConversarComNpc(Npc npc)
     {
         DivisaoDeLinha();
 
-        MetodosDialogo dialogo = new MetodosDialogo(Jogador);
+        MetodosDialogo dialogo = new MetodosDialogo();
 
         Console.WriteLine(npc.Dialogo.Saudacao);
 
-        dialogo.ContinuarDialogo(npc);        
+        // dialogo.ContinuarDialogo(npc);        
     }
     public void EscolherDirecao(Local local)
     {
@@ -889,7 +889,7 @@ public class Jogo
 
                 if(opcaoConversa == 1)
                 {
-                    ConversarComNpc(npcsLocal[0], Jogador);
+                    ConversarComNpc(npcsLocal[0]);
                 }               
 
                 if(opcaoConversa == 2)
