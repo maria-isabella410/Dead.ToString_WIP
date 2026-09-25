@@ -37,7 +37,7 @@ public class Jogo
 
         SalasDoJogo salasDoJogo = new SalasDoJogo(Mapa, random);
 
-        Console.WriteLine("\nOlá, jogador! Seja bem-vindo(a) ao << System.Out.Dead >> !\n");
+        Console.WriteLine("\nOlá, jogador! Seja bem-vindo(a) ao << Dead.ToString() >> !\n");
         Console.WriteLine("Durante essa jornada, qual será seu nome?\n");
         Console.Write("--> ");
 

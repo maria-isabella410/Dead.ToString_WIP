@@ -9,14 +9,14 @@ using rpgDialogoOpcao;
 namespace rpgMetodosDialogo;
 
 public class MetodosDialogo
-{
-    private int ContadorDialogo {get; set;} = 3;
-    private Boolean Conversando {get; set;} = false;
-    public void ConheceNpc(Jogador Jogador, Npc Npc)
+{    private Boolean Conversando {get; set;} = false;
+    private Boolean ConheceNpc {get; set;} = false;
+
+    private void NomeNpc(Jogador jogador, Npc npc)
     {
-        if (Jogador.ConheceNpc)
+        if (ConheceNpc || jogador.NpcsConhecidos.Contains(npc))
         {
-            Console.WriteLine($"\n{Npc.Nome}:");
+            Console.WriteLine($"\n{npc.Nome}:");
         }
         else
         {
@@ -39,7 +39,7 @@ public class MetodosDialogo
         {
             for(int i = 0; i < dialogoopcoes.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] {dialogoopcoes[i]}");
+                Console.WriteLine($"[{i + 1}] {dialogoopcoes[i].Opcao}");
             }
             Console.WriteLine("[0] Voltar");
             Jogo.DivisaoDeLinha();
@@ -65,7 +65,13 @@ public class MetodosDialogo
 
             dialogoopcoes.RemoveAt(index);
 
-            break;            
+            if(dialogoopcoes.Count == 0)
+            {
+                break;     
+
+                ConheceNpc = false;
+            }
+                   
         }
 
     }
@@ -76,8 +82,10 @@ public class MetodosDialogo
             Console.WriteLine($"{Jogador.Nome}:");
             Console.WriteLine("— Quem é você?\n");
 
-            ConheceNpc(Jogador, Npc);
+            NomeNpc(Jogador, Npc);
             Console.WriteLine(Npc.Dialogo.Cumprimento);
+
+            ConheceNpc = true;
 
             Console.WriteLine("\n[1] Me chamo...");
             Jogo.DivisaoDeLinha();
@@ -101,11 +109,11 @@ public class MetodosDialogo
 
             if(Npc.Dialogo.Introducao != null)
             {
-                ConheceNpc(Jogador, Npc);
+                NomeNpc(Jogador, Npc);
                 Console.WriteLine(Npc.Dialogo.Introducao.Replace("{nome}", Jogador.Nome));
-            }
-            
-            ContadorDialogo--;            
+            }  
+
+            break;       
         }
 
     }
@@ -116,8 +124,8 @@ public class MetodosDialogo
             Console.WriteLine($"\n{Jogador.Nome}:");
             Console.WriteLine("— O que aconteceu?");
 
-            ConheceNpc(Jogador, Npc);
-            Console.WriteLine("— " + Npc.Dialogo.Introducao + "\n");
+            NomeNpc(Jogador, Npc);
+            Console.WriteLine("— " + Npc.Dialogo.Historia + "\n");
 
             if(Npc.Dialogo.HistoriaContinuacao != null)
             {
@@ -142,12 +150,12 @@ public class MetodosDialogo
                 Console.WriteLine($"\n{Jogador.Nome}:");
                 Console.WriteLine("— Não sei se confio no que você diz.");
 
-                ConheceNpc(Jogador, Npc);
+                NomeNpc(Jogador, Npc);
                 Console.WriteLine("— " + Npc.Dialogo.HistoriaContinuacao + "\n");
             }
-
-            ContadorDialogo--;              
-        }
+            
+            break;             
+        }      
       
     }
     public void ComoPossoAjudar(Jogador Jogador, Npc Npc)
@@ -159,7 +167,7 @@ public class MetodosDialogo
 
             if(Npc.Dialogo.Missao != null)
             {
-            ConheceNpc(Jogador, Npc);
+                NomeNpc(Jogador, Npc);
                 Console.WriteLine("— " + Npc.Dialogo.Missao + "\n");
 
                 Console.WriteLine("[1] Certo, posso ajudar.");
@@ -189,8 +197,8 @@ public class MetodosDialogo
                             Console.WriteLine($"\n{Jogador.Nome}:");
                             Console.WriteLine("— Certo, posso ajudar.");
 
-                            ConheceNpc(Jogador, Npc);
-                            Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoAceitada + "\n");
+                            NomeNpc(Jogador, Npc);
+                            Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", Jogador.Nome) + "\n");
 
                             Jogador.MissaoAtual = Npc.Missao;
 
@@ -208,13 +216,13 @@ public class MetodosDialogo
                         Console.WriteLine($"\n{Jogador.Nome}:");
                         Console.WriteLine("— Desculpa, não posso ajudar.");
 
-                        ConheceNpc(Jogador, Npc);
+                        NomeNpc(Jogador, Npc);
                         Console.WriteLine("— " + Npc.Dialogo.DespedidaMissaoRecusada + "\n");                    
                     break;
                 }
-            }        
+            }         
 
-            ContadorDialogo--;              
+            break;       
         }
       
     }

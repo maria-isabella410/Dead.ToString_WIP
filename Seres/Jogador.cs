@@ -6,6 +6,7 @@ using rpgMissao;
 using rpgLocal;
 using rpgConsumivel;
 using rpgSala;
+using rpgNpc;
 
 namespace rpgJogador;
 
@@ -18,9 +19,9 @@ public class Jogador : Pessoa
     public Boolean ColeteEquipado {get; set;} = false;
     public Boolean ContemMapa {get; set;} = false;
     public Boolean BillyEncontrado {get; set;} = false;
-    public Boolean ConheceNpc {get; set;} = false;
     public Missao? MissaoAtual {get; set;}
     public Local LocalAtual {get; set;}
+    public List<Npc> NpcsConhecidos {get; set;}
     public Sala? SalaAtual {get; set;}
 
     public Jogador(int vidamaxima, int vida, int ataque, int defesa, int agilidade, String nome, Local localatual, Sala? salaatual) : base(vidamaxima, vida, ataque, defesa, agilidade, nome)
@@ -28,6 +29,8 @@ public class Jogador : Pessoa
         this.Inventario = new Inventario(10);
         this.LocalAtual = localatual;
         this.SalaAtual = salaatual;
+
+        NpcsConhecidos = new List<Npc>();
     }
     public void EquiparArma(Arma arma)
     {
@@ -36,5 +39,9 @@ public class Jogador : Pessoa
     public void SeCurar(Consumivel consumivel)
     {
         this.Vida = Math.Min(Vida + consumivel.QtdVidaRecuperada, VidaMaxima);      
+    }
+    public void ConheceNpc(Npc npc)
+    {
+        NpcsConhecidos.Add(npc);
     }
 }
