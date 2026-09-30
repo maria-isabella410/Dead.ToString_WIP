@@ -285,7 +285,7 @@ public class Jogo
 
         MetodosDialogo MetodosDialogo = new MetodosDialogo();
 
-        MetodosDialogo.EscolherOpcao(Jogador, Npc);
+        MetodosDialogo.DialogoComNpc(Jogador, Npc, false); //arrumar dps
              
     }
     public void EscolherDirecao(Local local)
@@ -894,7 +894,9 @@ public class Jogo
                 if(opcaoConversa == 2)
                 {
                     return;
-                }              
+                } 
+
+                break;             
             }
         }
         else
