@@ -285,8 +285,14 @@ public class Jogo
 
         MetodosDialogo MetodosDialogo = new MetodosDialogo();
 
-        MetodosDialogo.DialogoComNpc(Jogador, Npc, false); //arrumar dps
-             
+        if (!Jogador.NpcsConhecidos.Contains(Npc))
+        {
+            MetodosDialogo.DialogoComNpc(Jogador, Npc, true); 
+        }
+        else
+        {
+            MetodosDialogo.DialogoComNpc(Jogador, Npc, false); 
+        }        
     }
     public void EscolherDirecao(Local local)
     {

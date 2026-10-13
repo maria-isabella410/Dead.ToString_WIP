@@ -1,10 +1,7 @@
 using rpgJogador;
 using rpgJogo;
 using rpgNpc;
-using rpgTopicoDialogo;
 using rpgMissao;
-using rpgNpc;
-using rpgDialogoOpcao;
 
 namespace rpgMetodosDialogo;
 
@@ -133,14 +130,34 @@ public class MetodosDialogo
                     PrecisaDeAjuda(Jogador, Npc, ofereceu_missao); 
                 }
 
-                if (ofereceu_missao && !aceitou_missao)
+                if(disse_quem_era && contou_oq_aconteceu && ofereceu_missao)
                 {
-                    
+                    Jogador.NpcsConhecidos.Add(Npc);
                 }
 
                 if (ofereceu_missao && aceitou_missao)
                 {
-                    
+                    Console.WriteLine("\n" + Npc.Nome);
+                    Console.WriteLine("— Estou esperando...");
+
+                    Console.WriteLine("\n[1] Estou trabalhando nisso.");
+                    Console.WriteLine("[0] Voltar");
+                    Jogo.DivisaoDeLinha();
+                    Console.Write("--> ");
+
+                    int respondeAguardo = Convert.ToInt32(Console.ReadLine());
+
+                    if(respondeAguardo == 0) return;
+
+                    if(respondeAguardo != 1)
+                    {
+                        Console.WriteLine("\nEntrada inválida!");
+
+                        continue;
+                    }
+
+                    Console.WriteLine($"\n{Jogador.Nome}:");
+                    Console.WriteLine("— Estou trabalhando nisso.");
                 }
                     
             }
@@ -148,7 +165,16 @@ public class MetodosDialogo
         }
         else
         {
-            
+            if (true)
+            {
+                //falta terminar
+            }
+            else
+            {
+               Console.WriteLine("Você já resolveu os problemas dessa pessoa."); 
+            }//falta terminar
+
+            return;
         }
 
         
@@ -417,23 +443,5 @@ public class MetodosDialogo
                 break;       
             }
         }
-        
-      
     }
-    // public void ContinuarDialogo(Npc npc)
-    // {
-    //     if(ContadorDialogo != 0) return;
-
-    //     if (npc.ConversouTudo && !Missao.MissaoValida(Jogador))
-    //     {
-    //         ConheceNpc(Jogador, npc);
-    //         Console.WriteLine("\nEstou esperando...");
-    //     } else if(npc.ConversouTudo && Missao.MissaoValida(Jogador))
-    //     {
-    //         ConheceNpc(Jogador, npc);
-    //         Console.WriteLine(npc.Dialogo.MissaoConcluida.Replace("{nome}", Jogador.Nome));
-
-    //         //arrumar dps
-    //     }
-    // }
 }
