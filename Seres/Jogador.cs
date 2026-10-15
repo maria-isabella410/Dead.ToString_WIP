@@ -23,6 +23,7 @@ public class Jogador : Pessoa
     public Local LocalAtual {get; set;}
     public List<Npc> NpcsConhecidos {get; set;}
     public Sala? SalaAtual {get; set;}
+    public Boolean AceitouMissao {get; set;} = false;
 
     public Jogador(int vidamaxima, int vida, int ataque, int defesa, int agilidade, String nome, Local localatual, Sala? salaatual) : base(vidamaxima, vida, ataque, defesa, agilidade, nome)
     {
