@@ -285,14 +285,7 @@ public class Jogo
 
         MetodosDialogo MetodosDialogo = new MetodosDialogo();
 
-        if (!Jogador.NpcsConhecidos.Contains(Npc))
-        {
-            MetodosDialogo.DialogoComNpc(Jogador, Npc, true); 
-        }
-        else
-        {
-            MetodosDialogo.DialogoComNpc(Jogador, Npc, false); 
-        }        
+        MetodosDialogo.DialogoComNpc(Jogador, Npc);      
     }
     public void EscolherDirecao(Local local)
     {
