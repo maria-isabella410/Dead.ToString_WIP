@@ -111,7 +111,6 @@ public class MetodosDialogo
             }
 
             Console.WriteLine("[0] Sair da conversa");
-            Jogo.DivisaoDeLinha();
 
             int escolha = -1;
 
@@ -179,7 +178,6 @@ public class MetodosDialogo
 
             Console.WriteLine("[1] Me chamo...");
             Console.WriteLine("[0] Voltar");
-            Jogo.DivisaoDeLinha();
             
             if(ValidarInput(1) == 0)
             {
@@ -219,7 +217,6 @@ public class MetodosDialogo
                     {
                         Console.WriteLine("[1] Não sei se confio no que você diz.");
                         Console.WriteLine("[0] Voltar");
-                        Jogo.DivisaoDeLinha();
 
                         if(ValidarInput(1) == 0)
                         {
@@ -258,7 +255,7 @@ public class MetodosDialogo
                     {
                         Console.WriteLine("[1] Ainda não sei se confio no que você diz.");
                         Console.WriteLine("[0] Voltar");
-                        Jogo.DivisaoDeLinha();
+
                         
                         if(ValidarInput(1) == 0)
                         {
@@ -303,7 +300,6 @@ public class MetodosDialogo
                         Console.WriteLine("[1] Certo, posso ajudar.");
                         Console.WriteLine("[2] Desculpa, não posso ajudar.");
                         Console.WriteLine("[0] Voltar");
-                        Jogo.DivisaoDeLinha();
 
                         int resposta = ValidarInput(2);
 
@@ -371,7 +367,6 @@ public class MetodosDialogo
                         Console.WriteLine("[1] Certo, posso ajudar.");
                         Console.WriteLine("[2] Desculpa, não posso ajudar.");
                         Console.WriteLine("[0] Voltar");
-                        Jogo.DivisaoDeLinha();
                         
                         int resposta = ValidarInput(2);
 

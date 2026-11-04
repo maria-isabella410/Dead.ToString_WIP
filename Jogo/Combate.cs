@@ -34,15 +34,13 @@ public class Combate
     private enum opcoesMenu
     {
         Atacar = 1,
-        Desviar = 2,
-        EquiparArma = 3,
-        Recarregar = 4,
+        EquiparArma = 2,
+        Recarregar = 3,
         Info = 0
     }
 
     private void StatusGeral()
     {
-        Jogo.DivisaoDeLinha();
         Console.WriteLine($"Jogador: [{Jogador.Vida} / {Jogador.VidaMaxima}] HP");
         Console.WriteLine($"Zombie: [{Zombie.Vida} / {Zombie.VidaMaxima}] HP");
         if(Jogador.ArmaEquipada != null)
@@ -58,27 +56,24 @@ public class Combate
     }
     private void Menu()
     {
-        Jogo.DivisaoDeLinha();
-        Console.WriteLine("O que quer fazer?");
-        Jogo.DivisaoDeLinha();
+        Console.WriteLine("O que quer fazer? (0 para Fugir.)");
         Console.WriteLine("[1] Atacar");
-        Console.WriteLine("[2] Desviar");
-        Console.WriteLine("[3] Equipar Arma");
-        Console.WriteLine("[4] Recarregar");
-        Console.WriteLine("[0] Info");
-        Jogo.DivisaoDeLinha();
+        Console.WriteLine("[2] Equipar Arma");
+        Console.WriteLine("[3] Recarregar");
         Console.Write("--> ");
     }
     private void TurnoJogador()
     {
-        StatusGeral();
+        bool acaoValida = false;
 
-        Menu();
-
-        int opcao = Convert.ToInt32(Console.ReadLine());
-
-        while (true)
+        while (!acaoValida)
         {
+            StatusGeral();
+
+            Menu();
+
+            int opcao = Convert.ToInt32(Console.ReadLine());
+
             if(opcao < 0 || opcao > 4)
             {
                 Console.WriteLine("\nEntrada inválida!");
@@ -87,155 +82,89 @@ public class Combate
             }
             opcoesMenu escolha = (opcoesMenu)opcao;
 
-            if(escolha == opcoesMenu.Info)
-            {
-                Jogo.DivisaoDeLinha();
-
-                Console.WriteLine("Ao escolher [1] Atacar, será seu [Ataque - Defesa] do zombie. Você não pode atacar sem uma arma em mãos. O zombie vai tentar desviar.\n");
-                
-                Console.WriteLine("Ao escolher [2] Desviar, você tenta desviar e, se conseguir, diminui pela metade o dano do Ataque do zombie. Mas se não conseguir, você tomará 1/3 a mais de dano.\n");
-                
-                Console.WriteLine("Ao escolher [3] Equipar Arma, você escolhe uma de suas armas para empunhar.\n");
-                
-                Console.WriteLine("Ao escolher [4] Recarregar, você recarrega a arma que tem em mãos.\n");
-
-                break;
-            }
-
-            int danoTomado = 0;
-
             switch(escolha)
             {
                 case opcoesMenu.Atacar:
                     if(Jogador.ArmaEquipada == null)
                     {
-                        Console.WriteLine("\nVocê está sem armas!");
+                        Console.WriteLine("\nVocê está sem armas equipadas! Escolha 'Equipar Arma' primeiro.");
 
                         break;
                     }
-                    if(Jogador.ArmaEquipada.TemMunicao())
+                    if(!Jogador.ArmaEquipada.TemMunicao())
                     {
-                        Jogador.ArmaEquipada.GastarMunicao();
+                        Console.WriteLine("\nA arma está sem munição! Você precisa recarregar.");
 
-                        danoTomado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
-                            
-                        if(Jogador.BonusDesvio)
-                        {
-                            Zombie.TomarDano(danoTomado + (danoTomado / 2));
-                            Jogador.BonusDesvio = false;
-                        }
-                        else
-                        {
-                            Zombie.TomarDano(danoTomado);
-                        }
-
-                        Jogo.DivisaoDeLinha();
-
-                        Console.WriteLine("\nVocê atacou o zombie!");
-
-                        Console.WriteLine($"\nVocê deu {danoTomado} de dano!");
-
-                        Console.WriteLine($"\nA vida do zombie é: [{Zombie.Vida} / {Zombie.VidaMaxima}]");
-
-                        Jogo.DivisaoDeLinha();
+                        break;
                     }
-                    else
-                    {
-                        Jogo.DivisaoDeLinha();
 
-                        Console.WriteLine("\nEssa arma não está carregada, então você não pode usá-la.");
+                    Jogador.ArmaEquipada.GastarMunicao();
+
+                    int danoTomado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
                         
-                        Jogo.DivisaoDeLinha();
-                    }
-
-                    break;
-                case opcoesMenu.Desviar:
-                    if(TentarDesviar(Jogador, Zombie))
+                    if(Jogador.BonusDesvio)
                     {
-                        Jogo.DivisaoDeLinha();
-
-                        Console.WriteLine("\nVocê desviou do ataque e garantiu 50% a mais de dano no próximo ataque!");
-
-                        Jogo.DivisaoDeLinha();
-
-                        Jogador.BonusDesvio = true;
+                        Zombie.TomarDano(danoTomado + (danoTomado / 2));
+                        Jogador.BonusDesvio = false;
                     }
                     else
                     {
-                        danoTomado = CalcularDano(null, Zombie, Jogador);
-
-                        int danoTomadoTotal = danoTomado + (danoTomado / 3);
-
-                        Jogador.TomarDano(danoTomadoTotal);
-
-                        Jogo.DivisaoDeLinha();
-
-                        Console.WriteLine("Você não conseguiu desviar!");
-
-                        Console.WriteLine($"Você tomou {danoTomadoTotal} de dano! [{danoTomado} + {danoTomado / 3} (Adicional de 1/3)]");
-                    
-                        Jogo.DivisaoDeLinha();
+                        Zombie.TomarDano(danoTomado);
                     }
+
+                    Console.WriteLine("\nVocê atacou o zombie!");
+
+                    Console.WriteLine($"\nVocê deu {danoTomado} de dano!");
+
+                    Console.WriteLine($"\nA vida do zombie é: [{Zombie.Vida} / {Zombie.VidaMaxima}]");
+
+                    acaoValida = true;                    
 
                     break;
                 case opcoesMenu.EquiparArma:
-                    Jogo.DivisaoDeLinha();
 
                     Console.WriteLine("\nQual arma deseja equipar?\n");
 
                     List<Arma> armas = Jogador.Inventario.ListarArmas();
+
+                    if (armas.Count == 0)
+                    {
+                        Console.WriteLine("Seu inventário não tem armas!");
+                        break;
+                    }
 
                     for(int i = 0; i < armas.Count; i++)
                     {
                         Console.WriteLine($"[{i + 1}] {armas[i].Nome}");
                     }
 
-                    Jogo.DivisaoDeLinha();
-
                     Console.Write("--> ");
 
-                    int escolhaArma = Convert.ToInt32(Console.ReadLine());
-
-                    if(escolhaArma < 0 || escolhaArma > armas.Count)
+                    if (int.TryParse(Console.ReadLine(), out int escolhaArma) && escolhaArma >= 1 && escolhaArma <= armas.Count)
                     {
-                        Console.WriteLine("\nEntrada inválida");
+                        Jogador.EquiparArma(armas[escolhaArma - 1]);
+                        Console.WriteLine("\nVocê equipou: " + Jogador.ArmaEquipada.Nome);
+                        acaoValida = true;
                     }
                     else
                     {
-                        Jogador.EquiparArma(armas[escolhaArma - 1]);
-
-                        Console.WriteLine("\nVocê equipou: " + Jogador.ArmaEquipada.Nome);
+                        Console.WriteLine("\nEscolha de arma inválida.");
                     }
-
                     break;
                 case opcoesMenu.Recarregar:
                     if(Jogador.ArmaEquipada != null && Jogador.ArmaEquipada.PodeRecarregar())
                     {
                         Jogador.ArmaEquipada.Recarregar(Jogador.ArmaEquipada);
+                        Console.WriteLine("\nVocê recarregou a arma.");
+                        acaoValida = true;
                     }
                     else
                     {
-                        Jogo.DivisaoDeLinha();
-
                         Console.WriteLine("\nNão é possível recarregar!");
-
-                        Jogo.DivisaoDeLinha();
                     }
-
                     break;
-                default:
-                    Jogo.DivisaoDeLinha();
-
-                    Console.WriteLine("\nEntrada inválida!");
-
-                    Jogo.DivisaoDeLinha();
-
-                    break;
-            }
-
+            }           
         }
-
-
     }
     private void TurnoZombie()
     {

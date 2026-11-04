@@ -9,6 +9,8 @@ public class Local
 {
     public String Nome {get; private set;}
     public String Descricao {get; private set;}
+
+    public Boolean FoiVisitado { get; set; } = false;
     public Local? Norte {get; set;}
     public Local? Sul {get; set;}
     public Local? Leste {get; set;}
