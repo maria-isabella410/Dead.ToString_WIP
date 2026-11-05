@@ -24,11 +24,19 @@ public class Combate
         {
             TurnoJogador();
 
-            if(VerificarFim()) break;
+            if (!Jogador.EstaVivo())
+            {
+                Console.WriteLine("Você está morto! Que tal tentar de novo?");
+
+                break;
+            }
 
             TurnoZombie();
 
-            if(VerificarFim()) break;
+            if (!Zombie.EstaVivo())
+            {
+                Console.WriteLine("Você matou o zombie!");
+            }
         }
     }
     private enum opcoesMenu
@@ -36,6 +44,7 @@ public class Combate
         Atacar = 1,
         EquiparArma = 2,
         Recarregar = 3,
+        AbrirInventario = 4,
         Info = 0
     }
 
@@ -60,6 +69,7 @@ public class Combate
         Console.WriteLine("[1] Atacar");
         Console.WriteLine("[2] Equipar Arma");
         Console.WriteLine("[3] Recarregar");
+        Console.WriteLine("[4] Abrir inventário");
         Console.Write("--> ");
     }
     private void TurnoJogador()
@@ -192,25 +202,17 @@ public class Combate
         dano -= defensor.Defesa;
 
         //variabilidade de dano para nao ficar estatico
-        dano += random.Next(-3, 4);
+        dano += random.Next(-4, 5);
 
         return Math.Max(1, dano);
     }
-    private Boolean VerificarFim()
-    {
-        if(!Jogador.EstaVivo() || !Zombie.EstaVivo())
-        {
-            return true;
-        }
-        else return false;
-    }
-    private Boolean TentarDesviar(SerVivo defensor, SerVivo atacante)
-    {
-        int chance = 20 + defensor.Agilidade - atacante.Agilidade;
+    // private Boolean TentarDesviar(SerVivo defensor, SerVivo atacante)
+    // {
+    //     int chance = 20 + defensor.Agilidade - atacante.Agilidade;
 
-        chance = Math.Clamp(chance, 5, 80);
+    //     chance = Math.Clamp(chance, 5, 80);
 
-        return random.Next(100) < chance;
-    }
+    //     return random.Next(100) < chance;
+    // }
     
 }

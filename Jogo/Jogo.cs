@@ -51,7 +51,7 @@ public class Jogo
 
         String nomeJogador = Console.ReadLine();
 
-        Jogador = new Jogador(100, 100, 15, 10, 25, nomeJogador, Mapa.ruaPrincipal, null);
+        Jogador = new Jogador(50, 50, 15, 10, 25, nomeJogador, Mapa.ruaPrincipal, null);
 
         Introducao(Jogador);
 
