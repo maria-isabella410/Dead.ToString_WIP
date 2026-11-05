@@ -15,15 +15,20 @@ using rpgMissoesDoJogo;
 using rpgItensDoJogo;
 using rpgInventario;
 using rpgArma;
+using rpgMenuInventario;
 
 namespace rpgJogo;
 
 public class Jogo
 {
-    private Jogador Jogador {get; set;}
-    private Boolean emExecucao {get; set;}
-    private Mapa Mapa {get; set;}
+    private Jogador Jogador;
+    private Boolean emExecucao; 
+    private Mapa Mapa;
     private Random random = new Random();
+    private Exploracao exploracao;
+    private Navegacao navegacao;
+    private GerenciadorMissoes gerenciadorMissoes;
+    private MenuInventario menuInventario;
 
     private static Boolean VerificaInputNum(int inputNum, int qntOpcoes)
     {
@@ -105,76 +110,7 @@ public class Jogo
 
         Encerrar();
     }
-    public void MenuPrincipal()
-    {
-        Console.WriteLine("O que quer fazer?");
-        Console.WriteLine("[1] Explorar");
-        Console.WriteLine("[2] Abrir mapa");
-        Console.WriteLine("[3] Abrir inventário");
-        Console.WriteLine("[4] Verificar status");
-        Console.WriteLine("[5] Ir para outro local");
-        Console.WriteLine("[0] Encerrar jogo");
-        Console.Write("--> ");
-    }
-    private enum opcoesMenu
-    {
-        Explorar = 1,
-        AbrirMapa = 2,
-        AbrirInventario = 3,
-        VerificarStatus = 4,
-        IrParaOutroLocal = 5,
-        EncerrarJogo = 0
-    }
-    private void MenuInventario()
-    {
-        Console.WriteLine("O que quer fazer? ([0] para Voltar)");
-        Console.WriteLine("[1] Inspecionar item");
-        Console.WriteLine("[2] Consumir item");
-        Console.WriteLine("[3] Descartar item");
-        Console.WriteLine("[4] Equipar arma");
-        if(Jogador.ArmaEquipada != null)
-        {
-            Console.WriteLine("[5] Desequipar arma");
-        }
-        Console.Write("--> "); 
-             
-    }
-    private enum opcoesInventario
-    {
-        InspecionarItem = 1,
-        ConsumirItem = 2,
-        DescartarItem = 3,
-        EquiparArma = 4,
-        DesequiparArma = 5
-    }
-    public void MenuMapa()
-    {
-        Console.WriteLine("[0] Voltar");
-        Console.Write("--> ");
-    }
-    // public void MenuExplorar()
-    // {
-    //     Console.WriteLine("[1] Explorar arredores");
-    //     Console.WriteLine("[0] Ir embora");        
-    // }
-    // private enum opcoesExplorar
-    // {
-    //     ExplorarArredores = 1
-    // }
-    public void MenuExplorar()
-    {
-        Console.WriteLine("O que quer fazer? ([0] para Voltar)");
-        Console.WriteLine("[1] Procurar itens");
-        Console.WriteLine("[2] Checar os arredores por zombies");
-        Console.WriteLine("[3] Procurar sobreviventes");
-        Console.Write("--> "); 
-    }
-    private enum opcoesExplorar
-    {
-        ProcurarItens = 1,
-        ChecarArredores = 2,
-        ProcurarSobreviventes = 3
-    }
+
     public void Introducao(Jogador Jogador)
     {        
         Console.WriteLine("O mundo como conhecíamos acabou...\n");
@@ -250,23 +186,6 @@ public class Jogo
                 }                
             }                      
         } 
-    }
-    public void MostrarStatus()
-    {
-        Console.WriteLine("Jogador: " + Jogador.Nome);
-        Console.WriteLine($"HP: [{Jogador.Vida} / {Jogador.VidaMaxima}]");
-        Console.WriteLine("Ataque: " + Jogador.Ataque);
-        Console.WriteLine("Defesa: " + Jogador.Defesa);
-        Console.WriteLine("Agilidade: " + Jogador.Agilidade);
-
-        if(Jogador.MissaoAtual != null)
-        {
-            Console.WriteLine("Missão atual: " + Jogador.MissaoAtual.NomeDaMissao);
-        }
-        if(Jogador.ArmaEquipada != null)
-        {
-            Console.WriteLine("Arma equipada: " + Jogador.ArmaEquipada.Nome);
-        }
     }
     public void ConversarComNpc(Npc Npc)
     {
@@ -422,211 +341,7 @@ public class Jogo
         }
         //arrumar dps
     }
-    public void AbrirInventario()
-    {
-        List<Item> itens = Jogador.Inventario.ListarItens();
 
-        Console.WriteLine($"\nInventário: [{Jogador.Inventario.EspacosOcupados} / {Jogador.Inventario.Capacidade}]\n");
-
-        if(itens.Count == 0)
-        {
-            Console.WriteLine("\nVocê não possui itens em seu inventário.");
-
-            return;
-        }
-
-        for(int i = 0; i < itens.Count; i++)
-        {
-            Console.WriteLine($"[{i + 1}] {itens[i].Nome}");
-        }
-
-        while (true)
-        {          
-            MenuInventario();
-
-            int opcaoInventario = Convert.ToInt32(Console.ReadLine());
-            
-            if(opcaoInventario == 0)
-            {
-                return;
-            } 
-
-            //arrumar dps o resto das verificacoes
-
-            if(Jogador.ArmaEquipada == null && opcaoInventario >= 5)
-            {
-                Console.WriteLine("\nEntrada inválida!");
-
-                continue;
-            }
-
-            if(opcaoInventario < 1 || opcaoInventario > 5)
-            {
-                Console.WriteLine("\nEntrada inválida!");
-
-                continue;
-            }
-
-            opcoesInventario escolhaInventario = (opcoesInventario)opcaoInventario;
-
-            switch (escolhaInventario)
-            {
-                case opcoesInventario.InspecionarItem:
-                    Console.WriteLine("Qual item deseja inspecionar? ([0] para Voltar)");
-
-                    for(int i = 0; i < itens.Count; i++)
-                    {
-                        Console.WriteLine($"[{i + 1}] {itens[i].Nome}");
-                    }
-
-                    Console.Write("--> ");
-
-                    int idInspecao = Convert.ToInt32(Console.ReadLine());
-
-                    if(idInspecao == 0)
-                    {
-                        break;
-                    }
-
-                    if(idInspecao < 1 || idInspecao > itens.Count)
-                    {
-                        Console.WriteLine("\nEntrada inválida!");
-
-                        continue;
-                    }
-
-                    Jogador.Inventario.InspecionarItem(itens[idInspecao - 1]);
-
-                break;
-                case opcoesInventario.ConsumirItem:
-                    List<Consumivel> consumiveis = Jogador.Inventario.ListarConsumiveis();
-                    
-                    if(consumiveis.Count == 0)
-                    {
-                        Console.WriteLine("\nVocê não possui nenhum consumível em seu inventário.");
-                        
-                        break;
-                    }
-                    if (Jogador.Vida.Equals(Jogador.VidaMaxima))
-                    {
-                        Console.WriteLine("\nSua vida está cheia, você não precisa consumir nenhum item.");
-
-                        break;
-                    }
-
-                    Console.WriteLine("Qual item deseja consumir? ([0] para Voltar)");
-
-                    for(int i = 0; i < consumiveis.Count; i++)
-                    {
-                        Console.WriteLine($"[{i + 1}] {consumiveis[i].Nome}");
-                    }
-
-                    Console.Write("--> ");
-
-                    int escolhaConsumivel = Convert.ToInt32(Console.ReadLine());
-
-                    if(escolhaConsumivel == 0)
-                    {
-                        break;
-                    }
-
-                    if(escolhaConsumivel < 1 || escolhaConsumivel > consumiveis.Count)
-                    {
-                        Console.WriteLine("\nEntrada inválida!");
-
-                        continue;
-                    }
-                    Jogador.SeCurar(consumiveis[escolhaConsumivel - 1]);
-                    Jogador.Inventario.DescartarItem(consumiveis[escolhaConsumivel - 1]);
-
-                    Console.WriteLine("\nVocê consumiu: " + consumiveis[escolhaConsumivel - 1].Nome);
-                    Console.WriteLine($"\nVida atual: [{Jogador.Vida} / {Jogador.VidaMaxima}]");
-
-                break;
-                case opcoesInventario.DescartarItem:
-                    Console.WriteLine("Qual item deseja descartar? ([0] para Voltar)");
-
-                    for(int i = 0; i < itens.Count; i++)
-                    {
-                        Console.WriteLine($"[{i + 1}] {itens[i].Nome}");
-                    }
-                    
-                    Console.Write("--> ");
-
-                    int idDescarte = Convert.ToInt32(Console.ReadLine());
-
-                    if(idDescarte == 0)
-                    {
-                        break;
-                    }
-
-                    if(idDescarte < 1 || idDescarte > itens.Count)
-                    {
-                        Console.WriteLine("\nEntrada inválida!");
-
-                        continue;
-                    }
-
-                    Item item = itens[idDescarte - 1];
-
-                    Jogador.Inventario.DescartarItem(item);
-
-                    Console.WriteLine($"\nO item {item.Nome} foi descartado!");
-                    Console.WriteLine($"\nInventário: [{Jogador.Inventario.EspacosOcupados} / {Jogador.Inventario.Capacidade}]");
-
-                break;
-                case opcoesInventario.EquiparArma:
-                    List<Arma> armas = Jogador.Inventario.ListarArmas();
-
-                    if(armas.Count == 0)
-                    {
-                        Console.WriteLine("\nVocê não possui armas em seu inventário.");
-
-                        break;
-                    }
-
-                    for(int i = 0; i < armas.Count; i++)
-                    {
-                        Console.WriteLine($"[{i + 1}] {armas[i].Nome}");
-                    }
-
-                    Console.WriteLine("Qual arma deseja equipar? ([0] para Voltar)");
-
-                    Console.Write("--> ");
-
-                    int opcaoArma = Convert.ToInt32(Console.ReadLine());
-
-                    if(opcaoArma == 0)
-                    {
-                        break;
-                    }
-
-                    if(opcaoArma < 1 || opcaoArma > itens.Count)
-                    {
-                        Console.WriteLine("\nEntrada inválida!");
-
-                        continue;
-                    }
-
-                    if(armas[opcaoArma - 1] == Jogador.ArmaEquipada)
-                    {
-                        Console.WriteLine("\nEssa arma já está equipada.");
-
-                        break;
-                    }
-
-                    Jogador.Inventario.EquiparArma(armas[opcaoArma - 1], Jogador);
-
-                break;
-                case opcoesInventario.DesequiparArma:
-                    Jogador.ArmaEquipada = null;
-
-                    Console.WriteLine("\nVocê desequipou sua arma.");
-                break;
-            }           
-        }
-        
-    }
     private void AbrirMapa(Mapa Mapa)
     {
         if (!Jogador.ContemMapa)
