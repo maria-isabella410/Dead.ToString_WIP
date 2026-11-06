@@ -1,17 +1,30 @@
+using rpgJogador;
+using rpgMapa;
+using rpgValidacaoInput;
+
 namespace rpgMenuPrincipal;
 
+public enum opcoesMenu
+{
+    Explorar = 1,
+    AbrirMapa = 2,
+    AbrirInventario = 3,
+    VerificarStatus = 4,
+    IrParaOutroLocal = 5,
+    EncerrarJogo = 0
+}
 public class MenuPrincipal
 {
-    private enum opcoesMenu
+    private Jogador jogador;
+    private Mapa mapa;
+    private ValidacaoInput validacaoInput = new ValidacaoInput();
+    
+    public MenuPrincipal(Jogador jogador, Mapa mapa)
     {
-        Explorar = 1,
-        AbrirMapa = 2,
-        AbrirInventario = 3,
-        VerificarStatus = 4,
-        IrParaOutroLocal = 5,
-        EncerrarJogo = 0
+        this.jogador = jogador;
+        this.mapa = mapa;
     }
-    public void menuPrincipal()
+    public void MostrarMenuPrincipal()
     {
         Console.WriteLine("O que quer fazer?");
         Console.WriteLine("[1] Explorar");
@@ -20,6 +33,17 @@ public class MenuPrincipal
         Console.WriteLine("[4] Verificar status");
         Console.WriteLine("[5] Ir para outro local");
         Console.WriteLine("[0] Encerrar jogo");
-        Console.Write("--> ");
+    }
+    public opcoesMenu ReceberOpcao()
+    {
+        int opcao = validacaoInput.OpcaoValidada(5);
+
+        return (opcoesMenu)opcao;
+    }
+    public void AbrirMapa()
+    {
+        if (!jogador.ContemMapa) Console.WriteLine("\nVocê não tem o mapa da cidade!");
+        else mapa.MostrarMapa();
+
     }
 }

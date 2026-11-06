@@ -10,7 +10,7 @@ public class StatusDisplay
     {
         this.jogador = jogador;
     }
-    public void mostrarStatus(Jogador jogador)
+    public void MostrarStatus(Jogador jogador)
     {
         Console.WriteLine("Jogador: " + jogador.Nome);
         Console.WriteLine($"HP: [{jogador.Vida} / {jogador.VidaMaxima}]");
