@@ -20,12 +20,12 @@ public class ValidacaoInput
     {
         while (true)
         {
-            string input = Console.ReadLine();
+            Console.Write("--> ");
+            string input = Console.ReadLine() ?? "0";
 
             if(!ValidarInputInt(input))
             {
                 Console.WriteLine("\nEntrada inválida! Digite apenas números.");
-                Console.Write("--> ");
                 continue;
             }
             int opcaoCorreta = TransformarEmInt(input);
@@ -33,7 +33,6 @@ public class ValidacaoInput
             while(!ValidarOpcaoEscolhida(opcaoCorreta, qtdOpcoes))
             {
                 Console.WriteLine($"\nOpção inválida! Escolha um número entre 0 e {qtdOpcoes}.");
-                Console.Write("--> ");
                 continue;
             }
             

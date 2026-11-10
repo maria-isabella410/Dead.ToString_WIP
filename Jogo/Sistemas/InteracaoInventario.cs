@@ -163,7 +163,10 @@ public class InteracaoInventario
 
                     jogador.Inventario.EquiparArma(armas[opcaoArma - 1], jogador);
 
-                    Console.WriteLine($"Você equipou: {jogador.ArmaEquipada.Nome}");
+                    if(jogador.ArmaEquipada != null)
+                    {
+                        Console.WriteLine($"Você equipou: {jogador.ArmaEquipada.Nome}");
+                    }                   
 
                 break;
                 case opcoesInventario.DesequiparArma:

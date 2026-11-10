@@ -10,7 +10,7 @@ public enum opcoesInventario
     DescartarItem = 3,
     EquiparArma = 4,
     DesequiparArma = 5
-}   
+} 
 public class MenuInventario
 {
     private Jogador jogador;

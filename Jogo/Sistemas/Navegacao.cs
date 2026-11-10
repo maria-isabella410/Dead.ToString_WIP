@@ -58,7 +58,7 @@ class Navegacao
         while (true)
         {
             Console.Write("--> ");
-            string entrada = Console.ReadLine();
+            string entrada = Console.ReadLine() ?? "";
 
             if (!string.IsNullOrEmpty(entrada))
             {

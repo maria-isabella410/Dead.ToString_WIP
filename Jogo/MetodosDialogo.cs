@@ -127,7 +127,7 @@ public class MetodosDialogo
             while (true)
             {
                 Console.Write("--> ");
-                string input = Console.ReadLine();
+                string input = Console.ReadLine() ?? "";
 
                 if(int.TryParse(input, out escolha))
                 {
@@ -234,8 +234,6 @@ public class MetodosDialogo
             }             
         } 
     }
-
-    //FALTA TERMINARRRRRR
       
     public void PrecisaDeAjuda(Boolean JaPerguntado)
     {
@@ -257,15 +255,15 @@ public class MetodosDialogo
                         Console.WriteLine("[2] Desculpa, não posso ajudar.");
                         Console.WriteLine("[0] Voltar");
 
-                        int resposta = validacaoInput.ValidarInput(2);
+                        int escolherAjudar = validacaoInput.OpcaoValidada(2);
 
-                        if(resposta == 0)
+                        if(escolherAjudar == 0)
                         {
                             return;
                         }
                         else
                         {
-                            switch (resposta)
+                            switch (escolherAjudar)
                             {
                                 case 1:
                                     if(jogador.MissaoAtual == null)
@@ -273,12 +271,16 @@ public class MetodosDialogo
                                         Console.WriteLine($"\n{jogador.Nome}:");
                                         Console.WriteLine("— Certo, posso ajudar.");
 
-                                        Console.WriteLine("\n" + npc.Nome);
-                                        Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome) + "\n");
+                                        if(npc.Dialogo.DespedidaMissaoAceitada != null)
+                                        {
+                                            Console.WriteLine("\n" + npc.Nome);
+                                            Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome) + "\n");
 
-                                        jogador.MissaoAtual = npc.Missao;
+                                            jogador.MissaoAtual = npc.Missao;
 
-                                        Missao.MissaoAceita(jogador);                        
+                                            Missao.MissaoAceita(jogador);
+                                        }
+                                                                
                                     }
                                     else
                                     {
@@ -324,14 +326,14 @@ public class MetodosDialogo
                         Console.WriteLine("[2] Desculpa, não posso ajudar.");
                         Console.WriteLine("[0] Voltar");
                         
-                        int resposta = validacaoInput.ValidarInput(2);
+                        int escolherAjudarDenovo = validacaoInput.OpcaoValidada(2);
 
-                        if(resposta == 0)
+                        if(escolherAjudarDenovo == 0)
                         {
                             return;
                         }
 
-                        switch (resposta)
+                        switch (escolherAjudarDenovo)
                         {
                             case 1:
                                 if(jogador.MissaoAtual == null)
@@ -339,12 +341,15 @@ public class MetodosDialogo
                                     Console.WriteLine($"\n{jogador.Nome}:");
                                     Console.WriteLine("— Certo, posso ajudar.");
 
-                                    Console.WriteLine("\n" + npc.Nome);
-                                    Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome) + "\n");
+                                    if(npc.Dialogo.DespedidaMissaoAceitada != null)
+                                    {
+                                        Console.WriteLine("\n" + npc.Nome);
+                                        Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome) + "\n");
 
-                                    jogador.MissaoAtual = npc.Missao;
+                                        jogador.MissaoAtual = npc.Missao;
 
-                                    Missao.MissaoAceita(jogador);                        
+                                        Missao.MissaoAceita(jogador);  
+                                    }                                                          
                                 }
                                 else
                                 {

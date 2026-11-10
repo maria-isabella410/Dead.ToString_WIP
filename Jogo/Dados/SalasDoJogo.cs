@@ -14,52 +14,52 @@ public class SalasDoJogo
     public Mapa Mapa {get; private set;}
 
     //delegacia
-    private Sala recepcaoDelegacia;
-    private Sala vestiarioDelegacia;
-    private Sala salaDeArmas;
+    private Sala recepcaoDelegacia = null!;
+    private Sala vestiarioDelegacia = null!;
+    private Sala salaDeArmas = null!;
 
     //biblioteca
-    private Sala recepcaoBiblioteca;
-    private Sala salaEstudosBiblioteca;
-    private Sala salaDeArquivosBiblioteca;
+    private Sala recepcaoBiblioteca = null!;
+    private Sala salaEstudosBiblioteca = null!;
+    private Sala salaDeArquivosBiblioteca = null!;
 
     //mercado
-    private Sala corredoresMercado;
-    private Sala estoqueMercado;
-    private Sala escritorioGerenteMercado;
+    private Sala corredoresMercado = null!;
+    private Sala estoqueMercado = null!;
+    private Sala escritorioGerenteMercado = null!;
 
     //escola
-    private Sala patioEscola;
-    private Sala corredoresEscola;
-    private Sala refeitorioEscola;
-    private Sala enfermariaEscola;
-    private Sala salaDeAula;
+    private Sala patioEscola = null!;
+    private Sala corredoresEscola = null!;
+    private Sala refeitorioEscola = null!;
+    private Sala enfermariaEscola = null!;
+    private Sala salaDeAula = null!;
 
     //laboratório
-    private Sala hallEntradaLaboratorio;
-    private Sala salaDeSegurancaLaboratorio;
-    private Sala areaExperimentosLaboratorio;
+    private Sala hallEntradaLaboratorio = null!;
+    private Sala salaDeSegurancaLaboratorio = null!;
+    private Sala areaExperimentosLaboratorio = null!;
 
     //casa abandonada
-    private Sala salaCasa;
-    private Sala quartoCasa;
-    private Sala cozinhaCasa;
-    private Sala poraoCasa;
+    private Sala salaCasa = null!;
+    private Sala quartoCasa = null!;
+    private Sala cozinhaCasa = null!;
+    private Sala poraoCasa = null!;
 
     //igreja
-    private Sala presbiterioIgreja;
-    private Sala sacristiaIgreja;
+    private Sala presbiterioIgreja = null!;
+    private Sala sacristiaIgreja = null!;
 
     //posto de gasolina
-    private Sala lojaConvenienciaPosto;
-    private Sala patioPosto;
-    private Sala garagemPosto;
+    private Sala lojaConvenienciaPosto = null!;
+    private Sala patioPosto = null!;
+    private Sala garagemPosto = null!;
 
     //hospital
-    private Sala recepcaoHospital;
-    private Sala utiHospital;
-    private Sala necroterioHospital;
-    private Sala estoqueHospital;
+    private Sala recepcaoHospital = null!;
+    private Sala utiHospital = null!;
+    private Sala necroterioHospital = null!;
+    private Sala estoqueHospital = null!;
 
     public SalasDoJogo(Mapa mapa, Random random){
         this.random = random;

@@ -34,9 +34,12 @@ public class Missao
 
         foreach(Item item in itens)
         {
-            if(jogador.MissaoAtual.ItemNecessario == item)
+            if(jogador.MissaoAtual != null)
             {
-                contemItem = true;
+                if(jogador.MissaoAtual.ItemNecessario == item)
+                {
+                    contemItem = true;
+                }
             }
         }
         if(contemItem)
@@ -48,8 +51,12 @@ public class Missao
 
     public static void MissaoAceita(Jogador jogador)
     {
-        Console.WriteLine("\nVocê aceitou uma missão!");
-        Console.WriteLine("\nMissão: " + jogador.MissaoAtual.NomeDaMissao);
-        Console.WriteLine("\nObjetivo: " + jogador.MissaoAtual.Descricao);
+        if(jogador.MissaoAtual != null)
+        {
+            Console.WriteLine("\nVocê aceitou uma missão!");
+            Console.WriteLine("\nMissão: " + jogador.MissaoAtual.NomeDaMissao);
+            Console.WriteLine("\nObjetivo: " + jogador.MissaoAtual.Descricao);
+        }
+        
     }
 }

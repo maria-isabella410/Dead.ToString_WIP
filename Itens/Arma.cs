@@ -2,6 +2,7 @@ using System.Diagnostics.Metrics;
 using rpgItem;
 using rpgTipoArma;
 using rpgTipoMunicao;
+using rpgTipoItem;
 
 namespace rpgArma;
 
@@ -13,7 +14,7 @@ public class Arma : Item
     public int? CapacidadeMunicao {get; private set;} = null;
     public int? Municao {get; private set;} = null;
 
-    public Arma(String nome, String descricao, int dano, TipoArma tipo, TipoMunicao? tipomunicao, int? capacidademunicao, int? municao) : base(nome, descricao)
+    public Arma(String nome, String descricao, int dano, TipoArma tipo, TipoMunicao? tipomunicao, int? capacidademunicao, int? municao) : base(nome, descricao, TipoItem.Arma)
     {
         this.Dano = dano;
         this.Tipo = tipo;

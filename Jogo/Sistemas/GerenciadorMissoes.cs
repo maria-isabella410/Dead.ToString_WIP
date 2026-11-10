@@ -20,9 +20,15 @@ public class GerenciadorMissoes
         {
             jogador.MissaoAtual.Concluida = true;
 
-            jogador.Inventario.DescartarItem(jogador.MissaoAtual.ItemNecessario);
+            if(jogador.MissaoAtual.ItemNecessario != null)
+            {
+                jogador.Inventario.DescartarItem(jogador.MissaoAtual.ItemNecessario);
+            }
 
-            jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, jogador);
+            if(jogador.MissaoAtual.Recompensa != null)
+            {
+                jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, jogador);
+            }
                 
             if(jogador.MissaoAtual.Recompensa != null)
             {
@@ -40,6 +46,5 @@ public class GerenciadorMissoes
 
             jogador.MissaoAtual = null;
         }
-        //arrumar dps
     }
 }

@@ -153,8 +153,12 @@ public class Combate
                     if (int.TryParse(Console.ReadLine(), out int escolhaArma) && escolhaArma >= 1 && escolhaArma <= armas.Count)
                     {
                         Jogador.EquiparArma(armas[escolhaArma - 1]);
-                        Console.WriteLine("\nVocê equipou: " + Jogador.ArmaEquipada.Nome);
-                        acaoValida = true;
+
+                        if(Jogador.ArmaEquipada != null)
+                        {
+                            Console.WriteLine("\nVocê equipou: " + Jogador.ArmaEquipada.Nome);
+                            acaoValida = true;
+                        }
                     }
                     else
                     {
@@ -190,7 +194,7 @@ public class Combate
 
         Console.WriteLine($"\nSua vida atual é: [{Jogador.Vida} / {Jogador.VidaMaxima}]");
     }
-    private int CalcularDano(Arma arma, SerVivo atacante, SerVivo defensor)
+    private int CalcularDano(Arma? arma, SerVivo atacante, SerVivo defensor)
     {
         int dano = atacante.Ataque;
 

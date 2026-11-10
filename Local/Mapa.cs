@@ -10,19 +10,18 @@ namespace rpgMapa;
 public class Mapa
 {
     public List<Local> Locais {get; set;}
-    public Local ruaPrincipal {get; private set;}
-    public Local mercado {get; private set;}
-    public Local igreja {get; private set;}
-    public Local casaAbandonada {get; private set;}
-    public Local hospital {get; private set;}
-    public Local delegacia {get; private set;}
-    public Local postoDeGasolina {get; private set;}
-    public Local escola {get; private set;}
-    public Local floresta {get; private set;}
-    public Local biblioteca {get; private set;}
-    public Local laboratorio {get; private set;}
+    public Local ruaPrincipal {get; private set;} = null!;
+    public Local mercado {get; private set;} = null!;
+    public Local igreja {get; private set;} = null!;
+    public Local casaAbandonada {get; private set;} = null!;
+    public Local hospital {get; private set;} = null!;
+    public Local delegacia {get; private set;} = null!;
+    public Local postoDeGasolina {get; private set;} = null!;
+    public Local escola {get; private set;} = null!;
+    public Local floresta {get; private set;} = null!;
+    public Local biblioteca {get; private set;} = null!;
+    public Local laboratorio {get; private set;} = null!;
     private Random random {get; set;}
-
 
     public Mapa(Random random)
     {

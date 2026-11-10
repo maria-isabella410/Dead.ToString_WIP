@@ -7,6 +7,7 @@ using rpgPorta;
 using rpgTipoArma;
 using rpgTipoChave;
 using rpgTipoMunicao;
+using rpgTipoItem;
 
 namespace rpgItensDoJogo;
 
@@ -77,19 +78,19 @@ public class ItensDoJogo
     //itens comuns
     public static Item CriarMapaDaCidade()
     {
-        return new Item("Mapa da cidade", "Explorar a cidade se torna uma tarefa mais fácil. (Não ocupa espaço no inventário)");
+        return new Item("Mapa da cidade", "Explorar a cidade se torna uma tarefa mais fácil. (Não ocupa espaço no inventário)", TipoItem.Mapa);
     }
     public static Item CriarMochila()
     {
-        return new Item("Mochila", "Permite carregar um número maior de itens. (Inventário 10 -> 15)");
+        return new Item("Mochila", "Permite carregar um número maior de itens. (Inventário 10 -> 15)", TipoItem.Mochila);
     }
     public static Item CriarPeDeCabra()
     {
-        return new Item("Pé de cabra", "Portas emperradas não serão mais um problema.");
+        return new Item("Pé de cabra", "Portas emperradas não serão mais um problema.", TipoItem.PeDeCabra);
     }
     public static Item CriarColete()
     {
-        return new Item("Colete balístico", "Graças ao material resistente, os ataques têm menos efeito.");
+        return new Item("Colete balístico", "Graças ao material resistente, os ataques têm menos efeito.", TipoItem.Colete);
     }
 
     //munição
@@ -105,14 +106,14 @@ public class ItensDoJogo
     //itens de missao
     public static Item CriarDiario()
     {
-        return new Item("Diário do Mark", "Onde o parceiro do cientista Freddie escreveu todas as descobertas sobre o vírus.");
+        return new Item("Diário do Mark", "Onde o parceiro do cientista Freddie escreveu todas as descobertas sobre o vírus.", TipoItem.Diario);
     }
     public static Item CriarColeira()
     {
-        return new Item("Coleira do Billy", "Uma coleira vermelha com o nome 'Billy' escrito.");
+        return new Item("Coleira do Billy", "Uma coleira vermelha com o nome 'Billy' escrito.", TipoItem.Coleira);
     }
     public static Item CriarCaixaBandagens()
     {
-        return new Item("Caixa de bandagens", "Uma caixa com 3 bandagens. Que sorte.");
+       return new Item("Caixa de bandagens", "Uma caixa com 3 bandagens. Que sorte.", TipoItem.CaixaBandagem);
     }
 }

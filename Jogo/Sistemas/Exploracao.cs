@@ -8,6 +8,7 @@ using rpgCombate;
 using rpgMetodosDialogo;
 using rpgNavegacao;
 using rpgValidacaoInput;
+using rpgTipoItem;
 
 namespace rpgExploracao;
 
@@ -15,24 +16,24 @@ public class Exploracao
 {
     private Jogador jogador;
     private MenuExploracao menuExploracao;
-    private MetodosDialogo metodosDialogo;
     private Navegacao navegacao;
     private ValidacaoInput validacaoInput;
     private Random random;
 
-    public Exploracao(Jogador jogador)
+    public Exploracao(Jogador jogador, Random random)
     {
         this.jogador = jogador;
         menuExploracao = new MenuExploracao();
         navegacao = new Navegacao(jogador);
         validacaoInput = new ValidacaoInput();
+        this.random = random;
     }
-    public void Explorar(Random random)
+    public void Explorar()
     {
         List<Item> itensLocal = jogador.LocalAtual.Itens;
         List<Zombie> zombiesLocal = jogador.LocalAtual.Zombies;
         List<Npc> npcsLocal = jogador.LocalAtual.Npcs;
-
+        
         Console.WriteLine($"Local atual: {jogador.LocalAtual.Nome}\n");
         
         if(jogador.LocalAtual.Salas.Count != 0)
@@ -107,7 +108,7 @@ public class Exploracao
 
                 Item item = itensLocal[escolhaItemColetar - 1];
 
-                if(item == ItensDoJogo.CriarMochila() || item == ItensDoJogo.CriarColete())
+                if(item.tipoItem == TipoItem.Mochila || item.tipoItem == TipoItem.Colete)
                 {
                     jogador.Inventario.EquiparItem(item, jogador);
 
@@ -118,11 +119,11 @@ public class Exploracao
                     return;
                 }
 
-                if(item == ItensDoJogo.CriarMapaDaCidade())
+                if(item.tipoItem == TipoItem.Mapa)
                 {
                     jogador.Inventario.EquiparItem(item, jogador);
 
-                    Console.WriteLine($"\nVocê guardou o item: {itensLocal[escolhaItemColetar - 1].Nome}");
+                    Console.WriteLine($"\nVocê guardou o item: Mapa");
 
                     itensLocal.RemoveAt(escolhaItemColetar - 1);
 
@@ -166,6 +167,7 @@ public class Exploracao
             while (true)
             {
                 Console.WriteLine("[1] Lutar");
+                Console.WriteLine("[0] Fugir");
 
                 int escolhaCombate = validacaoInput.OpcaoValidada(1);
 
@@ -205,7 +207,7 @@ public class Exploracao
                     }
                 }
                    
-                if(escolhaCombate == 2)
+                if(escolhaCombate == 0)
                 {
                     if(zombiesLocal.Count == 1)
                     {
@@ -243,13 +245,9 @@ public class Exploracao
 
                 if(escolhaConversa == 1)
                 {
-                    metodosDialogo = new MetodosDialogo(jogador, npcsLocal[0]);
+                    var metodosDialogo = new MetodosDialogo(jogador, npcsLocal[0]);
+                    metodosDialogo.DialogoComNpc();
                 }               
-
-                if(escolhaConversa == 2)
-                {
-                    return;
-                } 
 
                 break;             
             }

@@ -1,8 +1,7 @@
 using rpgExploracao;
+using rpgInteracaoInventario;
 using rpgJogador;
 using rpgMapa;
-using rpgMenuExploracao;
-using rpgMenuInventario;
 using rpgMenuPrincipal;
 using rpgNavegacao;
 using rpgStatusDisplay;
@@ -11,26 +10,20 @@ namespace rpgJogo;
 
 public class Jogo
 {
-    private Jogador Jogador;
+    private Jogador Jogador = null!;
     private Boolean emExecucao; 
-    private Mapa Mapa;
+    private Mapa Mapa = null!;
     private Random random = new Random();
-    private MenuPrincipal menuPrincipal;
-    private Exploracao exploracao;
-    private MenuInventario menuInventario;
-    private StatusDisplay statusDisplay;
-    private Navegacao navegacao;
+    private MenuPrincipal menuPrincipal = null!;
+    private Exploracao exploracao = null!;
+    private InteracaoInventario interacaoInventario = null!;
+    private StatusDisplay statusDisplay = null!;
+    private Navegacao navegacao = null!;
     public void Iniciar()
     {
         emExecucao = true;
 
         Mapa = new Mapa(random);
-
-        menuPrincipal = new MenuPrincipal(Jogador, Mapa);
-        menuInventario = new MenuInventario(Jogador);
-        statusDisplay = new StatusDisplay(Jogador);
-        navegacao = new Navegacao(Jogador);
-        exploracao = new Exploracao(Jogador);
 
         Console.WriteLine("\nOlá, jogador! Seja bem-vindo(a) ao << Dead.ToString() >> !\n");
         Console.WriteLine("Durante essa jornada, qual será seu nome?\n");
@@ -40,7 +33,7 @@ public class Jogo
         while (true)
         {
             Console.Write("--> ");
-            nomeJogador = Console.ReadLine();
+            nomeJogador = Console.ReadLine() ?? "";
 
             if (string.IsNullOrWhiteSpace(nomeJogador))
             {
@@ -66,6 +59,12 @@ public class Jogo
 
         Jogador = new Jogador(50, 50, 15, 10, 25, nomeJogador, Mapa.ruaPrincipal, null);
 
+        menuPrincipal = new MenuPrincipal(Jogador, Mapa);
+        interacaoInventario = new InteracaoInventario(Jogador);
+        statusDisplay = new StatusDisplay(Jogador);
+        navegacao = new Navegacao(Jogador);
+        exploracao = new Exploracao(Jogador, random);
+
         Introducao(Jogador);
 
         while (emExecucao)
@@ -77,7 +76,7 @@ public class Jogo
             switch (escolha)
             {
                 case opcoesMenu.Explorar:
-                    exploracao.Explorar(random);
+                    exploracao.Explorar();
                 break;
 
                 case opcoesMenu.AbrirMapa:
@@ -85,7 +84,7 @@ public class Jogo
                 break;
                     
                 case opcoesMenu.AbrirInventario:
-                    menuInventario.MostrarMenuInventario();
+                    interacaoInventario.AbrirInventario();
                 break;
 
                 case opcoesMenu.VerificarStatus:
@@ -97,8 +96,6 @@ public class Jogo
                 break;
 
                 case opcoesMenu.EncerrarJogo:
-                    Encerrar();
-
                     emExecucao = false;
                 break;         
             }
