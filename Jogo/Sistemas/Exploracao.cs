@@ -49,7 +49,7 @@ public class Exploracao
                 zombiesLocal = jogador.SalaAtual.Zombies;
                 npcsLocal = jogador.SalaAtual.Npcs;
             }
-        }       
+        }    
 
         while (true)
         {            
@@ -236,6 +236,8 @@ public class Exploracao
     {
         if(npcsLocal.Count > 0)
         {   
+            var metodosDialogo = new MetodosDialogo(jogador, npcsLocal[0]);
+            
             Console.WriteLine($"Há uma pessoa aqui.\n");            
             Console.WriteLine($"Deseja interagir com ela?");
 
@@ -248,7 +250,6 @@ public class Exploracao
 
                 if(escolhaConversa == 1)
                 {
-                    var metodosDialogo = new MetodosDialogo(jogador, npcsLocal[0]);
                     metodosDialogo.DialogoComNpc();
                 }               
 

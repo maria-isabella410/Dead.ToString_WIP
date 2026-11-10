@@ -41,9 +41,10 @@ public class MetodosDialogo
 
                 acoesDisponiveis.Add(() =>
                 {
-                    QuemEvoce();
-
-                    npc.DisseQuemEra = true; 
+                    if (QuemEvoce())
+                    {
+                        npc.DisseQuemEra = true; 
+                    }                   
                 });
 
                 indice++;
@@ -150,7 +151,7 @@ public class MetodosDialogo
 
     }
 
-    public void QuemEvoce()
+    public Boolean QuemEvoce()
     {
         Console.WriteLine($"\n{jogador.Nome}:");
         Console.WriteLine("— Quem é você?");
@@ -162,11 +163,12 @@ public class MetodosDialogo
         Console.WriteLine("[0] Voltar");
 
         int escolhaResponderNome = validacaoInput.OpcaoValidada(1);
-        
-        if(escolhaResponderNome == 0)
+
+        if (escolhaResponderNome == 0)
         {
-            return;
+            return false;
         }
+        
         Console.WriteLine($"\n{jogador.Nome}:");
         Console.WriteLine($"— Me chamo {jogador.Nome}.");
 
@@ -175,6 +177,8 @@ public class MetodosDialogo
             Console.WriteLine("\n" + npc.Nome);
             Console.WriteLine("— " + npc.Dialogo.Introducao.Replace("{nome}", jogador.Nome + "\n"));
         }          
+
+        return true;
     }
     public void OqueAconteceu(Boolean JaPerguntado)
     {
@@ -310,6 +314,8 @@ public class MetodosDialogo
         }
         else
         {
+
+            //arrumar dps
             while (true)
             {
                 Console.WriteLine($"\n{jogador.Nome}:");
