@@ -88,7 +88,7 @@ Não é necessário configurar banco de dados, instalar dependências externas o
 1. Clone este repositório:
 
    ```bash
-   git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
+   git clone https://github.com/maria-isabella410/Dead.ToString_WIP.git
    ```
 
 2. Acesse a pasta do projeto:
