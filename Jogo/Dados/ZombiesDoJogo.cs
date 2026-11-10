@@ -7,11 +7,11 @@ public class ZombiesDoJogo
 {
     public static Zombie CriaZombieComumFraco()
     {
-        return new Zombie(50, 50, 10, 10, 10, TipoZombie.Comum, "Zombie Comum");
+        return new Zombie(50, 50, 15, 10, 10, TipoZombie.Comum, "Zombie Comum");
     }
     public static Zombie CriaZombieComumForte()
     {
-        return new Zombie(80, 80, 15, 10, 15, TipoZombie.Comum, "Zombie Armadurado");
+        return new Zombie(80, 80, 25, 10, 15, TipoZombie.Comum, "Zombie Armadurado");
     }
     public static Zombie CriaZombieJumper()
     {
@@ -19,11 +19,11 @@ public class ZombiesDoJogo
     }
     public static Zombie CriaZombieTank()
     {
-        return new Zombie(150, 150, 45, 35, 5, TipoZombie.Especial, "Zombie Tank");
+        return new Zombie(150, 150, 50, 35, 5, TipoZombie.Especial, "Zombie Tank");
     }
     public static Zombie CriaZombieFinal()
     {
-        return new Zombie(250, 250, 60, 45, 25, TipoZombie.Especial, "Zombie Mutante");
+        return new Zombie(250, 250, 80, 45, 25, TipoZombie.Especial, "Zombie Mutante");
     }
     
 }

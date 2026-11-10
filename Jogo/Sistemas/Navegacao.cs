@@ -96,8 +96,9 @@ class Navegacao
 
                     jogador.LocalAtual.FoiVisitado = true;
 
-                    Console.WriteLine("\nAgora, você está em: " + jogador.LocalAtual.Nome);
-                }                            
+                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
+                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
+                }                        
 
             break;
             case opcoesDirecao.Leste:
@@ -108,8 +109,9 @@ class Navegacao
 
                     jogador.LocalAtual.FoiVisitado = true;
 
-                    Console.WriteLine("\nAgora, você está em: " + jogador.LocalAtual.Nome);
-                }                              
+                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
+                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
+                }                     
                 
             break;
             case opcoesDirecao.Oeste:
@@ -120,8 +122,9 @@ class Navegacao
 
                     jogador.LocalAtual.FoiVisitado = true;
 
-                    Console.WriteLine("\nAgora, você está em: " + jogador.LocalAtual.Nome);
-                }                              
+                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
+                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
+                }           
                 
             break;
             case opcoesDirecao.Sul:
@@ -132,25 +135,29 @@ class Navegacao
 
                     jogador.LocalAtual.FoiVisitado = true;
 
-                    Console.WriteLine("\nAgora, você está em: " + jogador.LocalAtual.Nome);
-                }                              
+                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
+                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
+                }           
         
             break;
-            default:
-                Console.WriteLine("\nEntrada inválida!");
+        }
 
-            break;
+        if(jogador.LocalAtual.Salas != null)
+        {
+            EscolherSala();
         }
     } 
     public void EscolherSala()
     {
+        //Console.WriteLine($"[DEBUG] {jogador.LocalAtual.Nome} tem {jogador.LocalAtual.Salas.Count} salas");
+        
         if(jogador.SalaAtual != null)
         {
-            Console.WriteLine($"Sala atual: {jogador.SalaAtual.Nome}\n");
-            Console.WriteLine(jogador.SalaAtual.Descricao + "\n");
+            Console.WriteLine($"\nSala atual: {jogador.SalaAtual.Nome}");
+            Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");
         } 
 
-        Console.WriteLine("Para onde deseja ir? ([0] para Voltar)");
+        Console.WriteLine("Para onde deseja ir? (0 para Voltar)");
 
         List<Sala> salasDisponiveis = jogador.LocalAtual.Salas.Where(sala => sala != jogador.SalaAtual).ToList();
 
@@ -174,7 +181,7 @@ class Navegacao
 
             if(escolhaSala == 0)
             {
-                return;
+                break;
             }
 
             Sala salaEscolhida = salasDisponiveis[escolhaSala - 1];
@@ -206,15 +213,15 @@ class Navegacao
                 {
                     Console.WriteLine("\nVocê não tem a chave necessária para abrir essa porta.");
 
-                    return;
+                    break;
                 } 
             }
             jogador.SalaAtual = salaEscolhida;
 
-            Console.WriteLine($"\nAgora, você está em: < {jogador.SalaAtual.Nome} >\n");
-            Console.WriteLine(jogador.SalaAtual.Descricao);                
+            Console.WriteLine($"\nAgora, você está em: < {jogador.SalaAtual.Nome} >");
+            Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");                
         
-            return;
+            break;
         }                 
     }       
 }

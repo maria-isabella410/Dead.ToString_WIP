@@ -25,7 +25,7 @@ public class Jogo
 
         Mapa = new Mapa(random);
 
-        Console.WriteLine("\nOlá, jogador! Seja bem-vindo(a) ao << Dead.ToString() >> !\n");
+        Console.WriteLine("\nOlá, jogador! Seja bem-vindo(a) ao << Dead.ToString() >> !");
         Console.WriteLine("Durante essa jornada, qual será seu nome?\n");
 
         string nomeJogador;

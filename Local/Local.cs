@@ -47,9 +47,4 @@ public class Local
     {
         Salas.Add(sala);
     }
-    public static void DescreverLocal(Local local)
-    {
-        Console.WriteLine("Local: " + local.Nome);
-        Console.WriteLine("\nDescrição: " + local.Descricao);
-    }
 }

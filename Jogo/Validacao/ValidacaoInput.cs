@@ -21,7 +21,7 @@ public class ValidacaoInput
         while (true)
         {
             Console.Write("--> ");
-            string input = Console.ReadLine() ?? "0";
+            string input = Console.ReadLine() ?? "";
 
             if(!ValidarInputInt(input))
             {
@@ -30,7 +30,7 @@ public class ValidacaoInput
             }
             int opcaoCorreta = TransformarEmInt(input);
 
-            while(!ValidarOpcaoEscolhida(opcaoCorreta, qtdOpcoes))
+            if(!ValidarOpcaoEscolhida(opcaoCorreta, qtdOpcoes))
             {
                 Console.WriteLine($"\nOpção inválida! Escolha um número entre 0 e {qtdOpcoes}.");
                 continue;

@@ -115,7 +115,7 @@ public class Inventario
     {
         jogador.ArmaEquipada = arma;
 
-        Console.WriteLine("Você equipou a: " + arma.Nome);
+        Console.WriteLine("Você equipou: " + arma.Nome);
     }
     public void DescartarItem(Item item)
     {

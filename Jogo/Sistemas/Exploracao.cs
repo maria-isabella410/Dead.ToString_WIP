@@ -48,9 +48,7 @@ public class Exploracao
                 itensLocal = jogador.SalaAtual.Itens;
                 zombiesLocal = jogador.SalaAtual.Zombies;
                 npcsLocal = jogador.SalaAtual.Npcs;
-            } 
-
-            Console.WriteLine("O que deseja fazer? ([0] para Voltar)");
+            }
         }       
 
         while (true)
@@ -113,6 +111,11 @@ public class Exploracao
                     jogador.Inventario.EquiparItem(item, jogador);
 
                     Console.WriteLine($"\nVocê equipou o item: {itensLocal[escolhaItemColetar - 1].Nome}");
+
+                    if(item.tipoItem == TipoItem.Mochila)
+                    {
+                        jogador.Inventario.Capacidade = 15;
+                    }
 
                     itensLocal.RemoveAt(escolhaItemColetar - 1);
 

@@ -3,7 +3,7 @@ using rpgNpcsDoJogo;
 using rpgItensDoJogo;
 using rpgZombiesDoJogo;
 using rpgJogador;
-using rpgPortasDoJogo;
+using rpgSalasDoJogo;
 
 namespace rpgMapa;
 
@@ -21,18 +21,21 @@ public class Mapa
     public Local floresta {get; private set;} = null!;
     public Local biblioteca {get; private set;} = null!;
     public Local laboratorio {get; private set;} = null!;
+    private SalasDoJogo salasDoJogo = null!;
     private Random random {get; set;}
 
     public Mapa(Random random)
     {
         Locais = new List<Local>();
-        this.random = new Random();
+        this.random = random;
 
         CriarLocais();
         ConectarLocais();
         AdicionarItens();
         AdicionarNpcs();
         AdicionarZombies();
+
+        salasDoJogo = new SalasDoJogo(this, random);
     }
     private bool Chance(int porcentagem)
     {
@@ -190,7 +193,7 @@ public class Mapa
     }
     public void MostrarLocalAtual(Jogador jogador)
     {
-        Console.WriteLine("\nAtualmente, você está em: \n");
-        Local.DescreverLocal(jogador.LocalAtual);
+        Console.WriteLine($"\nAtualmente, você está em: < {jogador.LocalAtual.Nome} >");
+        Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
     }
 }

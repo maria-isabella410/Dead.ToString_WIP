@@ -226,10 +226,39 @@ public class SalasDoJogo
 
         salaDeArmas.AdicionarPorta(portaSalaDeArmas);
 
+        ///////////////////////
+
         salaDeAula = criarSalaDeAula(mapa);
+
+        Porta portaSalaDeAula = PortasDoJogo.CriarPortaSalaDeAula(mapa, salaDeAula);
+
+        salaDeAula.AdicionarPorta(portaSalaDeAula);
+
+        ///////////////////////
+
         salaDeArquivosBiblioteca = criarSalaDeArquivosBiblioteca(mapa);
+
+        Porta portaSalaDeArquivosBiblioteca = PortasDoJogo.CriarPortaSalaArquivos(mapa, salaDeArquivosBiblioteca);
+
+        salaDeArquivosBiblioteca.AdicionarPorta(portaSalaDeArquivosBiblioteca);
+
+        ///////////////////////
+        
         estoqueHospital = criarEstoqueHospital(mapa);
+
+        Porta portaEstoqueHospital = PortasDoJogo.CriarPortaEstoqueHospital(mapa, estoqueHospital);
+
+        estoqueHospital.AdicionarPorta(portaEstoqueHospital);
+
+        ///////////////////////
+        
         areaExperimentosLaboratorio = criarAreaExperimentosLaboratorio(mapa);
+
+        Porta portaAreaExperimentosLaboratorio = PortasDoJogo.CriarPortaAreaExperimentos(mapa, areaExperimentosLaboratorio);
+
+        areaExperimentosLaboratorio.AdicionarPorta(portaAreaExperimentosLaboratorio);
+
+        ///////////////////////
 
         recepcaoDelegacia = criarRecepcaoDelegacia(mapa);
         vestiarioDelegacia = criarVestiarioDelegacia(mapa);
@@ -363,11 +392,7 @@ public class SalasDoJogo
         if(Chance(20))
         {
             recepcaoBiblioteca.AdicionarItens(ItensDoJogo.CriarBandagem());
-        }
-        if(Chance(20))
-        {
-            recepcaoBiblioteca.AdicionarItens(ItensDoJogo.CriarBandagem());
-        }        
+        }     
 
         //mercado
         corredoresMercado.AdicionarItens(ItensDoJogo.CriarAgua());
@@ -521,10 +546,6 @@ public class SalasDoJogo
         recepcaoHospital.AdicionarItens(ItensDoJogo.CriarChaveEstoqueHospital());
         estoqueHospital.AdicionarItens(ItensDoJogo.CriarCaixaBandagens());
 
-        if(Chance(50))
-        {
-            necroterioHospital.AdicionarItens(ItensDoJogo.CriarSpray());
-        }
         if(Chance(50))
         {
             necroterioHospital.AdicionarItens(ItensDoJogo.CriarSpray());

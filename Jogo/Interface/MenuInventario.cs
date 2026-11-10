@@ -22,7 +22,7 @@ public class MenuInventario
     }
     public void MostrarMenuInventario()
     {      
-        Console.WriteLine("O que quer fazer? ([0] para Voltar)");
+        Console.WriteLine("O que quer fazer? (0 para Voltar)");
         Console.WriteLine("[1] Inspecionar item");
         Console.WriteLine("[2] Consumir item");
         Console.WriteLine("[3] Descartar item");

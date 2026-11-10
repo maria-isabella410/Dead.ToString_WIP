@@ -12,7 +12,7 @@ public class StatusDisplay
     }
     public void MostrarStatus(Jogador jogador)
     {
-        Console.WriteLine("Jogador: " + jogador.Nome);
+        Console.WriteLine("\nJogador: " + jogador.Nome);
         Console.WriteLine($"HP: [{jogador.Vida} / {jogador.VidaMaxima}]");
         Console.WriteLine("Ataque: " + jogador.Ataque);
         Console.WriteLine("Defesa: " + jogador.Defesa);
