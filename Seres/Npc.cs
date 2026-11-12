@@ -6,13 +6,14 @@ namespace rpgNpc;
 
 public class Npc : Pessoa
 {
-    public Missao? Missao {get; set;}
-    public Dialogo Dialogo {get; set;}
-    public Boolean ConversouTudo {get; set;} = false;
-    public bool DisseQuemEra { get; set; } = false;
-    public bool ContouOqAconteceu { get; set; } = false;
-    public bool OfereceuMissao { get; set; } = false;
-    public bool AceitouMissao { get; set; } = false;
+    public Missao? Missao;
+    public Dialogo Dialogo;
+    public Boolean ConversouTudo = false;
+    public Boolean DisseQuemEra = false;
+    public Boolean ContouOqAconteceu = false;
+    public Boolean OfereceuMissao = false;
+    public Boolean AceitouMissao = false;
+    public Boolean MissaoJaFoiConcluida = false;
 
     public Npc(String nome, int vidamaxima, int vida, int ataque, int defesa, int agilidade, Missao? missao, Dialogo dialogo) : base(vidamaxima, vida, ataque, defesa, agilidade, nome)
     {

@@ -142,10 +142,12 @@ class Navegacao
             break;
         }
 
-        if(jogador.LocalAtual.Salas != null)
+        if(jogador.LocalAtual.Salas.Count > 0)
         {
             EscolherSala();
         }
+
+        return;
     } 
     public void EscolherSala()
     {

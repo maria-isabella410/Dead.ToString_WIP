@@ -45,7 +45,7 @@ public class NpcsDoJogo
     }
     public static Npc CriaCrianca()
     {
-        Dialogo dialogo = new Dialogo("Ahh!! Não se aproxime!", "Ah! Você é uma pessoa normal igual a mim? Eu estou com tanto medo daqueles monstros!!", "Ah, a tia Sarah te mandou aqui? Que bom, eu estava tão assustada que me tranquei nessa sala!!", "Todos os meus coleguinhas começaram a ficar agressivos e então eu soltei a mão da tia Sarah e sai correndo com medo... ", null, null, "Você vai me levar até a tia Sarah? Obrigada!!", null, null);
+        Dialogo dialogo = new Dialogo("Ahh!! Não se aproxime!", "Ah! Você é uma pessoa normal igual a mim? Eu estou com tanto medo daqueles monstros... me chamo Mary!", "Ah, a tia Sarah te mandou aqui? Que bom, eu estava tão assustada que me tranquei nessa sala!!", "Todos os meus coleguinhas começaram a ficar agressivos e então eu soltei a mão da tia Sarah e sai correndo com medo... ", null, "Sim!! Você pode me levar até a tia Sarah?", "Sério?! Obrigada!!", "Ahh...?", null);
 
         return new Npc("Mary", 60, 60, 0, 10, 0, null, dialogo);
     }

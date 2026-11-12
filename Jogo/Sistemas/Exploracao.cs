@@ -9,6 +9,7 @@ using rpgMetodosDialogo;
 using rpgNavegacao;
 using rpgValidacaoInput;
 using rpgTipoItem;
+using rpgNpcsDoJogo;
 
 namespace rpgExploracao;
 
@@ -23,12 +24,12 @@ public class Exploracao
     public Exploracao(Jogador jogador, Random random)
     {
         this.jogador = jogador;
+        this.random = random;
         menuExploracao = new MenuExploracao();
         navegacao = new Navegacao(jogador);
         validacaoInput = new ValidacaoInput();
-        this.random = random;
     }
-    public void Explorar()
+    public Boolean Explorar()
     {
         List<Item> itensLocal = jogador.LocalAtual.Itens;
         List<Zombie> zombiesLocal = jogador.LocalAtual.Zombies;
@@ -60,7 +61,7 @@ public class Exploracao
             if(escolha == 0)
             {
                 jogador.SalaAtual = null;
-                return;
+                return true;
             }
             switch (escolha)
             {
@@ -69,7 +70,9 @@ public class Exploracao
                 break;
 
                 case opcoesExplorar.ChecarArredores:
-                    ExplorarArredores(zombiesLocal);                    
+                    Boolean jogadorVivo = ExplorarArredores(zombiesLocal); 
+
+                    if(!jogadorVivo) return false;
                 break;
 
                 case opcoesExplorar.ProcurarSobreviventes:
@@ -110,13 +113,6 @@ public class Exploracao
                 {
                     jogador.Inventario.EquiparItem(item, jogador);
 
-                    Console.WriteLine($"\nVocê equipou o item: {itensLocal[escolhaItemColetar - 1].Nome}");
-
-                    if(item.tipoItem == TipoItem.Mochila)
-                    {
-                        jogador.Inventario.Capacidade = 15;
-                    }
-
                     itensLocal.RemoveAt(escolhaItemColetar - 1);
 
                     return;
@@ -125,8 +121,6 @@ public class Exploracao
                 if(item.tipoItem == TipoItem.Mapa)
                 {
                     jogador.Inventario.EquiparItem(item, jogador);
-
-                    Console.WriteLine($"\nVocê guardou o item: Mapa");
 
                     itensLocal.RemoveAt(escolhaItemColetar - 1);
 
@@ -150,27 +144,25 @@ public class Exploracao
             Console.WriteLine("\nVocê não encontrou nenhum item.\n");
         }
     }    
-    public void ExplorarArredores(List<Zombie> zombiesLocal)
+    public Boolean ExplorarArredores(List<Zombie> zombiesLocal)
     {
         if(zombiesLocal.Count > 0)
         {
             if(zombiesLocal.Count == 1)
             {
-                Console.WriteLine($"Há {zombiesLocal.Count} zombie aqui.");
-
+                Console.WriteLine("Há 1 zombie aqui.");
                 Console.WriteLine("O que deseja fazer quanto ao zombie?");
             }
             else
             {
                 Console.WriteLine($"Há {zombiesLocal.Count} zombies aqui.");
-
                 Console.WriteLine("O que deseja fazer quanto aos zombies?");
             }
 
             while (true)
             {
                 Console.WriteLine("[1] Lutar");
-                Console.WriteLine("[0] Fugir");
+                Console.WriteLine("[0] Ignorar");
 
                 int escolhaCombate = validacaoInput.OpcaoValidada(1);
 
@@ -189,57 +181,64 @@ public class Exploracao
 
                         if(escolhaZombieEnfrentar == 0)
                         {
-                            return;
+                            Console.WriteLine("Você desistiu do combate.");
+                            return true;
                         }
 
                         int indiceZombie = escolhaZombieEnfrentar - 1;
 
                         Combate combate = new Combate(jogador, zombiesLocal[indiceZombie], random);
 
-                        combate.IniciarCombate();
-
                         if(!zombiesLocal[indiceZombie].EstaVivo())
                         {
                             zombiesLocal.RemoveAt(indiceZombie);
                         }
 
-                        if(zombiesLocal.Count == 0)
+                        if(zombiesLocal.Count == 0) return true;            
+
+                        Boolean jogadorVivo = combate.IniciarCombate();
+
+                        if (!jogadorVivo)
                         {
-                            return;
-                        }                        
+                            return false;
+                        }
                     }
                 }
-                   
+                
                 if(escolhaCombate == 0)
                 {
                     if(zombiesLocal.Count == 1)
                     {
                         Console.WriteLine("\nVocê ignorou o zombie.");
-
-                        return;                      
                     }
                     else
                     {
                         Console.WriteLine("\nVocê ignorou os zombies.");
-
-                        return;
                     }
+
+                    return true;                     
                 }
             }
         }
         else
         {
             Console.WriteLine("\nNão há zombies aqui.");
+            return true;
         }
     }
     public void ProcurarSobreviventes(List<Npc> npcsLocal)
     {
         if(npcsLocal.Count > 0)
-        {   
+        { 
             var metodosDialogo = new MetodosDialogo(jogador, npcsLocal[0]);
-            
-            Console.WriteLine($"Há uma pessoa aqui.\n");            
-            Console.WriteLine($"Deseja interagir com ela?");
+
+            Boolean ehCachorro = npcsLocal[0].Nome == NpcsDoJogo.CriaCachorro().Nome;
+
+            Console.WriteLine(
+                ehCachorro
+                ? "Há um cachorro aqui.\nDeseja interagir com ele?\n"
+                : "Há uma pessoa aqui.\nDeseja interagir com ela?\n"
+                );
 
             while (true)
             {
@@ -250,7 +249,20 @@ public class Exploracao
 
                 if(escolhaConversa == 1)
                 {
-                    metodosDialogo.DialogoComNpc();
+                    if (ehCachorro)
+                    {
+                        Boolean pegouCachorro = metodosDialogo.DialogoComCachorro();
+
+                        if (pegouCachorro)
+                        {
+                            npcsLocal.RemoveAt(0);
+                        }
+                    }
+                    else
+                    {
+                        metodosDialogo.DialogoComNpc();
+                    }
+                    
                 }               
 
                 break;             

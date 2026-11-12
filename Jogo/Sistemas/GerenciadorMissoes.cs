@@ -16,7 +16,7 @@ public class GerenciadorMissoes
     {
         if(jogador.MissaoAtual == null) return;
 
-        if (Missao.MissaoValida(jogador))
+        if (Missao.MissaoConcluida(jogador))
         {
             jogador.MissaoAtual.Concluida = true;
 

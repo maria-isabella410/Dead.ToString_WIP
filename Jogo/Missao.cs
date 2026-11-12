@@ -1,52 +1,48 @@
-using System.Collections.Generic;
 using rpgItem;
-using rpgItensDoJogo;
 using rpgJogador;
 using rpgMissoesDoJogo;
 
 namespace rpgMissao;
 
+public enum IdMissao
+{
+    Policial,
+    Enfermeira,
+    Cientista,
+    Padre,
+    Professora   
+}
 public class Missao
 {
-    public String NomeDaMissao {get; set;}
+    public IdMissao Id;
+    public String NomeDaMissao;
     public Item? ItemNecessario;
-    public String Descricao {get; set;}
-    public Item? Recompensa {get; set;}
-    public bool Concluida {get; set;} = false;
+    public String Descricao;
+    public Item? Recompensa;
+    public bool Concluida = false;
 
-    public Missao(String nomedamissao, String descricao, Item? itemnecessario, Item? recompensa)
+    public Missao(IdMissao id, String nomedamissao, String descricao, Item? itemnecessario, Item? recompensa)
     {
+        this.Id = id;
         this.NomeDaMissao = nomedamissao;
         this.Descricao = descricao;
         this.ItemNecessario = itemnecessario;
         this.Recompensa = recompensa;        
     }
 
-    public static Boolean MissaoValida(Jogador jogador)
+    public static Boolean MissaoConcluida(Jogador jogador)
     {
-        if (jogador.MissaoAtual == MissoesDoJogo.CriaMissaoPadre() && jogador.BillyEncontrado)
-        {
-            return true;
-        }
-        List<Item> itens = jogador.Inventario.ListarItens();
+        var missao = jogador.MissaoAtual;
 
-        Boolean contemItem = false;
+        if (missao == null) return false;
 
-        foreach(Item item in itens)
-        {
-            if(jogador.MissaoAtual != null)
-            {
-                if(jogador.MissaoAtual.ItemNecessario == item)
-                {
-                    contemItem = true;
-                }
-            }
-        }
-        if(contemItem)
-        {
-            return true;
-        }
-        else return false;    
+        if (missao.Id == IdMissao.Padre && jogador.BillyEncontrado) return true;
+
+        if (missao.Id == IdMissao.Professora && jogador.MaryEncontrada) return true;
+
+        if (missao.ItemNecessario == null) return false;
+            
+        return jogador.Inventario.ListarItens().Any(item => item.Nome == missao.ItemNecessario.Nome);
     }
 
     public static void MissaoAceita(Jogador jogador)

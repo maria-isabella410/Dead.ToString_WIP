@@ -134,11 +134,13 @@ public class Mapa
         {
             floresta.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
         }
+        
 
         //rua principal
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarAgua());
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarBandagem());
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarFaca());
+        ruaPrincipal.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
 
         if(Chance(40))
         {

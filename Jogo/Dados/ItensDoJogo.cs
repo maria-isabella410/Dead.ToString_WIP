@@ -108,10 +108,6 @@ public class ItensDoJogo
     {
         return new Item("Diário do Mark", "Onde o parceiro do cientista Freddie escreveu todas as descobertas sobre o vírus.", TipoItem.Diario);
     }
-    public static Item CriarColeira()
-    {
-        return new Item("Coleira do Billy", "Uma coleira vermelha com o nome 'Billy' escrito.", TipoItem.Coleira);
-    }
     public static Item CriarCaixaBandagens()
     {
        return new Item("Caixa de bandagens", "Uma caixa com 3 bandagens. Que sorte.", TipoItem.CaixaBandagem);

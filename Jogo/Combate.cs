@@ -21,33 +21,38 @@ public class Combate
         this.Zombie = zombie;
         this.random = random;
     }
-    public void IniciarCombate()
+    public Boolean IniciarCombate()
     {
         interacaoInventario = new InteracaoInventario(Jogador);
 
         while(Jogador.EstaVivo() && Zombie.EstaVivo())
         {
-            
-            if (!Jogador.EstaVivo())
-            {
-                Console.WriteLine("Você está morto! Que tal tentar de novo?");
+            bool fugiu = TurnoJogador();
 
-                break;
+            if(fugiu)
+            {
+                Console.WriteLine("\nVocê fugiu do combate!\n");
+                return true;
             }
-            
-            TurnoJogador();
 
             Thread.Sleep(600);
 
             if (!Zombie.EstaVivo())
             {
-                Console.WriteLine("Você matou o zombie!");
+                Console.WriteLine("\nVocê matou o zombie!\n");
 
                 break;
             }
 
             TurnoZombie();
         }
+                    
+        if (!Jogador.EstaVivo())
+        {
+            Console.WriteLine("\nAcho que você está morto... que tal tentar de novo?");
+        }
+
+        return false;
     }
     private enum opcoesMenu
     {
@@ -86,9 +91,10 @@ public class Combate
         {
             Console.WriteLine("[3] Equipar arma");
         }
+        Console.WriteLine("[0] Fugir (50% de chance)");
        
     }
-    private void TurnoJogador()
+    private Boolean TurnoJogador()
     {
         bool acaoValida = false;
 
@@ -98,7 +104,7 @@ public class Combate
 
             Menu();
 
-            int escolhaCombate = 0;
+            int escolhaCombate = -1;
 
             if(Jogador.ArmaEquipada != null)
             {
@@ -111,7 +117,14 @@ public class Combate
 
             if(escolhaCombate == 0)
             {
-                return;
+                if(TentarFugir())
+                {
+                    return true;
+                }
+
+                Console.WriteLine("\nVocê não conseguiu fugir!");
+
+                acaoValida = true;
             }
 
             opcoesMenu escolha = (opcoesMenu)escolhaCombate;
@@ -177,6 +190,8 @@ public class Combate
                     break;
             }           
         }
+
+        return false;
     }
     private void TurnoZombie()
     {
@@ -206,13 +221,11 @@ public class Combate
 
         return Math.Max(1, dano);
     }
-    // private Boolean TentarDesviar(SerVivo defensor, SerVivo atacante)
-    // {
-    //     int chance = 20 + defensor.Agilidade - atacante.Agilidade;
+    private bool TentarFugir()
+    {
+        int chance = 50 + Jogador.Agilidade - Zombie.Agilidade;
+        chance = Math.Clamp(chance, 10, 90);
 
-    //     chance = Math.Clamp(chance, 5, 80);
-
-    //     return random.Next(100) < chance;
-    // }
-    
+        return random.Next(100) < chance;
+    }    
 }

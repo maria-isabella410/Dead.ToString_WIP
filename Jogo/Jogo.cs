@@ -76,7 +76,9 @@ public class Jogo
             switch (escolha)
             {
                 case opcoesMenu.Explorar:
-                    exploracao.Explorar();
+                    Boolean jogadorVivo = exploracao.Explorar();
+
+                    if(!jogadorVivo) emExecucao = false;
                 break;
 
                 case opcoesMenu.AbrirMapa:
@@ -118,6 +120,6 @@ public class Jogo
     }
     public void Encerrar()
     {
-        Console.WriteLine("\nObrigada por jogar! Jogo finalizado...\n");
+        Console.WriteLine("\nJogo finalizado...\n");
     }
 }

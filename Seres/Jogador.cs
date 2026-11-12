@@ -19,19 +19,19 @@ public class Jogador : Pessoa
     public Boolean ColeteEquipado {get; set;} = false;
     public Boolean ContemMapa {get; set;} = false;
     public Boolean BillyEncontrado {get; set;} = false;
+    public Boolean MaryEncontrada {get; set;} = false;
     public Missao? MissaoAtual {get; set;}
     public Local LocalAtual {get; set;}
-    public List<Npc> NpcsConhecidos {get; set;}
+    public List<Npc> NpcsConhecidos = new List<Npc>();
     public Sala? SalaAtual {get; set;}
     public Boolean AceitouMissao {get; set;} = false;
+    public List<Missao> MissoesConcluidas = new List<Missao>();
 
     public Jogador(int vidamaxima, int vida, int ataque, int defesa, int agilidade, String nome, Local localatual, Sala? salaatual) : base(vidamaxima, vida, ataque, defesa, agilidade, nome)
     {
         this.Inventario = new Inventario(10);
         this.LocalAtual = localatual;
         this.SalaAtual = salaatual;
-
-        NpcsConhecidos = new List<Npc>();
     }
     public void EquiparArma(Arma arma)
     {

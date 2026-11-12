@@ -7,7 +7,8 @@ public class ZombiesDoJogo
 {
     public static Zombie CriaZombieComumFraco()
     {
-        return new Zombie(50, 50, 15, 10, 10, TipoZombie.Comum, "Zombie Comum");
+        //arrumar dano depois (dano é 15)
+        return new Zombie(50, 50, 30, 10, 10, TipoZombie.Comum, "Zombie Comum");
     }
     public static Zombie CriaZombieComumForte()
     {

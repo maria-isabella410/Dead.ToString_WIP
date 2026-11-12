@@ -522,7 +522,7 @@ public class SalasDoJogo
 
         //posto de gasolina
         lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarAgua());
-        patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
+        // patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
         garagemPosto.AdicionarItens(ItensDoJogo.CriarPeDeCabra());
 
         if(Chance(90))

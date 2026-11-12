@@ -86,14 +86,14 @@ public class Inventario
     }
     public void EquiparItem(Item item, Jogador jogador)
     {
-        if(item == ItensDoJogo.CriarMapaDaCidade())
+        if(item.tipoItem == rpgTipoItem.TipoItem.Mapa)
         {
             jogador.ContemMapa = true;
 
             Console.WriteLine("Agora, você possui o mapa da cidade.");
         }
 
-        if(item == ItensDoJogo.CriarMochila())
+        if(item.tipoItem == rpgTipoItem.TipoItem.Mochila)
         {
             jogador.MochilaEquipada = true;
 
@@ -102,7 +102,7 @@ public class Inventario
             Console.WriteLine("Agora, você possui uma mochila. (Inventário capacidade: [10] -> [15])");
         }
 
-        if(item == ItensDoJogo.CriarColete())
+        if(item.tipoItem == rpgTipoItem.TipoItem.Colete)
         {
             jogador.ColeteEquipado = true;
 

@@ -10,6 +10,5 @@ public enum TipoItem{
     Mapa,
     Colete,
     Diario,
-    Coleira,
     CaixaBandagem
 }
