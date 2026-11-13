@@ -26,7 +26,7 @@ public class MenuPrincipal
     }
     public void MostrarMenuPrincipal()
     {
-        Console.WriteLine("O que quer fazer?");
+        Console.WriteLine("O que quer fazer?\n");
         Console.WriteLine("[1] Explorar");
         Console.WriteLine("[2] Abrir mapa");
         Console.WriteLine("[3] Abrir inventário");

@@ -12,19 +12,18 @@ public class StatusDisplay
     }
     public void MostrarStatus(Jogador jogador)
     {
-        Console.WriteLine("\nJogador: " + jogador.Nome);
+        Console.WriteLine($"\nJogador: {jogador.Nome}" );
         Console.WriteLine($"HP: [{jogador.Vida} / {jogador.VidaMaxima}]");
-        Console.WriteLine("Ataque: " + jogador.Ataque);
-        Console.WriteLine("Defesa: " + jogador.Defesa);
-        Console.WriteLine("Agilidade: " + jogador.Agilidade);
-
         if(jogador.MissaoAtual != null)
         {
-            Console.WriteLine("Missão atual: " + jogador.MissaoAtual.NomeDaMissao);
+            Console.WriteLine($"Missão atual: {jogador.MissaoAtual.NomeDaMissao}");
         }
         if(jogador.ArmaEquipada != null)
         {
-            Console.WriteLine("Arma equipada: " + jogador.ArmaEquipada.Nome);
+            Console.WriteLine($"Arma equipada: {jogador.ArmaEquipada.Nome}");
         }
+        Console.WriteLine($"Ataque: {jogador.Ataque}");
+        Console.WriteLine($"Defesa: {jogador.Defesa}");
+        Console.WriteLine($"Agilidade: {jogador.Agilidade}\n");
     }    
 }

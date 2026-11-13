@@ -44,7 +44,7 @@ public class InteracaoInventario
 
             for(int i = 0; i < armas.Count; i++)
             {
-                Console.WriteLine($"= {i + 1} = {armas[i].Nome}");
+                Console.WriteLine($"[{i + 1}] — {armas[i].Nome}");
             }
 
             Console.WriteLine("Qual arma deseja equipar? (0 para Voltar)");
@@ -90,7 +90,7 @@ public class InteracaoInventario
 
         for(int i = 0; i < itens.Count; i++)
         {
-            Console.WriteLine($"= {i + 1} = {itens[i].Nome}");
+            Console.WriteLine($"[{i + 1}] — {itens[i].Nome}");
         }
 
         while (true)

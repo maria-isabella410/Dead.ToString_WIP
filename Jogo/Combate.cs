@@ -148,16 +148,8 @@ public class Combate
                     Jogador.ArmaEquipada.GastarMunicao();
 
                     int danoTomado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
-                        
-                    if(Jogador.BonusDesvio)
-                    {
-                        Zombie.TomarDano(danoTomado + (danoTomado / 2));
-                        Jogador.BonusDesvio = false;
-                    }
-                    else
-                    {
-                        Zombie.TomarDano(danoTomado);
-                    }
+
+                    Zombie.TomarDano(danoTomado);
 
                     Console.WriteLine("\nVocê atacou o zombie!");
 

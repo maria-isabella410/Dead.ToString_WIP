@@ -21,7 +21,7 @@ public class MetodosDialogo
     }
     public Boolean DialogoComCachorro()
     {
-        Console.WriteLine("Cachorro:\n— Auau!!");
+        Console.WriteLine("Cachorro:\n— Auau!!\n");
 
         Console.WriteLine("[1] Pegar Billy no colo");
         Console.WriteLine("[0] Voltar");
@@ -30,7 +30,7 @@ public class MetodosDialogo
 
         if(respostaPegarBilly == 0) return false;
 
-        Console.WriteLine("Billy fica feliz ao estar no seu colo.");
+        Console.WriteLine("Billy fica feliz ao estar no seu colo.\n");
 
         jogador.BillyEncontrado = true;
 
@@ -52,7 +52,7 @@ public class MetodosDialogo
 
         Boolean ehCrianca = npc.Nome == NpcsDoJogo.CriaCrianca().Nome;
 
-        Console.WriteLine(npc.DisseQuemEra ? "\n" + npc.Nome : "\nPessoa desconhecida: ");
+        Console.WriteLine(npc.DisseQuemEra ? npc.Nome : "Pessoa desconhecida: ");
         Console.WriteLine(npc.DisseQuemEra ? "— Ah, é você de novo!" : $"— {npc.Dialogo.Saudacao}");
         
         while (true)
@@ -62,7 +62,7 @@ public class MetodosDialogo
 
             if (!npc.DisseQuemEra)
             {
-                Console.WriteLine(ehCrianca ? $"\n[{indice}] Calma! Quem é você?" : $"\n[{indice}] Quem é você?");
+                Console.WriteLine(ehCrianca ? $"[{indice}] Calma! Quem é você?" : $"[{indice}] Quem é você?");
 
                 acoesDisponiveis.Add(() =>
                 {
@@ -78,7 +78,7 @@ public class MetodosDialogo
 
             if (npc.DisseQuemEra && !npc.ContouOqAconteceu)
             {
-                Console.WriteLine($"\n[{indice}] O que aconteceu?");
+                Console.WriteLine($"[{indice}] O que aconteceu?");
 
                 acoesDisponiveis.Add(() =>
                 {
@@ -133,7 +133,7 @@ public class MetodosDialogo
 
                 acoesDisponiveis.Add(() => 
                 {
-                    Console.WriteLine($"\n{jogador.Nome}:\n— Estou trabalhando nisso.");
+                    Console.WriteLine($"{jogador.Nome}:\n— Estou trabalhando nisso.");
                     Console.WriteLine($"{npc.Nome}:\n— Estou esperando...");
                 });
 
@@ -153,7 +153,7 @@ public class MetodosDialogo
 
                 acoesDisponiveis.Add(() => 
                 {
-                    Console.WriteLine($"\n{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
+                    Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
                     if(npc.Dialogo.AgradecimentoMissao != null)
                     {
                         Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}\n");
@@ -161,9 +161,10 @@ public class MetodosDialogo
 
                     npc.MissaoJaFoiConcluida = true;
 
-                    if(npc.Missao != null)
+                    if(jogador.MissaoAtual != null && npc.Missao != null)
                     {
-                        jogador.MissoesConcluidas.Add(npc.Missao);
+                        jogador.MissoesConcluidas.Add(jogador.MissaoAtual);
+                        jogador.MissaoAtual = null;
                     }
                 });
 
@@ -176,13 +177,15 @@ public class MetodosDialogo
 
             if(escolhaDialogo == 0) return;
 
-            acoesDisponiveis[escolhaDialogo - 1].Invoke();                
+            acoesDisponiveis[escolhaDialogo - 1].Invoke();
+
+            if(npc.MissaoJaFoiConcluida) return;
         }
     }
 
     public Boolean QuemEvoce(Boolean ehCrianca)
     {
-        Console.WriteLine($"\n{jogador.Nome}:");
+        Console.WriteLine($"{jogador.Nome}:");
         Console.WriteLine(ehCrianca ? "— Calma! Quem é você?" : "— Quem é você?");
 
         Console.WriteLine("\nPessoa desconhecida:");
@@ -198,7 +201,7 @@ public class MetodosDialogo
             return false;
         }
         
-        Console.WriteLine($"\n{jogador.Nome}:");
+        Console.WriteLine($"{jogador.Nome}:");
         Console.WriteLine($"— Me chamo {jogador.Nome}.");
 
         if(npc.Dialogo.Introducao != null)
@@ -213,7 +216,7 @@ public class MetodosDialogo
     {
         if(npc.Dialogo.Historia == null) return;
 
-        Console.WriteLine($"\n{jogador.Nome}:");
+        Console.WriteLine($"{jogador.Nome}:");
         Console.WriteLine(JaPerguntado ? "— Pode me lembrar o que aconteceu?" : "— O que aconteceu?");
 
         Console.WriteLine("\n" + npc.Nome);
@@ -228,7 +231,7 @@ public class MetodosDialogo
 
             if(escolhaResponderConfianca == 0) return;
 
-            Console.WriteLine($"\n{jogador.Nome}:");
+            Console.WriteLine($"{jogador.Nome}:");
             Console.WriteLine("— Não sei se confio no que você diz.");
 
             Console.WriteLine("\n" + npc.Nome);
@@ -240,7 +243,7 @@ public class MetodosDialogo
     {
         if(npc.Dialogo.Missao == null) return;
 
-        Console.WriteLine($"\n{jogador.Nome}:");
+        Console.WriteLine($"{jogador.Nome}:");
         Console.WriteLine(JaPerguntado ? "— Do que você precisa mesmo?" : "— Precisa de ajuda?");       
 
         Console.WriteLine("\n" + npc.Nome);

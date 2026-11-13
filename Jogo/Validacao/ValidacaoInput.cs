@@ -20,8 +20,9 @@ public class ValidacaoInput
     {
         while (true)
         {
-            Console.Write("--> ");
+            Console.Write("\n--> ");
             string input = Console.ReadLine() ?? "";
+            Console.Write("\n");
 
             if(!ValidarInputInt(input))
             {
