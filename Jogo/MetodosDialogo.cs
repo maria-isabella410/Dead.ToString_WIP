@@ -4,6 +4,7 @@ using rpgNpc;
 using rpgMissao;
 using rpgValidacaoInput;
 using rpgNpcsDoJogo;
+using System.ComponentModel.DataAnnotations;
 
 namespace rpgMetodosDialogo;
 
@@ -22,14 +23,6 @@ public class MetodosDialogo
     {
         Console.WriteLine("Cachorro:\n— Auau!!");
 
-        Console.WriteLine("[1] ...");
-        Console.WriteLine("[0] Voltar");
-
-        int respostaContinuar = validacaoInput.OpcaoValidada(1);
-
-        if(respostaContinuar == 0) return false;
-
-        Console.WriteLine("\nReparando melhor, você vê que o cachorrinho têm uma coleira vermelha... 'Billy' está escrito no pingente prateado.\n");
         Console.WriteLine("[1] Pegar Billy no colo");
         Console.WriteLine("[0] Voltar");
 
@@ -45,6 +38,18 @@ public class MetodosDialogo
     }
     public void DialogoComNpc()
     {
+        if (npc.MissaoJaFoiConcluida && npc.Dialogo.MissaoConcluida != null)
+        {
+            Console.WriteLine($"{npc.Nome}: ");
+            Console.WriteLine($"— {npc.Dialogo.MissaoConcluida}");
+
+            Console.WriteLine("[0] Voltar");
+
+            int escolhaMissaoConcluida = validacaoInput.OpcaoValidada(0);
+
+            return;
+        }
+
         Boolean ehCrianca = npc.Nome == NpcsDoJogo.CriaCrianca().Nome;
 
         Console.WriteLine(npc.DisseQuemEra ? "\n" + npc.Nome : "\nPessoa desconhecida: ");
@@ -142,8 +147,6 @@ public class MetodosDialogo
                 }
             }
 
-            //terminar dps e adicionar em npc dialogo depois que a missao foi entregue.
-
             if (Missao.MissaoConcluida(jogador))
             {
                 Console.WriteLine($"[{indice}] Conclui a missão.");
@@ -151,19 +154,20 @@ public class MetodosDialogo
                 acoesDisponiveis.Add(() => 
                 {
                     Console.WriteLine($"\n{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
-                    if(npc.Dialogo.MissaoConcluida != null)
+                    if(npc.Dialogo.AgradecimentoMissao != null)
                     {
-                        Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.MissaoConcluida.Replace("{nome}", jogador.Nome)}\n");
+                        Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}\n");
                     }
-                    
+
+                    npc.MissaoJaFoiConcluida = true;
+
+                    if(npc.Missao != null)
+                    {
+                        jogador.MissoesConcluidas.Add(npc.Missao);
+                    }
                 });
 
-                indice++;
-
-                if(npc.Missao != null)
-                {
-                    jogador.MissoesConcluidas.Add(npc.Missao);
-                }                
+                indice++;                
             }
 
             Console.WriteLine("[0] Sair da conversa");

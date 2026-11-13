@@ -22,7 +22,7 @@ public class MenuInventario
     }
     public void MostrarMenuInventario()
     {      
-        Console.WriteLine("O que quer fazer? (0 para Voltar)");
+        Console.WriteLine("O que quer fazer?");
         Console.WriteLine("[1] Inspecionar item");
         Console.WriteLine("[2] Consumir item");
         Console.WriteLine("[3] Descartar item");
@@ -32,6 +32,7 @@ public class MenuInventario
             Console.WriteLine("[4] Equipar outra arma");
             Console.WriteLine("[5] Desequipar arma");
         } 
+        Console.WriteLine("[0] Voltar");
     }
     public opcoesInventario ReceberOpcao()
     {

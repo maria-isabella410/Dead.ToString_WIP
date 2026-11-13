@@ -159,7 +159,7 @@ class Navegacao
             Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");
         } 
 
-        Console.WriteLine("Para onde deseja ir? (0 para Voltar)");
+        Console.WriteLine("Para onde deseja ir?");
 
         List<Sala> salasDisponiveis = jogador.LocalAtual.Salas.Where(sala => sala != jogador.SalaAtual).ToList();
 
@@ -177,7 +177,8 @@ class Navegacao
                 {
                     Console.WriteLine($"[{i + 1}] {sala.Nome}");
                 }
-            }                   
+            }    
+            Console.WriteLine("[0] Voltar");            
 
             int escolhaSala = validacaoInput.OpcaoValidada(salasDisponiveis.Count);            
 

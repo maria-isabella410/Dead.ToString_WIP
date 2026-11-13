@@ -111,7 +111,7 @@ public class InteracaoInventario
 
                     for(int i = 0; i < itens.Count; i++)
                     {
-                        Console.WriteLine($"= {i + 1} = {itens[i].Nome}");
+                        Console.WriteLine($"[{i + 1}] — {itens[i].Nome}");
                     }
 
                     int idInspecao = validacaoInput.OpcaoValidada(itens.Count);
@@ -144,7 +144,7 @@ public class InteracaoInventario
 
                     for(int i = 0; i < consumiveis.Count; i++)
                     {
-                        Console.WriteLine($"= {i + 1} = {consumiveis[i].Nome}");
+                        Console.WriteLine($"[{i + 1}] — {consumiveis[i].Nome}");
                     }
 
                     int escolhaConsumivel = validacaoInput.OpcaoValidada(consumiveis.Count);
@@ -168,7 +168,7 @@ public class InteracaoInventario
 
                     for(int i = 0; i < itens.Count; i++)
                     {
-                        Console.WriteLine($"= {i + 1} = {itens[i].Nome}");
+                        Console.WriteLine($"[{i + 1}] — {itens[i].Nome}");
                     }
                     
                     int idDescarte = validacaoInput.OpcaoValidada(itens.Count);

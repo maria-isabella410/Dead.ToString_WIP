@@ -7,14 +7,16 @@ public class SerVivo
     public int Ataque {get; set;}
     public int Defesa {get; set;}
     public int Agilidade {get; set;}
+    public String? DescricaoFisica;
 
-    public SerVivo(int vidamaxima, int vida, int ataque, int defesa, int agilidade)
+    public SerVivo(int vidamaxima, int vida, int ataque, int defesa, int agilidade, String? descricaofisica)
     {
         this.VidaMaxima = vidamaxima;
         this.Vida = vida;
         this.Ataque = ataque;
         this.Defesa = defesa;
         this.Agilidade = agilidade;
+        this.DescricaoFisica = descricaofisica;
     }
 
     public void TomarDano(int dano)

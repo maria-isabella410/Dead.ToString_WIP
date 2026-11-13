@@ -57,7 +57,7 @@ public class Jogo
             Console.WriteLine("\nNome inválido! Utilize apenas letras (sem números ou símbolos). Tente novamente.");
         }
 
-        Jogador = new Jogador(50, 50, 15, 10, 25, nomeJogador, Mapa.ruaPrincipal, null);
+        Jogador = new Jogador(50, 50, 15, 10, 25, null, nomeJogador, Mapa.ruaPrincipal, null);
 
         menuPrincipal = new MenuPrincipal(Jogador, Mapa);
         interacaoInventario = new InteracaoInventario(Jogador);
@@ -69,6 +69,8 @@ public class Jogo
 
         while (emExecucao)
         {
+            if(Jogador.FinalizouJogo(Jogador.MatouBoss, Jogador.ConseguiuCura)) emExecucao = false;
+
             menuPrincipal.MostrarMenuPrincipal();
 
             opcoesMenu escolha = menuPrincipal.ReceberOpcao();

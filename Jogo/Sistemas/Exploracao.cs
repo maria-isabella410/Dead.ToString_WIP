@@ -93,7 +93,7 @@ public class Exploracao
 
             for(int i = 0; i < itensLocal.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] {itensLocal[i].Nome}");
+                Console.WriteLine($"[{i + 1}] — {itensLocal[i].Nome}");
             }
 
             while(true)
@@ -170,12 +170,13 @@ public class Exploracao
                 {
                     while (true)
                     {
-                        Console.WriteLine("Qual zombie deseja enfrentar? ([0] para Desistir)");
+                        Console.WriteLine("Qual zombie deseja enfrentar?");
                         
                         for(int i = 0; i < zombiesLocal.Count; i++)
                         {
                             Console.WriteLine($"[{i + 1}] {zombiesLocal[i].Tipo}");
                         }
+                        Console.WriteLine("[0] Desistir");
 
                         int escolhaZombieEnfrentar = validacaoInput.OpcaoValidada(zombiesLocal.Count);
 
@@ -228,49 +229,41 @@ public class Exploracao
     }
     public void ProcurarSobreviventes(List<Npc> npcsLocal)
     {
-        if(npcsLocal.Count > 0)
-        { 
-            var metodosDialogo = new MetodosDialogo(jogador, npcsLocal[0]);
+        if(npcsLocal.Count == 0)
+        {
+            Console.WriteLine("\nNão há ninguém aqui.");
+            return;
+        }
+        var npcNoLocal = npcsLocal[0];
+        var metodosDialogo = new MetodosDialogo(jogador, npcNoLocal);
 
-            Boolean ehCachorro = npcsLocal[0].Nome == NpcsDoJogo.CriaCachorro().Nome;
+        Boolean ehCachorro = npcsLocal[0].Nome == NpcsDoJogo.CriaCachorro().Nome;
 
-            Console.WriteLine(
-                ehCachorro
-                ? "Há um cachorro aqui.\nDeseja interagir com ele?\n"
-                : "Há uma pessoa aqui.\nDeseja interagir com ela?\n"
-                );
+        Console.WriteLine(npcNoLocal.DescricaoFisica);
 
-            while (true)
+        Console.WriteLine("[1] Sim");
+        Console.WriteLine("[0] Não");
+
+        int escolhaConversa = validacaoInput.OpcaoValidada(1);
+
+        if(escolhaConversa == 0) return;
+
+        if (ehCachorro)
+        {
+            Boolean pegouCachorro = metodosDialogo.DialogoComCachorro();
+
+            if (pegouCachorro)
             {
-                Console.WriteLine("[1] Sim");
-                Console.WriteLine("[0] Não");
-
-                int escolhaConversa = validacaoInput.OpcaoValidada(1);
-
-                if(escolhaConversa == 1)
-                {
-                    if (ehCachorro)
-                    {
-                        Boolean pegouCachorro = metodosDialogo.DialogoComCachorro();
-
-                        if (pegouCachorro)
-                        {
-                            npcsLocal.RemoveAt(0);
-                        }
-                    }
-                    else
-                    {
-                        metodosDialogo.DialogoComNpc();
-                    }
-                    
-                }               
-
-                break;             
+                npcsLocal.RemoveAt(0);
             }
+
+            return;
         }
         else
         {
-            Console.WriteLine("\nNão há ninguém aqui.");
+            metodosDialogo.DialogoComNpc();
+
+            return;
         }
-    }    
+    }
 }

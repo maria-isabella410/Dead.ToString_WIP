@@ -15,7 +15,7 @@ public class Npc : Pessoa
     public Boolean AceitouMissao = false;
     public Boolean MissaoJaFoiConcluida = false;
 
-    public Npc(String nome, int vidamaxima, int vida, int ataque, int defesa, int agilidade, Missao? missao, Dialogo dialogo) : base(vidamaxima, vida, ataque, defesa, agilidade, nome)
+    public Npc(String nome, int vidamaxima, int vida, int ataque, int defesa, int agilidade, String? descricaofisica, Missao? missao, Dialogo dialogo) : base(vidamaxima, vida, ataque, defesa, agilidade, descricaofisica, nome)
     {
         this.Missao = missao;
         this.Dialogo = dialogo;
