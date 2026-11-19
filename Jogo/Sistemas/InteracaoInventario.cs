@@ -36,7 +36,7 @@ public class InteracaoInventario
                 Boolean mesmaArmaEquipada = armas.Contains(jogador.ArmaEquipada);
                 if(jogador.ArmaEquipada != null && mesmaArmaEquipada && armas.Count == 1)
                 {
-                    Console.WriteLine("\nSua única arma já está equipada!\n");
+                    Console.WriteLine("\nSua única arma já está equipada!");
 
                     return false;
                 }
@@ -47,7 +47,7 @@ public class InteracaoInventario
                 Console.WriteLine($"[{i + 1}] — {armas[i].Nome}");
             }
 
-            Console.WriteLine("\nQual arma deseja equipar? (0 para Voltar)\n");
+            Console.WriteLine("\nQual arma deseja equipar? (0 para Voltar)");
 
             int opcaoArma = validacaoInput.OpcaoValidada(armas.Count);
 
@@ -60,7 +60,7 @@ public class InteracaoInventario
             {
                 if(armas[opcaoArma - 1].Tipo == jogador.ArmaEquipada.Tipo)
                 {
-                    Console.WriteLine("\nEssa arma já está equipada.\n");
+                    Console.WriteLine("\nEssa arma já está equipada!");
 
                     return false;
                 }
@@ -83,7 +83,7 @@ public class InteracaoInventario
 
         if(itens.Count == 0)
         {
-            Console.WriteLine("\nVocê não possui itens em seu inventário.\n");
+            Console.WriteLine("\nVocê não possui itens em seu inventário.");
 
             return;
         }
@@ -129,13 +129,13 @@ public class InteracaoInventario
                     
                     if(consumiveis.Count == 0)
                     {
-                        Console.WriteLine("\nVocê não possui nenhum consumível em seu inventário.\n");
+                        Console.WriteLine("\nVocê não possui nenhum consumível em seu inventário.");
                         
                         break;
                     }
                     if (jogador.Vida.Equals(jogador.VidaMaxima))
                     {
-                        Console.WriteLine("\nSua vida está cheia, você não precisa consumir nenhum item.\n");
+                        Console.WriteLine("\nSua vida está cheia, você não precisa consumir nenhum item.");
 
                         break;
                     }
@@ -164,7 +164,7 @@ public class InteracaoInventario
 
                     break;
                 case opcoesInventario.DescartarItem:
-                    Console.WriteLine("Qual item deseja descartar? (0 para Voltar)\n");
+                    Console.WriteLine("\nQual item deseja descartar? (0 para Voltar)\n");
 
                     for(int i = 0; i < itens.Count; i++)
                     {
@@ -182,7 +182,7 @@ public class InteracaoInventario
 
                     jogador.Inventario.DescartarItem(item);
 
-                    Console.WriteLine($"\nO item {item.Nome} foi descartado!\n");
+                    Console.WriteLine($"\nO item {item.Nome} foi descartado!");
                     
                     Console.WriteLine($"\nInventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
 
@@ -194,21 +194,19 @@ public class InteracaoInventario
                     }
                     else
                     {
-                        Console.WriteLine("\nNão foi possível equipar uma arma.\n");
-
                         break;
                     }
                     
                 case opcoesInventario.DesequiparArma:
                     if(jogador.ArmaEquipada == null)
                     {
-                        Console.WriteLine("\nNão é possível desequipar uma arma, pois você não está empunhando nenhuma.\n");
+                        Console.WriteLine("\nNão é possível desequipar uma arma, pois você não está empunhando nenhuma.");
 
                         return;
                     }
                     jogador.ArmaEquipada = null;
 
-                    Console.WriteLine("\nVocê desequipou sua arma.\n");
+                    Console.WriteLine("\nVocê desequipou sua arma.");
                     break;
             }           
         }

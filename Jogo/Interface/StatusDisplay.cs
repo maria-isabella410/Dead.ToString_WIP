@@ -35,6 +35,6 @@ public class StatusDisplay
         }
         Console.WriteLine($"Ataque: {jogador.Ataque}");
         Console.WriteLine($"Defesa: {jogador.Defesa}");
-        Console.WriteLine($"Agilidade: {jogador.Agilidade}\n");
+        Console.WriteLine($"Agilidade: {jogador.Agilidade}");
     }    
 }

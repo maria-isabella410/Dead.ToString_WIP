@@ -159,7 +159,7 @@ class Navegacao
             Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");
         } 
 
-        Console.WriteLine("Para onde deseja ir?\n");
+        Console.WriteLine("\nPara onde deseja ir?\n");
 
         List<Sala> salasDisponiveis = jogador.LocalAtual.Salas.Where(sala => sala != jogador.SalaAtual).ToList();
 

@@ -35,7 +35,7 @@ public class Exploracao
         List<Zombie> zombiesLocal = jogador.LocalAtual.Zombies;
         List<Npc> npcsLocal = jogador.LocalAtual.Npcs;
         
-        Console.WriteLine($"Local atual: {jogador.LocalAtual.Nome}\n");
+        Console.WriteLine($"\nLocal atual: {jogador.LocalAtual.Nome}");
         
         if(jogador.LocalAtual.Salas.Count != 0)
         {
@@ -94,7 +94,7 @@ public class Exploracao
 
             while(true)
             {
-                Console.WriteLine("\nDigite o item que deseja coletar ou [0] para Voltar.\n");
+                Console.WriteLine("\nDigite o item que deseja coletar ou [0] para Voltar.");
 
                 int escolhaItemColetar = validacaoInput.OpcaoValidada(itensLocal.Count);
 
@@ -127,7 +127,7 @@ public class Exploracao
 
                 if(conseguiuGuardar)
                 {
-                    Console.WriteLine($"\nVocê coletou o item: {itensLocal[escolhaItemColetar - 1].Nome}\n");
+                    Console.WriteLine($"\nVocê coletou o item: {itensLocal[escolhaItemColetar - 1].Nome}");
 
                     itensLocal.RemoveAt(escolhaItemColetar - 1);
 
@@ -137,7 +137,7 @@ public class Exploracao
         }
         else
         {
-            Console.WriteLine("\nVocê não encontrou nenhum item.\n");
+            Console.WriteLine("\nVocê não encontrou nenhum item.");
         }
     }    
     public Boolean ExplorarArredores(List<Zombie> zombiesLocal)
@@ -150,13 +150,11 @@ public class Exploracao
 
                 if(zombiesLocal.Count == 1)
                 {
-                    Console.WriteLine("Há 1 zombie aqui.");
-                    // Console.WriteLine("O que deseja fazer quanto ao zombie?\n");
+                    Console.WriteLine("\nHá 1 zombie aqui.");
                 }
                 else
                 {
-                    Console.WriteLine($"Há {zombiesLocal.Count} zombies aqui.");
-                    // Console.WriteLine("O que deseja fazer quanto aos zombies?\n");
+                    Console.WriteLine($"\nHá {zombiesLocal.Count} zombies aqui.");
                 }            
 
                 Console.WriteLine(zombieNoLocal.DescricaoFisica);
@@ -170,11 +168,11 @@ public class Exploracao
                 {
                     if(zombiesLocal.Count == 1)
                     {
-                        Console.WriteLine("\nVocê ignorou o zombie.\n");
+                        Console.WriteLine("\nVocê ignorou o zombie.");
                     }
                     else
                     {
-                        Console.WriteLine("\nVocê ignorou os zombies.\n");
+                        Console.WriteLine("\nVocê ignorou os zombies.");
                     }
 
                     return true; 
@@ -194,36 +192,10 @@ public class Exploracao
                 }         
 
                 return true;
-            
-                // Console.WriteLine("Qual zombie deseja enfrentar?\n");
-                
-                // for(int i = 0; i < zombiesLocal.Count; i++)
-                // {
-                //     Console.WriteLine($"[{i + 1}] {zombiesLocal[i].Tipo}");
-                // }
-                // Console.WriteLine("[0] Desistir");
-
-                // int escolhaZombieEnfrentar = validacaoInput.OpcaoValidada(zombiesLocal.Count);
-
-                // if(escolhaZombieEnfrentar == 0)
-                // {
-                //     Console.WriteLine("\nVocê desistiu do combate.\n");
-                //     return true;
-                // }
-
-                // int indiceZombie = escolhaZombieEnfrentar - 1;
-
-                // Combate combate = new Combate(jogador, zombiesLocal[indiceZombie], random);
-
-                // if(!zombiesLocal[indiceZombie].EstaVivo())
-                // {
-                //     zombiesLocal.RemoveAt(indiceZombie);
-                // }
-
             }            
         }
 
-        Console.WriteLine("\nNão há zombies aqui.\n");
+        Console.WriteLine("\nNão há zombies aqui.");
         
         return true;
     }
@@ -231,7 +203,7 @@ public class Exploracao
     {
         if(npcsLocal.Count == 0)
         {
-            Console.WriteLine("\nNão há ninguém aqui.\n");
+            Console.WriteLine("\nNão há ninguém aqui.");
             return;
         }
         var npcNoLocal = npcsLocal[0];

@@ -31,7 +31,7 @@ public class Combate
 
             if(fugiu)
             {
-                Console.WriteLine("\nVocê fugiu do combate!\n");
+                Console.WriteLine("\nVocê fugiu do combate!");
                 return true;
             }
 
@@ -39,7 +39,7 @@ public class Combate
 
             if (!Zombie.EstaVivo())
             {
-                Console.WriteLine("\nVocê matou o zombie!\n");
+                Console.WriteLine("\nVocê matou o zombie!");
 
                 return true;
             }
@@ -49,7 +49,7 @@ public class Combate
                     
         if (!Jogador.EstaVivo())
         {
-            Console.WriteLine("\nAcho que você está morto... que tal tentar de novo?\n");
+            Console.WriteLine("\nVocê está morto... que tal tentar de novo?");
         }
 
         return false;
@@ -64,7 +64,7 @@ public class Combate
 
     private void StatusGeral()
     {
-        Console.WriteLine($"Jogador: [{Jogador.Vida} / {Jogador.VidaMaxima}] HP");
+        Console.WriteLine($"\nJogador: [{Jogador.Vida} / {Jogador.VidaMaxima}] HP");
         Console.WriteLine($"Zombie: [{Zombie.Vida} / {Zombie.VidaMaxima}] HP");
         if(Jogador.ArmaEquipada != null)
         {
@@ -74,17 +74,12 @@ public class Combate
             {
                 Console.WriteLine($"Munição: [{Jogador.ArmaEquipada.Municao} / {Jogador.ArmaEquipada.CapacidadeMunicao}]");    
             }
-            Console.WriteLine("\n");
-        }
-        else
-        {
-            Console.WriteLine("\n");
         }
         
     }
     private void Menu()
     {
-        Console.WriteLine("O que quer fazer? (0 para Fugir)\n");
+        Console.WriteLine("\nO que quer fazer? (0 para Fugir)\n");
         Console.WriteLine("[1] Atacar");
         Console.WriteLine("[2] Abrir inventário");
         if(Jogador.ArmaEquipada != null)
@@ -161,7 +156,7 @@ public class Combate
 
                     Console.WriteLine("\nVocê atacou o zombie!");
 
-                    Console.WriteLine($"\nVocê deu {danoTomado} de dano!\n");
+                    Console.WriteLine($"\nVocê deu {danoTomado} de dano!");
 
                     acaoValida = true;
                     break;
@@ -196,13 +191,13 @@ public class Combate
     {
         int danoTomado = 0;
 
-        Console.WriteLine("\nO zombie te atacou!\n");
+        Console.WriteLine("\nO zombie te atacou!");
 
         danoTomado = CalcularDano(null, Zombie, Jogador);
 
         Jogador.TomarDano(danoTomado);
 
-        Console.WriteLine($"\nVocê tomou {danoTomado} de dano!\n");
+        Console.WriteLine($"\nVocê tomou {danoTomado} de dano!");
     }
     private int CalcularDano(Arma? arma, SerVivo atacante, SerVivo defensor)
     {

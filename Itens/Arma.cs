@@ -36,14 +36,14 @@ public class Arma : Item
     {
         if(arma.Municao == arma.CapacidadeMunicao)
         {
-            Console.WriteLine("\nSua arma já está cheia!\n");
+            Console.WriteLine("\nSua arma já está cheia!");
             return;
         }
         while(arma.Municao != arma.CapacidadeMunicao)
         {
             Municao++;   
         }
-        Console.WriteLine("\nSua arma foi recarregada!\n");
+        Console.WriteLine("\nSua arma foi recarregada!");
         
     }
     public Boolean PodeRecarregar()
