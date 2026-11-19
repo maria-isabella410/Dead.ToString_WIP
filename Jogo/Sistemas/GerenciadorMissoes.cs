@@ -36,12 +36,12 @@ public class GerenciadorMissoes
             } 
             if(jogador.MissaoAtual.Recompensa == null && jogador.MissaoAtual == MissoesDoJogo.CriaMissaoEnfermeira())
             {                
-                Console.WriteLine("\nMissão concluída! A Enfermeira Grace irá tratar seus ferimentos.");
+                Console.WriteLine("\nMissão concluída! A Enfermeira Grace irá tratar seus ferimentos.\n");
 
                 jogador.Vida = jogador.VidaMaxima;
 
-                Console.WriteLine("\nApós uma sessão de cuidados, você se sente muito melhor.");
-                Console.WriteLine($"\nHP: [{jogador.Vida} / {jogador.VidaMaxima}]");                
+                Console.WriteLine("\nApós uma sessão de cuidados, você se sente muito melhor.\n");
+                Console.WriteLine($"\nHP: [{jogador.Vida} / {jogador.VidaMaxima}]\n");                
             }            
 
             jogador.MissaoAtual = null;

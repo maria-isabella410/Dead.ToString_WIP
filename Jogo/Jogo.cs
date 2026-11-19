@@ -37,7 +37,7 @@ public class Jogo
 
             if (string.IsNullOrWhiteSpace(nomeJogador))
             {
-                Console.WriteLine("\nO nome não pode estar vazio! Tente novamente.");
+                Console.WriteLine("\nO nome não pode estar vazio! Tente novamente.\n");
                 continue;
             }
 
@@ -54,7 +54,7 @@ public class Jogo
 
             if(nomeValido) break;
 
-            Console.WriteLine("\nNome inválido! Utilize apenas letras (sem números ou símbolos). Tente novamente.");
+            Console.WriteLine("\nNome inválido! Utilize apenas letras (sem números ou símbolos). Tente novamente.\n");
         }
 
         Jogador = new Jogador(50, 50, 15, 10, 25, null, nomeJogador, Mapa.ruaPrincipal, null);
@@ -116,7 +116,7 @@ public class Jogo
         Console.WriteLine("Mortos-vivos tomaram as ruas da cidade, devorando todos as pessoas que encontravam!");
         Console.WriteLine("Algumas pessoas conseguiram escapar e se esconderam em abrigos improvisados, mas os recursos são escassos e as ruas são perigosas...");
         Console.WriteLine($"Você, {Jogador.Nome}, é uma dessas pessoas. Você sobreviveu até aqui, porém, mais do que sobreviver, você quer descobrir o que causou tudo isso e como resolver!");
-        Console.WriteLine("Busque recursos, ajude outros sobreviventes, encontre respostas e claro, sobreviva.\n");
+        Console.WriteLine("Busque recursos, ajude outros sobreviventes, encontre respostas e claro, sobreviva.");
 
         Mapa.MostrarLocalAtual(Jogador);
     }

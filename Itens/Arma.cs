@@ -28,22 +28,22 @@ public class Arma : Item
         if(Municao == 0) return false;
         else return true;
     }
-    public void GastarMunicao()
+    public void GastarMunicao(Random random)
     {
-        Municao -= 1;
+        Municao -= random.Next(1, 4);
     }
     public void Recarregar(Arma arma)
     {
         if(arma.Municao == arma.CapacidadeMunicao)
         {
-            Console.WriteLine("Sua arma já está cheia!");
+            Console.WriteLine("\nSua arma já está cheia!\n");
             return;
         }
         while(arma.Municao != arma.CapacidadeMunicao)
         {
             Municao++;   
         }
-        Console.WriteLine("Sua arma foi recarregada!");
+        Console.WriteLine("\nSua arma foi recarregada!\n");
         
     }
     public Boolean PodeRecarregar()

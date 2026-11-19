@@ -75,7 +75,7 @@ public class Inventario
     {
         if(Itens.Count >= Capacidade)
         {
-            Console.WriteLine($"Seu inventário está cheio. Descarte um item para coletar o outro. [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]");
+            Console.WriteLine($"\nSeu inventário está cheio. Descarte um item para coletar o outro. [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
 
             return false;
         }
@@ -90,7 +90,7 @@ public class Inventario
         {
             jogador.ContemMapa = true;
 
-            Console.WriteLine("Agora, você possui o mapa da cidade.");
+            Console.WriteLine("\nAgora, você possui o mapa da cidade.\n");
         }
 
         if(item.tipoItem == rpgTipoItem.TipoItem.Mochila)
@@ -99,7 +99,7 @@ public class Inventario
 
             this.Capacidade = 15;
 
-            Console.WriteLine("Agora, você possui uma mochila. (Inventário capacidade: [10] -> [15])");
+            Console.WriteLine("\nAgora, você possui uma mochila. (Inventário capacidade: [10] -> [15])\n");
         }
 
         if(item.tipoItem == rpgTipoItem.TipoItem.Colete)
@@ -108,14 +108,14 @@ public class Inventario
 
             jogador.Defesa += 20;
 
-            Console.WriteLine("Agora, você possui um colete. (Defesa: [10] -> [20])");
+            Console.WriteLine("\nAgora, você possui um colete. (Defesa: [10] -> [20])\n");
         }
     }
     public void EquiparArma(Arma arma, Jogador jogador)
     {
         jogador.ArmaEquipada = arma;
 
-        Console.WriteLine("Você equipou: " + arma.Nome);
+        Console.WriteLine($"\nVocê equipou: {arma.Nome}\n");
     }
     public void DescartarItem(Item item)
     {

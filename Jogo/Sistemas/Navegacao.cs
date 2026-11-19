@@ -74,14 +74,14 @@ class Navegacao
                     }
                     else
                     {
-                        Console.WriteLine("\nDireção inválida! Digite apenas N, L, O ou S.");
+                        Console.WriteLine("\nDireção inválida! Digite apenas N, L, O ou S.\n");
 
                         continue;
                     }
                 }
             }
             
-            Console.WriteLine("\nEntrada inválida! Digite apenas letras (sem números ou símbolos).");
+            Console.WriteLine("\nEntrada inválida! Digite apenas letras (sem números ou símbolos).\n");
         }
 
         opcoesDirecao escolhaDirecao = (opcoesDirecao)direcaoEscolhida;
@@ -159,7 +159,7 @@ class Navegacao
             Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");
         } 
 
-        Console.WriteLine("Para onde deseja ir?");
+        Console.WriteLine("Para onde deseja ir?\n");
 
         List<Sala> salasDisponiveis = jogador.LocalAtual.Salas.Where(sala => sala != jogador.SalaAtual).ToList();
 
@@ -194,14 +194,14 @@ class Navegacao
             {
                 List<Chave> chaves = jogador.Inventario.ListarChaves();
 
-                Console.WriteLine($"\nVocê não pode entrar nessa sala sem a {salaEscolhida.PortaTrancada.ChaveNecessaria.Nome}.");
+                Console.WriteLine($"\nVocê não pode entrar nessa sala sem a {salaEscolhida.PortaTrancada.ChaveNecessaria.Nome}.\n");
 
                 foreach(Chave chave in chaves)
                 {
                     if(chave.Tipo == salaEscolhida.PortaTrancada.ChaveNecessaria.Tipo)
                     {
                         Console.WriteLine("\nVocê consegue abrir a porta.");
-                        Console.WriteLine($"\nAgora, você tem acesso a {salaEscolhida.Nome}.");
+                        Console.WriteLine($"\nAgora, você tem acesso a {salaEscolhida.Nome}.\n");
 
                         salaEscolhida.PortaTrancada.Aberta = true;
 
@@ -214,7 +214,7 @@ class Navegacao
                 }
                 if (!salaEscolhida.PortaTrancada.Aberta)
                 {
-                    Console.WriteLine("\nVocê não tem a chave necessária para abrir essa porta.");
+                    Console.WriteLine("\nVocê não tem a chave necessária para abrir essa porta.\n");
 
                     break;
                 } 

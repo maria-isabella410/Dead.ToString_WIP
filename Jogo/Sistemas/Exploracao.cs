@@ -78,10 +78,6 @@ public class Exploracao
                 case opcoesExplorar.ProcurarSobreviventes:
                     ProcurarSobreviventes(npcsLocal);
                 break;
-
-                default:
-                    Console.WriteLine("\nEntrada inválida!");
-                break;
             }                                      
         } 
     }
@@ -98,7 +94,7 @@ public class Exploracao
 
             while(true)
             {
-                Console.WriteLine("Digite o item que deseja coletar ou [0] para Voltar.");
+                Console.WriteLine("\nDigite o item que deseja coletar ou [0] para Voltar.\n");
 
                 int escolhaItemColetar = validacaoInput.OpcaoValidada(itensLocal.Count);
 
@@ -131,7 +127,7 @@ public class Exploracao
 
                 if(conseguiuGuardar)
                 {
-                    Console.WriteLine($"\nVocê coletou o item: {itensLocal[escolhaItemColetar - 1].Nome}");
+                    Console.WriteLine($"\nVocê coletou o item: {itensLocal[escolhaItemColetar - 1].Nome}\n");
 
                     itensLocal.RemoveAt(escolhaItemColetar - 1);
 
@@ -146,92 +142,96 @@ public class Exploracao
     }    
     public Boolean ExplorarArredores(List<Zombie> zombiesLocal)
     {
-        if(zombiesLocal.Count > 0)
+        while(zombiesLocal.Count > 0)
         {
-            if(zombiesLocal.Count == 1)
+            if(zombiesLocal.Count > 0)
             {
-                Console.WriteLine("Há 1 zombie aqui.");
-                Console.WriteLine("O que deseja fazer quanto ao zombie?");
-            }
-            else
-            {
-                Console.WriteLine($"Há {zombiesLocal.Count} zombies aqui.");
-                Console.WriteLine("O que deseja fazer quanto aos zombies?");
-            }
+                var zombieNoLocal = zombiesLocal[0];
 
-            while (true)
-            {
+                if(zombiesLocal.Count == 1)
+                {
+                    Console.WriteLine("Há 1 zombie aqui.");
+                    // Console.WriteLine("O que deseja fazer quanto ao zombie?\n");
+                }
+                else
+                {
+                    Console.WriteLine($"Há {zombiesLocal.Count} zombies aqui.");
+                    // Console.WriteLine("O que deseja fazer quanto aos zombies?\n");
+                }            
+
+                Console.WriteLine(zombieNoLocal.DescricaoFisica);
+
                 Console.WriteLine("[1] Lutar");
                 Console.WriteLine("[0] Ignorar");
 
                 int escolhaCombate = validacaoInput.OpcaoValidada(1);
 
-                if(escolhaCombate == 1)
-                {
-                    while (true)
-                    {
-                        Console.WriteLine("Qual zombie deseja enfrentar?");
-                        
-                        for(int i = 0; i < zombiesLocal.Count; i++)
-                        {
-                            Console.WriteLine($"[{i + 1}] {zombiesLocal[i].Tipo}");
-                        }
-                        Console.WriteLine("[0] Desistir");
-
-                        int escolhaZombieEnfrentar = validacaoInput.OpcaoValidada(zombiesLocal.Count);
-
-                        if(escolhaZombieEnfrentar == 0)
-                        {
-                            Console.WriteLine("Você desistiu do combate.");
-                            return true;
-                        }
-
-                        int indiceZombie = escolhaZombieEnfrentar - 1;
-
-                        Combate combate = new Combate(jogador, zombiesLocal[indiceZombie], random);
-
-                        if(!zombiesLocal[indiceZombie].EstaVivo())
-                        {
-                            zombiesLocal.RemoveAt(indiceZombie);
-                        }
-
-                        if(zombiesLocal.Count == 0) return true;            
-
-                        Boolean jogadorVivo = combate.IniciarCombate();
-
-                        if (!jogadorVivo)
-                        {
-                            return false;
-                        }
-                    }
-                }
-                
                 if(escolhaCombate == 0)
                 {
                     if(zombiesLocal.Count == 1)
                     {
-                        Console.WriteLine("\nVocê ignorou o zombie.");
+                        Console.WriteLine("\nVocê ignorou o zombie.\n");
                     }
                     else
                     {
-                        Console.WriteLine("\nVocê ignorou os zombies.");
+                        Console.WriteLine("\nVocê ignorou os zombies.\n");
                     }
 
-                    return true;                     
+                    return true; 
                 }
-            }
+
+                Combate combate = new Combate(jogador, zombieNoLocal, random);
+                Boolean jogadorVivo = combate.IniciarCombate();
+
+                if (!jogadorVivo)
+                {
+                    return false;
+                }
+
+                if(!zombieNoLocal.EstaVivo())
+                {
+                    zombiesLocal.RemoveAt(0);
+                }         
+
+                return true;
+            
+                // Console.WriteLine("Qual zombie deseja enfrentar?\n");
+                
+                // for(int i = 0; i < zombiesLocal.Count; i++)
+                // {
+                //     Console.WriteLine($"[{i + 1}] {zombiesLocal[i].Tipo}");
+                // }
+                // Console.WriteLine("[0] Desistir");
+
+                // int escolhaZombieEnfrentar = validacaoInput.OpcaoValidada(zombiesLocal.Count);
+
+                // if(escolhaZombieEnfrentar == 0)
+                // {
+                //     Console.WriteLine("\nVocê desistiu do combate.\n");
+                //     return true;
+                // }
+
+                // int indiceZombie = escolhaZombieEnfrentar - 1;
+
+                // Combate combate = new Combate(jogador, zombiesLocal[indiceZombie], random);
+
+                // if(!zombiesLocal[indiceZombie].EstaVivo())
+                // {
+                //     zombiesLocal.RemoveAt(indiceZombie);
+                // }
+
+            }            
         }
-        else
-        {
-            Console.WriteLine("\nNão há zombies aqui.");
-            return true;
-        }
+
+        Console.WriteLine("\nNão há zombies aqui.\n");
+        
+        return true;
     }
     public void ProcurarSobreviventes(List<Npc> npcsLocal)
     {
         if(npcsLocal.Count == 0)
         {
-            Console.WriteLine("\nNão há ninguém aqui.");
+            Console.WriteLine("\nNão há ninguém aqui.\n");
             return;
         }
         var npcNoLocal = npcsLocal[0];

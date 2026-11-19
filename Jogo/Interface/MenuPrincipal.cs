@@ -42,7 +42,7 @@ public class MenuPrincipal
     }
     public void AbrirMapa()
     {
-        if (!jogador.ContemMapa) Console.WriteLine("\nVocê não tem o mapa da cidade!");
+        if (!jogador.ContemMapa) Console.WriteLine("\nVocê não tem o mapa da cidade!\n");
         else mapa.MostrarMapa();
 
     }

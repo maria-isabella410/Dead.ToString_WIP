@@ -26,7 +26,7 @@ public class InteracaoInventario
 
             if(armas.Count == 0)
             {
-                Console.WriteLine("\nVocê não possui armas em seu inventário.");
+                Console.WriteLine("\nVocê não possui armas em seu inventário.\n");
 
                 return false;
             }
@@ -36,7 +36,7 @@ public class InteracaoInventario
                 Boolean mesmaArmaEquipada = armas.Contains(jogador.ArmaEquipada);
                 if(jogador.ArmaEquipada != null && mesmaArmaEquipada && armas.Count == 1)
                 {
-                    Console.WriteLine("Sua única arma já está equipada!");
+                    Console.WriteLine("\nSua única arma já está equipada!\n");
 
                     return false;
                 }
@@ -47,7 +47,7 @@ public class InteracaoInventario
                 Console.WriteLine($"[{i + 1}] — {armas[i].Nome}");
             }
 
-            Console.WriteLine("Qual arma deseja equipar? (0 para Voltar)");
+            Console.WriteLine("\nQual arma deseja equipar? (0 para Voltar)\n");
 
             int opcaoArma = validacaoInput.OpcaoValidada(armas.Count);
 
@@ -60,7 +60,7 @@ public class InteracaoInventario
             {
                 if(armas[opcaoArma - 1].Tipo == jogador.ArmaEquipada.Tipo)
                 {
-                    Console.WriteLine("\nEssa arma já está equipada.");
+                    Console.WriteLine("\nEssa arma já está equipada.\n");
 
                     return false;
                 }
@@ -83,7 +83,7 @@ public class InteracaoInventario
 
         if(itens.Count == 0)
         {
-            Console.WriteLine("\nVocê não possui itens em seu inventário.");
+            Console.WriteLine("\nVocê não possui itens em seu inventário.\n");
 
             return;
         }
@@ -107,7 +107,7 @@ public class InteracaoInventario
             switch (escolha)
             {
                 case opcoesInventario.InspecionarItem:
-                    Console.WriteLine("Qual item deseja inspecionar? (0 para Voltar)");
+                    Console.WriteLine("\nQual item deseja inspecionar? (0 para Voltar)\n");
 
                     for(int i = 0; i < itens.Count; i++)
                     {
@@ -129,18 +129,18 @@ public class InteracaoInventario
                     
                     if(consumiveis.Count == 0)
                     {
-                        Console.WriteLine("\nVocê não possui nenhum consumível em seu inventário.");
+                        Console.WriteLine("\nVocê não possui nenhum consumível em seu inventário.\n");
                         
                         break;
                     }
                     if (jogador.Vida.Equals(jogador.VidaMaxima))
                     {
-                        Console.WriteLine("\nSua vida está cheia, você não precisa consumir nenhum item.");
+                        Console.WriteLine("\nSua vida está cheia, você não precisa consumir nenhum item.\n");
 
                         break;
                     }
 
-                    Console.WriteLine("Qual item deseja consumir? (0 para Voltar)");
+                    Console.WriteLine("\nQual item deseja consumir? (0 para Voltar)\n");
 
                     for(int i = 0; i < consumiveis.Count; i++)
                     {
@@ -164,7 +164,7 @@ public class InteracaoInventario
 
                     break;
                 case opcoesInventario.DescartarItem:
-                    Console.WriteLine("Qual item deseja descartar? (0 para Voltar)");
+                    Console.WriteLine("Qual item deseja descartar? (0 para Voltar)\n");
 
                     for(int i = 0; i < itens.Count; i++)
                     {
@@ -182,9 +182,9 @@ public class InteracaoInventario
 
                     jogador.Inventario.DescartarItem(item);
 
-                    Console.WriteLine($"\nO item {item.Nome} foi descartado!");
+                    Console.WriteLine($"\nO item {item.Nome} foi descartado!\n");
                     
-                    Console.WriteLine($"\nInventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]");
+                    Console.WriteLine($"\nInventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
 
                     break;
                 case opcoesInventario.EquiparArma:
@@ -194,7 +194,7 @@ public class InteracaoInventario
                     }
                     else
                     {
-                        Console.WriteLine("Não foi possível equipar uma arma.");
+                        Console.WriteLine("\nNão foi possível equipar uma arma.\n");
 
                         break;
                     }
@@ -202,13 +202,13 @@ public class InteracaoInventario
                 case opcoesInventario.DesequiparArma:
                     if(jogador.ArmaEquipada == null)
                     {
-                        Console.WriteLine("Não é possível desequipar uma arma, pois você não está empunhando nenhuma.");
+                        Console.WriteLine("\nNão é possível desequipar uma arma, pois você não está empunhando nenhuma.\n");
 
                         return;
                     }
                     jogador.ArmaEquipada = null;
 
-                    Console.WriteLine("\nVocê desequipou sua arma.");
+                    Console.WriteLine("\nVocê desequipou sua arma.\n");
                     break;
             }           
         }

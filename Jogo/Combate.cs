@@ -35,13 +35,13 @@ public class Combate
                 return true;
             }
 
-            Thread.Sleep(600);
+            Thread.Sleep(300);
 
             if (!Zombie.EstaVivo())
             {
                 Console.WriteLine("\nVocê matou o zombie!\n");
 
-                break;
+                return true;
             }
 
             TurnoZombie();
@@ -49,7 +49,7 @@ public class Combate
                     
         if (!Jogador.EstaVivo())
         {
-            Console.WriteLine("\nAcho que você está morto... que tal tentar de novo?");
+            Console.WriteLine("\nAcho que você está morto... que tal tentar de novo?\n");
         }
 
         return false;
@@ -68,18 +68,23 @@ public class Combate
         Console.WriteLine($"Zombie: [{Zombie.Vida} / {Zombie.VidaMaxima}] HP");
         if(Jogador.ArmaEquipada != null)
         {
-            Console.WriteLine("Arma equipada: " + Jogador.ArmaEquipada.Nome);
+            Console.WriteLine($"Arma equipada: {Jogador.ArmaEquipada.Nome}");
 
             if (Jogador.ArmaEquipada.PodeRecarregar())
             {
                 Console.WriteLine($"Munição: [{Jogador.ArmaEquipada.Municao} / {Jogador.ArmaEquipada.CapacidadeMunicao}]");    
             }
+            Console.WriteLine("\n");
+        }
+        else
+        {
+            Console.WriteLine("\n");
         }
         
     }
     private void Menu()
     {
-        Console.WriteLine("O que quer fazer? (0 para Fugir.)");
+        Console.WriteLine("O que quer fazer? (0 para Fugir)\n");
         Console.WriteLine("[1] Atacar");
         Console.WriteLine("[2] Abrir inventário");
         if(Jogador.ArmaEquipada != null)
@@ -122,7 +127,7 @@ public class Combate
                     return true;
                 }
 
-                Console.WriteLine("\nVocê não conseguiu fugir!");
+                Console.WriteLine("\nVocê não conseguiu fugir!\n");
 
                 acaoValida = true;
             }
@@ -134,18 +139,21 @@ public class Combate
                 case opcoesMenu.Atacar:
                     if(Jogador.ArmaEquipada == null)
                     {
-                        Console.WriteLine("\nVocê está sem armas equipadas! Escolha 'Equipar Arma' primeiro.");
+                        Console.WriteLine("\nVocê está sem armas equipadas! Escolha 'Equipar Arma' primeiro.\n");
 
                         break;
                     }
-                    if(!Jogador.ArmaEquipada.TemMunicao())
+                    if(Jogador.ArmaEquipada.PodeRecarregar() && !Jogador.ArmaEquipada.TemMunicao())
                     {
-                        Console.WriteLine("\nA arma está sem munição! Você precisa recarregar.");
+                        Console.WriteLine("\nA arma está sem munição! Você precisa recarregar.\n");
 
                         break;
                     }
 
-                    Jogador.ArmaEquipada.GastarMunicao();
+                    if (Jogador.ArmaEquipada.PodeRecarregar())
+                    {
+                        Jogador.ArmaEquipada.GastarMunicao(random);
+                    }                    
 
                     int danoTomado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
 
@@ -153,10 +161,9 @@ public class Combate
 
                     Console.WriteLine("\nVocê atacou o zombie!");
 
-                    Console.WriteLine($"\nVocê deu {danoTomado} de dano!");
+                    Console.WriteLine($"\nVocê deu {danoTomado} de dano!\n");
 
-                    acaoValida = true;                    
-
+                    acaoValida = true;
                     break;
                 case opcoesMenu.EquiparArma:
                     if(interacaoInventario.EquiparArma())
@@ -169,12 +176,12 @@ public class Combate
                     if(Jogador.ArmaEquipada != null && Jogador.ArmaEquipada.PodeRecarregar())
                     {
                         Jogador.ArmaEquipada.Recarregar(Jogador.ArmaEquipada);
-                        Console.WriteLine("\nVocê recarregou a arma.");
+                        Console.WriteLine("\nVocê recarregou a arma.\n");
                         acaoValida = true;
                     }
                     else
                     {
-                        Console.WriteLine("\nNão é possível recarregar!");
+                        Console.WriteLine("\nNão é possível recarregar!\n");
                     }
                     break;
                 case opcoesMenu.AbrirInventario:
@@ -189,13 +196,13 @@ public class Combate
     {
         int danoTomado = 0;
 
-        Console.WriteLine("\nO zombie te atacou!");
+        Console.WriteLine("\nO zombie te atacou!\n");
 
         danoTomado = CalcularDano(null, Zombie, Jogador);
 
         Jogador.TomarDano(danoTomado);
 
-        Console.WriteLine($"\nVocê tomou {danoTomado} de dano!");
+        Console.WriteLine($"\nVocê tomou {danoTomado} de dano!\n");
     }
     private int CalcularDano(Arma? arma, SerVivo atacante, SerVivo defensor)
     {
@@ -209,7 +216,7 @@ public class Combate
         dano -= defensor.Defesa;
 
         //variabilidade de dano para nao ficar estatico
-        dano += random.Next(-4, 5);
+        dano += random.Next(-3, 5);
 
         return Math.Max(1, dano);
     }

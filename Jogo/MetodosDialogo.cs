@@ -30,7 +30,7 @@ public class MetodosDialogo
 
         if(respostaPegarBilly == 0) return false;
 
-        Console.WriteLine("Billy fica feliz ao estar no seu colo.\n");
+        Console.WriteLine("\nBilly fica feliz ao estar no seu colo.\n");
 
         jogador.BillyEncontrado = true;
 
@@ -41,7 +41,7 @@ public class MetodosDialogo
         if (npc.MissaoJaFoiConcluida && npc.Dialogo.MissaoConcluida != null)
         {
             Console.WriteLine($"{npc.Nome}: ");
-            Console.WriteLine($"— {npc.Dialogo.MissaoConcluida}");
+            Console.WriteLine($"— {npc.Dialogo.MissaoConcluida}\n");
 
             Console.WriteLine("[0] Voltar");
 
@@ -153,7 +153,7 @@ public class MetodosDialogo
 
                 acoesDisponiveis.Add(() => 
                 {
-                    Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
+                    Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.\n");
                     if(npc.Dialogo.AgradecimentoMissao != null)
                     {
                         Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}\n");
@@ -189,7 +189,7 @@ public class MetodosDialogo
         Console.WriteLine(ehCrianca ? "— Calma! Quem é você?" : "— Quem é você?");
 
         Console.WriteLine("\nPessoa desconhecida:");
-        Console.WriteLine("— " + npc.Dialogo.Cumprimento + "\n");
+        Console.WriteLine($"— {npc.Dialogo.Cumprimento}\n");
 
         Console.WriteLine("[1] Me chamo...");
         Console.WriteLine("[0] Voltar");
@@ -231,7 +231,7 @@ public class MetodosDialogo
 
             if(escolhaResponderConfianca == 0) return;
 
-            Console.WriteLine($"{jogador.Nome}:");
+            Console.WriteLine($"\n{jogador.Nome}:");
             Console.WriteLine("— Não sei se confio no que você diz.");
 
             Console.WriteLine("\n" + npc.Nome);
@@ -264,7 +264,7 @@ public class MetodosDialogo
     {
         if(jogador.MissaoAtual != null)
         {
-            Console.WriteLine("Você não pode aceitar outra missão enquanto a atual ainda não foi concluída.\n");
+            Console.WriteLine("\nVocê não pode aceitar outra missão enquanto a atual ainda não foi concluída.\n");
 
             return;
         }
@@ -295,7 +295,7 @@ public class MetodosDialogo
     public void RecusarMissao()
     {
         Console.WriteLine($"\n{jogador.Nome}:");
-        Console.WriteLine("— Desculpa, não posso ajudar.");
+        Console.WriteLine("— Desculpa, não posso ajudar.\n");
 
         Console.WriteLine("\n" + npc.Nome);
         Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoRecusada + "\n");  

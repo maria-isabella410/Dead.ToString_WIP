@@ -1,4 +1,7 @@
+using rpgArma;
+using rpgItensDoJogo;
 using rpgJogador;
+using rpgTipoArma;
 
 namespace rpgStatusDisplay;
 
@@ -21,6 +24,14 @@ public class StatusDisplay
         if(jogador.ArmaEquipada != null)
         {
             Console.WriteLine($"Arma equipada: {jogador.ArmaEquipada.Nome}");
+            if(jogador.ArmaEquipada.PodeRecarregar())
+            {
+                Console.WriteLine($"Munição: [{jogador.ArmaEquipada.Municao} / {jogador.ArmaEquipada.CapacidadeMunicao}]"); 
+            }
+            else
+            {
+                Console.WriteLine($"Munição: [{jogador.ArmaEquipada.Municao} / {jogador.ArmaEquipada.CapacidadeMunicao}]"); 
+            }
         }
         Console.WriteLine($"Ataque: {jogador.Ataque}");
         Console.WriteLine($"Defesa: {jogador.Defesa}");

@@ -50,13 +50,13 @@ public class Jogador : Pessoa
     {
         if (matouBoss && conseguiuCura)
         {
-            Console.WriteLine("Parabéns! Você concluiu o jogo pelo final bom.\nVocê conseguiu a cura e tem uma nova expectativa de vida.\nAos poucos, conforme o mundo vai se ajeitando, você estará presente para testemunhar a humanidade se reerguer.\nVocê foi bem! Obrigada por jogar << Dead.ToString() >>!!");
+            Console.WriteLine("\nParabéns! Você concluiu o jogo pelo final bom.\nVocê conseguiu a cura e tem uma nova expectativa de vida.\nAos poucos, conforme o mundo vai se ajeitando, você estará presente para testemunhar a humanidade se reerguer.\nVocê foi bem! Obrigada por jogar << Dead.ToString() >>!!\n");
             return true;
         }
 
         if(matouBoss && !conseguiuCura)
         {
-            Console.WriteLine("Você conseguiu derrotar o chefão... mas será que foi o suficiente?\nSem uma cura, não há esperança de dias melhores.\nEspero que você sobreviva ao menos mais alguns dias.\nÉ como dizem, certo? Um dia após o outro...\nObrigada por jogar << Dead.ToString() >>!!");
+            Console.WriteLine("\nVocê conseguiu derrotar o chefão... mas será que foi o suficiente?\nSem uma cura, não há esperança de dias melhores.\nEspero que você sobreviva ao menos mais alguns dias.\nÉ como dizem, certo? Um dia após o outro...\nObrigada por jogar << Dead.ToString() >>!!\n");
             return true;
         }
         
