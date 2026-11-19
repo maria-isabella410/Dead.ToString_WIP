@@ -170,7 +170,7 @@ public class Combate
                 case opcoesMenu.Recarregar:
                     if(Jogador.ArmaEquipada != null && Jogador.ArmaEquipada.PodeRecarregar())
                     {
-                        Jogador.ArmaEquipada.Recarregar(Jogador.ArmaEquipada);
+                        Jogador.ArmaEquipada.Recarregar(Jogador.Inventario);
                         Console.WriteLine("\nVocê recarregou a arma.\n");
                         acaoValida = true;
                     }
@@ -180,7 +180,8 @@ public class Combate
                     }
                     break;
                 case opcoesMenu.AbrirInventario:
-                    interacaoInventario.AbrirInventario();
+                    if(interacaoInventario.AbrirInventario()) acaoValida = true;
+
                     break;
             }           
         }

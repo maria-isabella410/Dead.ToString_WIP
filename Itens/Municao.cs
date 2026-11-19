@@ -14,4 +14,12 @@ public class Municao : Item
         this.TipoMunicao = tipomunicao;
         this.Quantidade = quantidade;
     }
+    public int Consumir(int quantidade)
+    {
+        int consumida = Math.Min(quantidade, Quantidade);
+
+        Quantidade -= consumida;
+
+        return consumida;
+    }
 }

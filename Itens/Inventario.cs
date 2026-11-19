@@ -1,11 +1,10 @@
-using System.Collections.Generic;
-using System.Data;
 using rpgArma;
 using rpgConsumivel;
 using rpgItem;
 using rpgChave;
 using rpgJogador;
-using rpgItensDoJogo;
+using rpgMunicao;
+using rpgTipoMunicao;
 
 namespace rpgInventario;
 
@@ -20,9 +19,9 @@ public class Inventario
         Itens = new List<Item>();
         this.Capacidade = capacidade;
     }
-    public List<Item> ListarItens()
+    public IReadOnlyList<Item> ListarItens()
     {        
-        return Itens;
+        return Itens.AsReadOnly();
     }
     public void InspecionarItem(Item item)
     {
@@ -120,5 +119,31 @@ public class Inventario
     public void DescartarItem(Item item)
     {
         Itens.Remove(item);
+    }
+    public int RetirarMunicao(TipoMunicao tipo, int quantidadeNecessaria)
+    {
+        int quantidadeRestante = quantidadeNecessaria;
+
+        for (int i = Itens.Count - 1; i >= 0; i--)
+        {
+            if (Itens[i] is Municao municao && municao.TipoMunicao == tipo)
+            {
+                int quantidadeRetirada = municao.Consumir(quantidadeRestante);
+
+                quantidadeRestante -= quantidadeRetirada;
+
+                if (municao.Quantidade == 0)
+                {
+                    Itens.RemoveAt(i);
+                }
+
+                if (quantidadeRestante == 0)
+                {
+                    break;
+                }
+            }
+        }
+
+        return quantidadeNecessaria - quantidadeRestante;
     }
 }

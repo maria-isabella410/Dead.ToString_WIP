@@ -3,6 +3,7 @@ using rpgItem;
 using rpgTipoArma;
 using rpgTipoMunicao;
 using rpgTipoItem;
+using rpgInventario;
 
 namespace rpgArma;
 
@@ -31,20 +32,42 @@ public class Arma : Item
     public void GastarMunicao(Random random)
     {
         Municao -= random.Next(1, 4);
+
+        if(Municao < 0) Municao = 0;
     }
-    public void Recarregar(Arma arma)
+    public Boolean Recarregar(Inventario inventario)
     {
-        if(arma.Municao == arma.CapacidadeMunicao)
+        if(CapacidadeMunicao != null && Municao != null && TipoMunicao != null)
         {
-            Console.WriteLine("\nSua arma já está cheia!");
-            return;
+            if (!PodeRecarregar())
+            {
+                return false;
+            }
+
+            if (Municao == CapacidadeMunicao)
+            {
+                Console.WriteLine("\nSua arma já está cheia!");
+                
+                return false;
+            }
+
+            int quantidadeNecessaria = CapacidadeMunicao.Value - Municao.Value;       
+
+            int quantidadeObtida = inventario.RetirarMunicao(TipoMunicao.Value, quantidadeNecessaria);
+
+            if (quantidadeObtida == 0)
+            {
+                Console.WriteLine("\nVocê não possui munição compatível!");
+                return false;
+            }
+            
+            Municao += quantidadeObtida;
+
+            Console.WriteLine($"\nVocê recarregou sua arma! (+{quantidadeObtida} balas)");
+
+            return true;            
         }
-        while(arma.Municao != arma.CapacidadeMunicao)
-        {
-            Municao++;   
-        }
-        Console.WriteLine("\nSua arma foi recarregada!");
-        
+        return false;
     }
     public Boolean PodeRecarregar()
     {
