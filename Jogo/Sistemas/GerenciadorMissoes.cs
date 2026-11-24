@@ -1,6 +1,7 @@
 using rpgJogador;
 using rpgMissao;
 using rpgMissoesDoJogo;
+using rpgTipoItem;
 
 namespace rpgGerenciadorMissoes;
 
@@ -27,14 +28,20 @@ public class GerenciadorMissoes
 
             if(jogador.MissaoAtual.Recompensa != null)
             {
-                jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, jogador);
+                if(jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, jogador))
+                {
+                    if(jogador.MissaoAtual.Recompensa.tipoItem == TipoItem.ConsumivelAntidoto)
+                    {
+                        Console.WriteLine($"\nMissão concluída! O antidoto foi adicionado ao seu inventário. Quando se sentir pronto, sabe o que deve fazer.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nMissão concluída! O item de recompensa [{jogador.MissaoAtual.Recompensa.Nome}] foi adicionado ao seu inventário.");
+                    }
+                }
             }
                 
-            if(jogador.MissaoAtual.Recompensa != null)
-            {
-                Console.WriteLine($"\nMissão concluída! O item de recompensa [{jogador.MissaoAtual.Recompensa.Nome}] foi adicionado ao seu inventário.");
-            } 
-            if(jogador.MissaoAtual.Recompensa == null && jogador.MissaoAtual == MissoesDoJogo.CriaMissaoEnfermeira())
+            if(jogador.MissaoAtual.Recompensa == null && jogador.MissaoAtual.Id == IdMissao.Enfermeira)
             {                
                 Console.WriteLine("\nMissão concluída! A Enfermeira Grace irá tratar seus ferimentos.");
 

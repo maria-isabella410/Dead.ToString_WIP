@@ -154,15 +154,29 @@ public class InteracaoInventario
                         break;
                     }
 
-                    jogador.SeCurar(consumiveis[escolhaConsumivel - 1]);
+                    Consumivel consumivelEscolhido = consumiveis[escolhaConsumivel - 1];
 
-                    jogador.Inventario.DescartarItem(consumiveis[escolhaConsumivel - 1]);
+                    int vidaRecuperada = jogador.SeCurar(consumivelEscolhido);
 
-                    Console.WriteLine("\nVocê consumiu: " + consumiveis[escolhaConsumivel - 1].Nome);
+                    if(vidaRecuperada == 100)
+                    {
+                        jogador.ConseguiuCura = true;
 
-                    Console.WriteLine($"\nVida atual: [{jogador.Vida} / {jogador.VidaMaxima}]");
+                        return true;
+                    }
 
-                    return true;
+                    if(vidaRecuperada > 0)
+                    {
+                        jogador.Inventario.DescartarItem(consumivelEscolhido);
+
+                        Console.WriteLine($"\nVocê consumiu: {consumivelEscolhido.Nome} (+{vidaRecuperada} HP!)");
+
+                        Console.WriteLine($"\nVida atual: [{jogador.Vida} / {jogador.VidaMaxima}]");
+
+                        return true;
+                    }
+
+                    break;
                 case opcoesInventario.DescartarItem:
                     Console.WriteLine("\nQual item deseja descartar? (0 para Voltar)\n");
 

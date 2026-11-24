@@ -38,15 +38,23 @@ public class Jogador : Pessoa
     {
         this.ArmaEquipada = arma;
     }
-    public void SeCurar(Consumivel consumivel)
+    public int SeCurar(Consumivel consumivel)
     {
-        this.Vida = Math.Min(Vida + consumivel.QtdVidaRecuperada, VidaMaxima);      
+        if(consumivel.tipoItem == rpgTipoItem.TipoItem.ConsumivelAntidoto)
+        {
+            return 100;
+        }
+        int vidaAnterior = Vida;
+
+        this.Vida = Math.Min(Vida + consumivel.QtdVidaRecuperada, VidaMaxima);
+
+        return Vida - vidaAnterior;
     }
     public void ConheceNpc(Npc npc)
     {
         NpcsConhecidos.Add(npc);
     }
-    public Boolean FinalizouJogo(Boolean matouBoss, Boolean conseguiuCura)
+    public bool FinalizouJogo(Boolean matouBoss, Boolean conseguiuCura)
     {
         if (matouBoss && conseguiuCura)
         {

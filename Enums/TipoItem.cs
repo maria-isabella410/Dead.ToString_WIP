@@ -3,7 +3,8 @@ namespace rpgTipoItem;
 public enum TipoItem{
     Arma,
     Chave,
-    Consumivel,
+    ConsumivelGeral,
+    ConsumivelAntidoto,
     Municao,
     Mochila,
     PeDeCabra,

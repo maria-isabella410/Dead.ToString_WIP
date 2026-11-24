@@ -4,6 +4,7 @@ using rpgSerVivo;
 using rpgZombie;
 using rpgInteracaoInventario;
 using rpgValidacaoInput;
+using rpgTipoZombie;
 
 namespace rpgCombate;
 
@@ -39,6 +40,10 @@ public class Combate
 
             if (!Zombie.EstaVivo())
             {
+                if(Zombie.ClasseZombie == TipoZombie.Final)
+                {
+                    Jogador.MatouBoss = true;
+                }
                 Console.WriteLine("\nVocê matou o zombie!");
 
                 return true;
@@ -170,9 +175,9 @@ public class Combate
                 case opcoesMenu.Recarregar:
                     if(Jogador.ArmaEquipada != null && Jogador.ArmaEquipada.PodeRecarregar())
                     {
-                        Jogador.ArmaEquipada.Recarregar(Jogador.Inventario);
-                        Console.WriteLine("\nVocê recarregou a arma.\n");
-                        acaoValida = true;
+                        if(Jogador.ArmaEquipada.Recarregar(Jogador.Inventario)){
+                            acaoValida = true;
+                        }
                     }
                     else
                     {

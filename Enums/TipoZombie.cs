@@ -1,6 +1,9 @@
 namespace rpgTipoZombie;
 
 public enum TipoZombie{
-	Comum,
-    Especial
+	ComumFraco,
+    ComumForte,
+    Jumper,
+    Tank,
+    Final
 }
