@@ -96,7 +96,7 @@ public class Combate
         {
             Console.WriteLine("[3] Equipar arma");
         }
-        Console.WriteLine("[0] Fugir (50% de chance)");
+        Console.WriteLine("[0] Tentar fugir");
        
     }
     private Boolean TurnoJogador()
@@ -155,20 +155,22 @@ public class Combate
                         Jogador.ArmaEquipada.GastarMunicao(random);
                     }                    
 
-                    int danoTomado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
+                    int danoCausado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
 
-                    Zombie.TomarDano(danoTomado);
+                    Zombie.TomarDano(danoCausado);
 
                     Console.WriteLine("\nVocê atacou o zombie!");
 
-                    Console.WriteLine($"\nVocê deu {danoTomado} de dano!");
+                    Console.WriteLine($"\nVocê deu {danoCausado} de dano!");
 
                     acaoValida = true;
                     break;
                 case opcoesMenu.EquiparArma:
+                    Boolean jaTinhaArma = Jogador.ArmaEquipada != null;
+
                     if(interacaoInventario.EquiparArma())
                     {
-                        acaoValida = true;
+                        if(jaTinhaArma) acaoValida = true;
                     }
 
                     break;
@@ -185,8 +187,14 @@ public class Combate
                     }
                     break;
                 case opcoesMenu.AbrirInventario:
-                    if(interacaoInventario.AbrirInventario()) acaoValida = true;
+                    Boolean tinhaArmaAntesDoInventario = Jogador.ArmaEquipada != null;
 
+                    if (interacaoInventario.AbrirInventario())
+                    {
+                        Boolean equipouPrimeiraArma = !tinhaArmaAntesDoInventario && Jogador.ArmaEquipada != null;
+
+                        if(!equipouPrimeiraArma) acaoValida = true;
+                    } 
                     break;
             }           
         }
@@ -207,21 +215,24 @@ public class Combate
     }
     private int CalcularDano(Arma? arma, SerVivo atacante, SerVivo defensor)
     {
-        int dano = atacante.Ataque;
+        int danoBase = atacante.Ataque;
 
         if(arma != null)
         {
             int danoDaArma = random.Next(arma.Dano / 2, arma.Dano + 1);
-            
-            dano += danoDaArma; 
+
+            danoBase += danoDaArma; 
         }
 
-        dano -= defensor.Defesa;
-
         //variabilidade de dano para nao ficar estatico
-        dano += random.Next(-3, 5);
+        danoBase += random.Next(-3, 5);
+        danoBase = Math.Max(1, danoBase);
 
-        return Math.Max(1, dano);
+        double reducaoPercentual = Math.Min(0.50, defensor.Defesa * 0.02);
+
+        int danoFinal = (int)Math.Round(danoBase * (1.0 - reducaoPercentual));
+
+        return Math.Max(1, danoFinal);
     }
     private bool TentarFugir()
     {

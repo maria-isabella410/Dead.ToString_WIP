@@ -397,6 +397,10 @@ public class SalasDoJogo
         //mercado
         corredoresMercado.AdicionarItens(ItensDoJogo.CriarAgua());
         corredoresMercado.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
+        corredoresMercado.AdicionarItens(ItensDoJogo.CriarPistola());
+        corredoresMercado.AdicionarItens(ItensDoJogo.CriarShotgun());
+        corredoresMercado.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
+        corredoresMercado.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
 
         if(Chance(70))
         {
@@ -605,8 +609,10 @@ public class SalasDoJogo
         }        
 
         //mercado
-        corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
-        corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        // corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumFraco());
+        // corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieComumForte());
+        // corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieJumper());
+        corredoresMercado.AdicionarZombie(ZombiesDoJogo.CriaZombieTank());
 
         if(Chance(40))
         {

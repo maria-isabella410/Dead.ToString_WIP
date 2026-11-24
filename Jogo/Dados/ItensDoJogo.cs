@@ -30,23 +30,23 @@ public class ItensDoJogo
     //consumiveis
     public static Consumivel CriarBandagem()
     {
-        return new Consumivel("Bandagem", "Recupera um pouco da sua vida. (Cura 5 HP)", TipoItem.ConsumivelGeral, 5);
+        return new Consumivel("Bandagem", "Recupera um pouco da sua vida. (Cura 12 HP)", TipoItem.ConsumivelGeral, 12);
     }
     public static Consumivel CriarKitMed()
     {
-        return new Consumivel("Kit Médico", "Recupera grande parte da sua vida. (Cura 20 HP)", TipoItem.ConsumivelGeral, 20);
+        return new Consumivel("Kit Médico", "Recupera grande parte da sua vida. (Cura 35 HP)", TipoItem.ConsumivelGeral, 35);
     }
     public static Consumivel CriarSpray()
     {
-        return new Consumivel("Spray", "Recupera boa parte sua vida. (Cura 10 HP)", TipoItem.ConsumivelGeral, 10);
+        return new Consumivel("Spray", "Recupera boa parte sua vida. (Cura 22 HP)", TipoItem.ConsumivelGeral, 22);
     }
     public static Consumivel CriarAgua()
     {
-        return new Consumivel("Garrafa de Água", "Mata sua sede. (Cura 5 HP)", TipoItem.ConsumivelGeral, 5);
+        return new Consumivel("Garrafa de Água", "Mata sua sede. (Cura 8 HP)", TipoItem.ConsumivelGeral, 8);
     }
     public static Consumivel CriarComidaEnlatada()
     {
-        return new Consumivel("Comida enlatada", "Uma comida feita para durar bastante. (Cura 10 HP)", TipoItem.ConsumivelGeral, 10);
+        return new Consumivel("Comida enlatada", "Uma comida feita para durar bastante. (Cura 15 HP)", TipoItem.ConsumivelGeral, 15);
     }
     public static Consumivel CriarAntidoto()
     {

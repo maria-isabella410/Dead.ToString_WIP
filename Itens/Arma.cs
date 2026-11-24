@@ -31,7 +31,7 @@ public class Arma : Item
     }
     public void GastarMunicao(Random random)
     {
-        Municao -= random.Next(1, 4);
+        Municao--;
 
         if(Municao < 0) Municao = 0;
     }

@@ -105,7 +105,7 @@ public class Inventario
         {
             jogador.ColeteEquipado = true;
 
-            jogador.Defesa += 20;
+            jogador.Defesa += 10;
 
             Console.WriteLine("\nAgora, você possui um colete. (Defesa: [10] -> [20])");
         }
