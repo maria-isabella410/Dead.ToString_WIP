@@ -4,7 +4,7 @@ using rpgNpc;
 using rpgMissao;
 using rpgValidacaoInput;
 using rpgNpcsDoJogo;
-using System.ComponentModel.DataAnnotations;
+using rpgGerenciadorMissoes;
 
 namespace rpgMetodosDialogo;
 
@@ -13,11 +13,14 @@ public class MetodosDialogo
     private Jogador jogador;
     private Npc npc;
     private ValidacaoInput validacaoInput = new ValidacaoInput();
+    private GerenciadorMissoes gerenciadorMissoes;
 
     public MetodosDialogo(Jogador jogador, Npc npc)
     {
         this.jogador = jogador;
         this.npc = npc;
+
+        gerenciadorMissoes = new GerenciadorMissoes(jogador);
     }
     public Boolean DialogoComCachorro()
     {
@@ -154,6 +157,7 @@ public class MetodosDialogo
                 acoesDisponiveis.Add(() => 
                 {
                     Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.\n");
+
                     if(npc.Dialogo.AgradecimentoMissao != null)
                     {
                         Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}\n");
@@ -161,11 +165,7 @@ public class MetodosDialogo
 
                     npc.MissaoJaFoiConcluida = true;
 
-                    if(jogador.MissaoAtual != null && npc.Missao != null)
-                    {
-                        jogador.MissoesConcluidas.Add(jogador.MissaoAtual);
-                        jogador.MissaoAtual = null;
-                    }
+                    gerenciadorMissoes.AtualizarMissao();
                 });
 
                 indice++;                

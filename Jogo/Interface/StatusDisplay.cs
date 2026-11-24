@@ -28,10 +28,6 @@ public class StatusDisplay
             {
                 Console.WriteLine($"Munição: [{jogador.ArmaEquipada.Municao} / {jogador.ArmaEquipada.CapacidadeMunicao}]"); 
             }
-            else
-            {
-                Console.WriteLine($"Munição: [{jogador.ArmaEquipada.Municao} / {jogador.ArmaEquipada.CapacidadeMunicao}]"); 
-            }
         }
         Console.WriteLine($"Ataque: {jogador.Ataque}");
         Console.WriteLine($"Defesa: {jogador.Defesa}");

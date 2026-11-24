@@ -21,6 +21,8 @@ public class GerenciadorMissoes
         {
             jogador.MissaoAtual.Concluida = true;
 
+            jogador.MissoesConcluidas.Add(jogador.MissaoAtual);
+
             if(jogador.MissaoAtual.ItemNecessario != null)
             {
                 jogador.Inventario.DescartarItem(jogador.MissaoAtual.ItemNecessario);

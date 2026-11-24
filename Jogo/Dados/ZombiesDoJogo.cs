@@ -19,7 +19,7 @@ public class ZombiesDoJogo
     }
     public static Zombie CriaZombieTank()
     {
-        return new Zombie(150, 150, 30, 35, 5, "Você vê um ser enorme na sua frente. Parece um ser modificado pelas condições e pelo tempo. É um zombie grande e forte. VO que você quer fazer?\n", TipoZombie.Tank, "Zombie Tank");
+        return new Zombie(150, 150, 30, 35, 5, "Você vê um ser enorme na sua frente. Parece um ser modificado pelas condições e pelo tempo. É um zombie grande e forte. O que você quer fazer?\n", TipoZombie.Tank, "Zombie Tank");
     }
     public static Zombie CriaZombieFinal()
     {
