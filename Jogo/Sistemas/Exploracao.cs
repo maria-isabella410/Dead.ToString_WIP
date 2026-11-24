@@ -213,14 +213,20 @@ public class Exploracao
 
         Console.WriteLine(npcNoLocal.DescricaoFisica);
 
-        Console.WriteLine("[1] Sim");
-        Console.WriteLine("[0] Não");
+        if (!ehCachorro)
+        {
+            Console.WriteLine("[1] Sim");
+            Console.WriteLine("[0] Não");
 
-        int escolhaConversa = validacaoInput.OpcaoValidada(1);
+            int escolhaConversa = validacaoInput.OpcaoValidada(1);
 
-        if(escolhaConversa == 0) return;
+            if(escolhaConversa == 0) return;
+            
+            metodosDialogo.DialogoComNpc();
 
-        if (ehCachorro)
+            return;
+        }   
+        else
         {
             Boolean pegouCachorro = metodosDialogo.DialogoComCachorro();
 
@@ -228,12 +234,6 @@ public class Exploracao
             {
                 npcsLocal.RemoveAt(0);
             }
-
-            return;
-        }
-        else
-        {
-            metodosDialogo.DialogoComNpc();
 
             return;
         }

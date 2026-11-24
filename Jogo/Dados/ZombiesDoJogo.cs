@@ -11,7 +11,7 @@ public class ZombiesDoJogo
     }
     public static Zombie CriaZombieComumForte()
     {
-        return new Zombie(80, 80, 15, 10, 15, "Você vê algo cambaleando. Roupas surradas, com uma espécie de armadura por cima. Parece ter sido um soldado antes de ter morrido. O que você quer fazer?\n", TipoZombie.ComumForte, "Zombie Armadurado");
+        return new Zombie(70, 70, 15, 10, 15, "Você vê algo cambaleando. Roupas surradas, com uma espécie de armadura por cima. Parece ter sido um soldado antes de ter morrido. O que você quer fazer?\n", TipoZombie.ComumForte, "Zombie Armadurado");
     }
     public static Zombie CriaZombieJumper()
     {

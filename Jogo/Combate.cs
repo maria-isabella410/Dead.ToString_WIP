@@ -211,7 +211,9 @@ public class Combate
 
         if(arma != null)
         {
-            dano += arma.Dano; 
+            int danoDaArma = random.Next(arma.Dano / 2, arma.Dano + 1);
+            
+            dano += danoDaArma; 
         }
 
         dano -= defensor.Defesa;
