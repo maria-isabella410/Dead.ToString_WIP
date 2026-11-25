@@ -3,6 +3,7 @@ using rpgLocal;
 using rpgSala;
 using rpgChave;
 using rpgValidacaoInput;
+using rpgPorta;
 
 namespace rpgNavegacao;
 
@@ -177,7 +178,7 @@ class Navegacao
                 {
                     Console.WriteLine($"[{i + 1}] {sala.Nome}");
                 }
-            }    
+            }
             Console.WriteLine("[0] Voltar");            
 
             int escolhaSala = validacaoInput.OpcaoValidada(salasDisponiveis.Count);            
@@ -189,35 +190,39 @@ class Navegacao
 
             Sala salaEscolhida = salasDisponiveis[escolhaSala - 1];
 
-
             if(salaEscolhida.PortaTrancada != null && !salaEscolhida.PortaTrancada.Aberta)
             {
+                Porta portaAtual = salaEscolhida.PortaTrancada;
+
                 List<Chave> chaves = jogador.Inventario.ListarChaves();
 
-                Console.WriteLine($"\nVocê não pode entrar nessa sala sem a {salaEscolhida.PortaTrancada.ChaveNecessaria.Nome}.\n");
+                Boolean abriuPorta = false;
 
                 foreach(Chave chave in chaves)
                 {
-                    if(chave.Tipo == salaEscolhida.PortaTrancada.ChaveNecessaria.Tipo)
+                    if(portaAtual.Abrir(chave))
                     {
                         Console.WriteLine("\nVocê consegue abrir a porta.");
+
                         Console.WriteLine($"\nAgora, você tem acesso a {salaEscolhida.Nome}.\n");
 
-                        salaEscolhida.PortaTrancada.Aberta = true;
+                        portaAtual.Aberta = true;
 
                         jogador.Inventario.DescartarItem(chave);
 
-                        Console.WriteLine($"\n{chave.Nome} foi descartada.\n");
+                        Console.WriteLine($"{chave.Nome} foi descartada.\n");
 
-                        break;
-                    }
+                        abriuPorta = true;
+
+                        return;
+                    }                        
                 }
-                if (!salaEscolhida.PortaTrancada.Aberta)
-                {
-                    Console.WriteLine("\nVocê não tem a chave necessária para abrir essa porta.\n");
 
-                    break;
-                } 
+                if (!abriuPorta)
+                {
+                    Console.WriteLine($"\nVocê não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.\n");
+                    return;
+                }
             }
             jogador.SalaAtual = salaEscolhida;
 

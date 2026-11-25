@@ -1,6 +1,5 @@
 using rpgChave;
 using rpgSala;
-using rpgTipoChave;
 
 namespace rpgPorta;
 
@@ -16,16 +15,9 @@ public class Porta
         this.ChaveNecessaria = chavenecessaria;
     }
     
-    public void Abrir(Chave chave)
+    public Boolean Abrir(Chave chave)
     {
-        if(chave == ChaveNecessaria)
-        {
-            this.Aberta = true;
-            Console.WriteLine("\nVocê abriu a porta.\n");
-        }
-        else
-        {
-            Console.WriteLine("\nVocê não tem a chave necessária para abrir essa porta.\n");
-        }
+        if(chave.Tipo == ChaveNecessaria.Tipo) return true;
+        else return false;
     }
 }
