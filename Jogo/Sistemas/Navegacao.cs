@@ -5,25 +5,28 @@ using rpgChave;
 using rpgValidacaoInput;
 using rpgPorta;
 using rpgItem;
-using rpgItensDoJogo;
+using rpgExploracao;
 
 namespace rpgNavegacao;
 
 class Navegacao
 {
     private Jogador jogador;
+    private Random random;
     private ValidacaoInput validacaoInput = new ValidacaoInput();
     
-    public Navegacao(Jogador jogador)
+    public Navegacao(Jogador jogador, Random random)
     {
         this.jogador = jogador;
+        this.random = random;
     }
     private enum opcoesDirecao
     {
         Norte = 'N',
         Leste = 'L',
         Oeste = 'O',
-        Sul = 'S'
+        Sul = 'S',
+        Voltar = 'V'
     }
     public void MostrarDirecoes(Local local)
     {
@@ -50,13 +53,12 @@ class Navegacao
         {
             string nomeSul = (temMapa || local.Sul.FoiVisitado) ? local.Sul.Nome : "??? (Desconhecido)";
             Console.WriteLine($"[S] - {nomeSul}");
-        }        
+        }
+        Console.WriteLine($"[V] Voltar");
     }    
     public void IrParaOutroLocal()
     {
         MostrarDirecoes(jogador.LocalAtual);
-
-        char direcaoEscolhida;
 
         while (true)
         {
@@ -64,62 +66,71 @@ class Navegacao
             string entrada = Console.ReadLine() ?? "";
             Console.Write("\n");
 
-            if (!string.IsNullOrEmpty(entrada))
+            if (string.IsNullOrEmpty(entrada) || !char.IsLetter(entrada[0]))
+                {
+                    Console.WriteLine("Entrada inválida! Digite apenas letras (sem números ou símbolos).");
+                    continue;
+                }
+
+            char direcaoEscolhida = char.ToUpper(entrada[0]);
+
+            if(direcaoEscolhida != 'N' && direcaoEscolhida != 'L' && direcaoEscolhida != 'O' && direcaoEscolhida != 'S' && direcaoEscolhida != 'V')
             {
-                char primeiroCaractere = char.ToUpper(entrada[0]);
+                Console.WriteLine("Direção inválida! Digite apenas N, L, O, S ou V.");
 
-                if (char.IsLetter(primeiroCaractere))
-                {
-                    direcaoEscolhida = primeiroCaractere;
-
-                    if(direcaoEscolhida == 'N' || direcaoEscolhida == 'L' || direcaoEscolhida == 'O' || direcaoEscolhida == 'S')
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("\nDireção inválida! Digite apenas N, L, O ou S.\n");
-
-                        continue;
-                    }
-                }
+                continue;
             }
-            
-            Console.WriteLine("Entrada inválida! Digite apenas letras (sem números ou símbolos).");
-        }
 
-        opcoesDirecao escolhaDirecao = (opcoesDirecao)direcaoEscolhida;
+            opcoesDirecao escolhaDirecao = (opcoesDirecao)direcaoEscolhida;
 
-        switch (escolhaDirecao)
-        {
-            case opcoesDirecao.Norte:
-                if(jogador.LocalAtual.Norte != null)
-                {
-                    TentarEntrarNoLocal(jogador.LocalAtual.Norte);
-                }                        
+            switch (escolhaDirecao)
+            {
+                case opcoesDirecao.Norte:
+                    if(jogador.LocalAtual.Norte != null)
+                    {
+                        TentarEntrarNoLocal(jogador.LocalAtual.Norte);
 
-            break;
-            case opcoesDirecao.Leste:
-                if(jogador.LocalAtual.Leste != null)
-                {
-                    TentarEntrarNoLocal(jogador.LocalAtual.Leste);
-                }
-                
-            break;
-            case opcoesDirecao.Oeste:
-                if(jogador.LocalAtual.Oeste != null)
-                {
-                    TentarEntrarNoLocal(jogador.LocalAtual.Oeste);
-                }
-                
-            break;
-            case opcoesDirecao.Sul:
-                if(jogador.LocalAtual.Sul != null)
-                {
-                    TentarEntrarNoLocal(jogador.LocalAtual.Sul);
-                }
-        
-            break;
+                        return;
+                    }
+
+                    Console.WriteLine("Não há caminho ao Norte.");
+
+                    break;
+                case opcoesDirecao.Leste:
+                    if(jogador.LocalAtual.Leste != null)
+                    {
+                        TentarEntrarNoLocal(jogador.LocalAtual.Leste);
+
+                        return;
+                    }
+
+                    Console.WriteLine("Não há caminho ao Leste.");
+
+                    break;                    
+                case opcoesDirecao.Oeste:
+                    if(jogador.LocalAtual.Oeste != null)
+                    {
+                        TentarEntrarNoLocal(jogador.LocalAtual.Oeste);
+                        
+                        return;
+                    }
+                    Console.WriteLine("Não há caminho ao Oeste.");
+
+                    break;
+                case opcoesDirecao.Sul:
+                    if(jogador.LocalAtual.Sul != null)
+                    {
+                        TentarEntrarNoLocal(jogador.LocalAtual.Sul);
+                        
+                        return;
+                    }
+                    Console.WriteLine("Não há caminho ao Sul.");
+
+                    break;                
+                case opcoesDirecao.Voltar:
+                    Console.WriteLine("Você decidiu permanecer no local atual.");
+                return;
+            }
         }
     } 
     private void TentarEntrarNoLocal(Local destino)
@@ -162,12 +173,14 @@ class Navegacao
         Console.WriteLine($"Agora, você está em: < {jogador.LocalAtual.Nome} >");
         Console.WriteLine($"< {jogador.LocalAtual.Descricao} >");
 
-        if(jogador.LocalAtual.Salas.Count > 0) EscolherSala();
+        if (jogador.LocalAtual.Salas.Count > 0)
+        {
+            var exploracao = new Exploracao(jogador, random);
+            exploracao.Explorar();
+        }
     }
     public void EscolherSala()
-    {
-        //Console.WriteLine($"[DEBUG] {jogador.LocalAtual.Nome} tem {jogador.LocalAtual.Salas.Count} salas");
-        
+    {       
         if(jogador.SalaAtual != null)
         {
             Console.WriteLine($"Sala atual: {jogador.SalaAtual.Nome}");
@@ -228,14 +241,15 @@ class Navegacao
 
                         abriuPorta = true;
 
-                        return;
+                        break;
                     }
                 }
 
                 if (!abriuPorta &&portaAtual.ChaveNecessaria != null)
                 {
                     Console.WriteLine($"Você não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.");
-                    return;
+
+                    continue;
                 }
             }
             jogador.SalaAtual = salaEscolhida;

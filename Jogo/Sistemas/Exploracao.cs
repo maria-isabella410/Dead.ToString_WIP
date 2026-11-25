@@ -26,60 +26,72 @@ public class Exploracao
         this.jogador = jogador;
         this.random = random;
         menuExploracao = new MenuExploracao();
-        navegacao = new Navegacao(jogador);
+        navegacao = new Navegacao(jogador, random);
         validacaoInput = new ValidacaoInput();
     }
     public Boolean Explorar()
     {
-        List<Item> itensLocal = jogador.LocalAtual.Itens;
-        List<Zombie> zombiesLocal = jogador.LocalAtual.Zombies;
-        List<Npc> npcsLocal = jogador.LocalAtual.Npcs;
-        
-        Console.WriteLine($"Local atual: {jogador.LocalAtual.Nome}");
-        
-        if(jogador.LocalAtual.Salas.Count != 0)
-        {
-            if(jogador.SalaAtual == null)
-            {
-                navegacao.EscolherSala();
-            }            
-
-            if(jogador.SalaAtual != null)
-            {          
-                itensLocal = jogador.SalaAtual.Itens;
-                zombiesLocal = jogador.SalaAtual.Zombies;
-                npcsLocal = jogador.SalaAtual.Npcs;
-            }
-        }    
-
         while (true)
-        {            
-            menuExploracao.MostrarMenuExploracao();
+        {
+            List<Item> itensLocal = jogador.LocalAtual.Itens;
+            List<Zombie> zombiesLocal = jogador.LocalAtual.Zombies;
+            List<Npc> npcsLocal = jogador.LocalAtual.Npcs;
 
-            opcoesExplorar escolha = menuExploracao.ReceberOpcao();
-
-            if(escolha == 0)
+            if (jogador.SalaAtual != null) Console.WriteLine($"Sala atual: {jogador.SalaAtual.Nome}");
+            else Console.WriteLine($"Local atual: {jogador.LocalAtual.Nome}");
+            
+            if(jogador.LocalAtual.Salas.Count != 0)
             {
-                jogador.SalaAtual = null;
-                return true;
-            }
-            switch (escolha)
-            {
-                case opcoesExplorar.ProcurarItens:
-                    ProcurarItens(itensLocal); 
-                break;
+                if(jogador.SalaAtual == null)
+                {
+                    navegacao.EscolherSala();
 
-                case opcoesExplorar.ChecarArredores:
-                    Boolean jogadorVivo = ExplorarArredores(zombiesLocal); 
+                    if (jogador.SalaAtual == null) return true;
+                }            
 
-                    if(!jogadorVivo) return false;
-                break;
+                if(jogador.SalaAtual != null)
+                {          
+                    itensLocal = jogador.SalaAtual.Itens;
+                    zombiesLocal = jogador.SalaAtual.Zombies;
+                    npcsLocal = jogador.SalaAtual.Npcs;
+                }
+            }    
 
-                case opcoesExplorar.ProcurarSobreviventes:
-                    ProcurarSobreviventes(npcsLocal);
-                break;
-            }                                      
-        } 
+            while (true)
+            {           
+                menuExploracao.MostrarMenuExploracao();
+
+                opcoesExplorar escolha = menuExploracao.ReceberOpcao();
+
+                if(escolha == 0)
+                {
+                    if(jogador.LocalAtual.Salas.Count > 0)
+                    {
+                        jogador.SalaAtual = null;
+
+                        break;
+                    }
+
+                    return true;
+                }
+                switch (escolha)
+                {
+                    case opcoesExplorar.ProcurarItens:
+                        ProcurarItens(itensLocal); 
+                    break;
+
+                    case opcoesExplorar.ChecarArredores:
+                        Boolean jogadorVivo = ExplorarArredores(zombiesLocal); 
+
+                        if(!jogadorVivo) return false;
+                    break;
+
+                    case opcoesExplorar.ProcurarSobreviventes:
+                        ProcurarSobreviventes(npcsLocal);
+                    break;
+                }                                      
+            } 
+        }
     }
     public void ProcurarItens(List<Item> itensLocal)
     {

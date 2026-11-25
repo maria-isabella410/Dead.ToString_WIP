@@ -26,14 +26,14 @@ public class ValidacaoInput
 
             if(!ValidarInputInt(input))
             {
-                Console.WriteLine("\nEntrada inválida! Digite apenas números.");
+                Console.WriteLine("Entrada inválida! Digite apenas números.");
                 continue;
             }
             int opcaoCorreta = TransformarEmInt(input);
 
             if(!ValidarOpcaoEscolhida(opcaoCorreta, qtdOpcoes))
             {
-                Console.WriteLine($"\nOpção inválida! Escolha um número entre 0 e {qtdOpcoes}.");
+                Console.WriteLine($"Opção inválida! Escolha um número entre 0 e {qtdOpcoes}.");
                 continue;
             }
             

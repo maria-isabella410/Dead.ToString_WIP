@@ -62,7 +62,7 @@ public class Jogo
         menuPrincipal = new MenuPrincipal(Jogador, Mapa);
         interacaoInventario = new InteracaoInventario(Jogador);
         statusDisplay = new StatusDisplay(Jogador);
-        navegacao = new Navegacao(Jogador);
+        navegacao = new Navegacao(Jogador, random);
         exploracao = new Exploracao(Jogador, random);
 
         Introducao(Jogador);
