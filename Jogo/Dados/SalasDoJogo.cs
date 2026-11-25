@@ -92,8 +92,7 @@ public class SalasDoJogo
     public static Sala criarAreaExperimentosLaboratorio(Mapa mapa)
     {
         return new Sala("Sala do laboratório", "Tubos de ensaio quebrados, centrífugas ainda ligadas e equipamentos de ponta. É aqui que o antídoto definitivo pode ser finalizado.", mapa.laboratorio, null);
-    }  
-
+    }
     //salas comuns
 
     //delegacia
@@ -222,7 +221,7 @@ public class SalasDoJogo
     {
         salaDeArmas = criarSalaDeArmas(mapa);
 
-        Porta portaSalaDeArmas = PortasDoJogo.CriarPortaSalaDeArmas(mapa, salaDeArmas);
+        Porta portaSalaDeArmas = PortasDoJogo.CriarPortaSalaDeArmas(salaDeArmas);
 
         salaDeArmas.AdicionarPorta(portaSalaDeArmas);
 
@@ -230,7 +229,7 @@ public class SalasDoJogo
 
         salaDeAula = criarSalaDeAula(mapa);
 
-        Porta portaSalaDeAula = PortasDoJogo.CriarPortaSalaDeAula(mapa, salaDeAula);
+        Porta portaSalaDeAula = PortasDoJogo.CriarPortaSalaDeAula(salaDeAula);
 
         salaDeAula.AdicionarPorta(portaSalaDeAula);
 
@@ -238,7 +237,7 @@ public class SalasDoJogo
 
         salaDeArquivosBiblioteca = criarSalaDeArquivosBiblioteca(mapa);
 
-        Porta portaSalaDeArquivosBiblioteca = PortasDoJogo.CriarPortaSalaArquivos(mapa, salaDeArquivosBiblioteca);
+        Porta portaSalaDeArquivosBiblioteca = PortasDoJogo.CriarPortaSalaArquivos(salaDeArquivosBiblioteca);
 
         salaDeArquivosBiblioteca.AdicionarPorta(portaSalaDeArquivosBiblioteca);
 
@@ -246,7 +245,7 @@ public class SalasDoJogo
         
         estoqueHospital = criarEstoqueHospital(mapa);
 
-        Porta portaEstoqueHospital = PortasDoJogo.CriarPortaEstoqueHospital(mapa, estoqueHospital);
+        Porta portaEstoqueHospital = PortasDoJogo.CriarPortaEstoqueHospital(estoqueHospital);
 
         estoqueHospital.AdicionarPorta(portaEstoqueHospital);
 
@@ -254,7 +253,7 @@ public class SalasDoJogo
         
         areaExperimentosLaboratorio = criarAreaExperimentosLaboratorio(mapa);
 
-        Porta portaAreaExperimentosLaboratorio = PortasDoJogo.CriarPortaAreaExperimentos(mapa, areaExperimentosLaboratorio);
+        Porta portaAreaExperimentosLaboratorio = PortasDoJogo.CriarPortaAreaExperimentos(areaExperimentosLaboratorio);
 
         areaExperimentosLaboratorio.AdicionarPorta(portaAreaExperimentosLaboratorio);
 

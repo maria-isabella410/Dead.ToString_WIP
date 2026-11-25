@@ -1,5 +1,6 @@
 using rpgItem;
 using rpgNpc;
+using rpgPorta;
 using rpgSala;
 using rpgZombie;
 
@@ -9,7 +10,6 @@ public class Local
 {
     public String Nome {get; private set;}
     public String Descricao {get; private set;}
-
     public Boolean FoiVisitado { get; set; } = false;
     public Local? Norte {get; set;}
     public Local? Sul {get; set;}
@@ -19,11 +19,14 @@ public class Local
     public List<Item> Itens {get; private set;}
     public List<Npc> Npcs {get; private set;}
     public List<Zombie> Zombies {get; private set;}
+    public Porta? PortaTrancada;
+    public Boolean PortaAberta = false;
 
-    public Local(String nome, String descricao)
+    public Local(String nome, String descricao, Porta? portatrancada)
     {
         this.Nome = nome;
         this.Descricao = descricao;
+        this.PortaTrancada = portatrancada;
         
         Itens = new List<Item>();
         Npcs = new List<Npc>();

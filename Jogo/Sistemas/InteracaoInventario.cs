@@ -26,7 +26,7 @@ public class InteracaoInventario
 
             if(armas.Count == 0)
             {
-                Console.WriteLine("\nVocê não possui armas em seu inventário.\n");
+                Console.WriteLine("Você não possui armas em seu inventário.\n");
 
                 return false;
             }
@@ -36,7 +36,7 @@ public class InteracaoInventario
                 Boolean mesmaArmaEquipada = armas.Contains(jogador.ArmaEquipada);
                 if(mesmaArmaEquipada && armas.Count == 1)
                 {
-                    Console.WriteLine("\nSua única arma já está equipada!");
+                    Console.WriteLine("Sua única arma já está equipada!");
 
                     return false;
                 }
@@ -44,10 +44,10 @@ public class InteracaoInventario
 
             for(int i = 0; i < armas.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] — {armas[i].Nome}");
+                Console.WriteLine($"— {i + 1} — {armas[i].Nome}");
             }
 
-            Console.WriteLine("\nQual arma deseja equipar? (0 para Voltar)");
+            Console.WriteLine("Qual arma deseja equipar? (0 para Voltar)");
 
             int opcaoArma = validacaoInput.OpcaoValidada(armas.Count);
 
@@ -60,7 +60,7 @@ public class InteracaoInventario
             {
                 if(armas[opcaoArma - 1].Tipo == jogador.ArmaEquipada.Tipo)
                 {
-                    Console.WriteLine("\nEssa arma já está equipada!");
+                    Console.WriteLine("Essa arma já está equipada!");
 
                     return false;
                 }
@@ -81,18 +81,18 @@ public class InteracaoInventario
         {   
             var itens = jogador.Inventario.ListarItens(); 
 
-            Console.WriteLine($"\nInventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
+            Console.WriteLine($"Inventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
 
             if(itens.Count == 0)
             {
-                Console.WriteLine("\nVocê não possui itens em seu inventário.");
+                Console.WriteLine("Você não possui itens em seu inventário.");
 
                 return false;
             }
 
             for(int i = 0; i < itens.Count; i++)
             {
-                Console.WriteLine($"[{i + 1}] — {itens[i].Nome}");
+                Console.WriteLine($"— {i + 1} — {itens[i].Nome}");
             }
 
             menuInventario.MostrarMenuInventario();
@@ -107,11 +107,11 @@ public class InteracaoInventario
             switch (escolha)
             {
                 case opcoesInventario.InspecionarItem:
-                    Console.WriteLine("\nQual item deseja inspecionar? (0 para Voltar)\n");
+                    Console.WriteLine("Qual item deseja inspecionar? (0 para Voltar)\n");
 
                     for(int i = 0; i < itens.Count; i++)
                     {
-                        Console.WriteLine($"[{i + 1}] — {itens[i].Nome}");
+                        Console.WriteLine($"— {i + 1} — {itens[i].Nome}");
                     }
 
                     int idInspecao = validacaoInput.OpcaoValidada(itens.Count);
@@ -140,11 +140,11 @@ public class InteracaoInventario
                         break;
                     }
 
-                    Console.WriteLine("\nQual item deseja consumir? (0 para Voltar)\n");
+                    Console.WriteLine("Qual item deseja consumir? (0 para Voltar)\n");
 
                     for(int i = 0; i < consumiveis.Count; i++)
                     {
-                        Console.WriteLine($"[{i + 1}] — {consumiveis[i].Nome}");
+                        Console.WriteLine($"— {i + 1} — {consumiveis[i].Nome}");
                     }
 
                     int escolhaConsumivel = validacaoInput.OpcaoValidada(consumiveis.Count);
@@ -169,7 +169,7 @@ public class InteracaoInventario
                     {
                         jogador.Inventario.DescartarItem(consumivelEscolhido);
 
-                        Console.WriteLine($"\nVocê consumiu: {consumivelEscolhido.Nome} (+{vidaRecuperada} HP!)");
+                        Console.WriteLine($"Você consumiu: {consumivelEscolhido.Nome} (+{vidaRecuperada} HP!)");
 
                         Console.WriteLine($"\nVida atual: [{jogador.Vida} / {jogador.VidaMaxima}]");
 
@@ -178,11 +178,11 @@ public class InteracaoInventario
 
                     break;
                 case opcoesInventario.DescartarItem:
-                    Console.WriteLine("\nQual item deseja descartar? (0 para Voltar)\n");
+                    Console.WriteLine("Qual item deseja descartar? (0 para Voltar)\n");
 
                     for(int i = 0; i < itens.Count; i++)
                     {
-                        Console.WriteLine($"[{i + 1}] — {itens[i].Nome}");
+                        Console.WriteLine($"— {i + 1} — {itens[i].Nome}");
                     }
                     
                     int idDescarte = validacaoInput.OpcaoValidada(itens.Count);
@@ -196,7 +196,7 @@ public class InteracaoInventario
 
                     jogador.Inventario.DescartarItem(item);
 
-                    Console.WriteLine($"\nO item {item.Nome} foi descartado!");
+                    Console.WriteLine($"O item {item.Nome} foi descartado!");
                     
                     Console.WriteLine($"\nInventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
 
@@ -212,13 +212,13 @@ public class InteracaoInventario
                 case opcoesInventario.DesequiparArma:
                     if(jogador.ArmaEquipada == null)
                     {
-                        Console.WriteLine("\nNão é possível desequipar uma arma, pois você não está empunhando nenhuma.");
+                        Console.WriteLine("Não é possível desequipar uma arma, pois você não está empunhando nenhuma.");
 
                         return false;
                     }
                     jogador.ArmaEquipada = null;
 
-                    Console.WriteLine("\nVocê desequipou sua arma.");
+                    Console.WriteLine("Você desequipou sua arma.");
                     return true;
             }           
         }

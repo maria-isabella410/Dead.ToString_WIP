@@ -127,7 +127,7 @@ public class Combate
                     return true;
                 }
 
-                Console.WriteLine("\nVocê não conseguiu fugir!\n");
+                Console.WriteLine("Você não conseguiu fugir!");
 
                 acaoValida = true;
             }
@@ -139,13 +139,13 @@ public class Combate
                 case opcoesMenu.Atacar:
                     if(Jogador.ArmaEquipada == null)
                     {
-                        Console.WriteLine("\nVocê está sem armas equipadas! Escolha 'Equipar Arma' primeiro.\n");
+                        Console.WriteLine("Você está sem armas equipadas! Escolha 'Equipar Arma' primeiro.");
 
                         break;
                     }
                     if(Jogador.ArmaEquipada.PodeRecarregar() && !Jogador.ArmaEquipada.TemMunicao())
                     {
-                        Console.WriteLine("\nA arma está sem munição! Você precisa recarregar.\n");
+                        Console.WriteLine("A arma está sem munição! Você precisa recarregar.");
 
                         break;
                     }
@@ -159,7 +159,7 @@ public class Combate
 
                     Zombie.TomarDano(danoCausado);
 
-                    Console.WriteLine("\nVocê atacou o zombie!");
+                    Console.WriteLine("Você atacou o zombie!");
 
                     Console.WriteLine($"\nVocê deu {danoCausado} de dano!");
 
@@ -183,7 +183,7 @@ public class Combate
                     }
                     else
                     {
-                        Console.WriteLine("\nNão é possível recarregar!\n");
+                        Console.WriteLine("Não é possível recarregar!");
                     }
                     break;
                 case opcoesMenu.AbrirInventario:
@@ -205,7 +205,7 @@ public class Combate
     {
         int danoTomado = 0;
 
-        Console.WriteLine("\nO zombie te atacou!");
+        Console.WriteLine("O zombie te atacou!");
 
         danoTomado = CalcularDano(null, Zombie, Jogador);
 

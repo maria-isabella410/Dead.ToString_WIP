@@ -15,7 +15,7 @@ public class StatusDisplay
     }
     public void MostrarStatus(Jogador jogador)
     {
-        Console.WriteLine($"\nJogador: {jogador.Nome}" );
+        Console.WriteLine($"Jogador: {jogador.Nome}" );
         Console.WriteLine($"HP: [{jogador.Vida} / {jogador.VidaMaxima}]");
         if(jogador.MissaoAtual != null)
         {

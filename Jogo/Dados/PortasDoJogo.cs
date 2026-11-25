@@ -5,30 +5,35 @@ using rpgSala;
 using rpgMapa;
 using rpgChave;
 using rpgItensDoJogo;
+using rpgLocal;
 
 namespace rpgPortasDoJogo;
 
 public class PortasDoJogo
 {
-    public static Porta CriarPortaSalaDeArmas(Mapa mapa, Sala sala)
+    public static Porta CriarPortaSalaDeArmas(Sala sala)
     {
-        return new Porta(sala, ItensDoJogo.CriarChaveSalaDeArmas());
+        return new Porta(null, sala, ItensDoJogo.CriarChaveSalaDeArmas(), null);
     }
-    public static Porta CriarPortaSalaDeAula(Mapa mapa, Sala sala)
+    public static Porta CriarPortaSalaDeAula(Sala sala)
     {
-        return new Porta(sala, ItensDoJogo.CriarChaveSalaDeAula());
+        return new Porta(null, sala, ItensDoJogo.CriarChaveSalaDeAula(), null);
     }
-    public static Porta CriarPortaSalaArquivos(Mapa mapa, Sala sala)
+    public static Porta CriarPortaSalaArquivos(Sala sala)
     {
-        return new Porta(sala, ItensDoJogo.CriarChaveSalaBiblioteca());
+        return new Porta(null, sala, ItensDoJogo.CriarChaveSalaBiblioteca(), null);
     }
-    public static Porta CriarPortaEstoqueHospital(Mapa mapa, Sala sala)
+    public static Porta CriarPortaEstoqueHospital(Sala sala)
     {
-        return new Porta(sala, ItensDoJogo.CriarChaveEstoqueHospital());
+        return new Porta(null, sala, ItensDoJogo.CriarChaveEstoqueHospital(), null);
     }
-    public static Porta CriarPortaAreaExperimentos(Mapa mapa, Sala sala)
+    public static Porta CriarPortaAreaExperimentos(Sala sala)
     {
-        return new Porta(sala, ItensDoJogo.CriarChaveAreaExperimentos());
+        return new Porta(null, sala, ItensDoJogo.CriarChaveAreaExperimentos(), null);
+    }
+    public static Porta CriarPortaCasaAbandonada(Local local)
+    {
+        return new Porta(local, null, null, ItensDoJogo.CriarPeDeCabra());
     }
 
 }

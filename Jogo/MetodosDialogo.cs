@@ -24,16 +24,16 @@ public class MetodosDialogo
     }
     public Boolean DialogoComCachorro()
     {
-        Console.WriteLine("Cachorro:\n— Auau!!\n");
+        Console.WriteLine("Cachorro:\n— Auau!!");
 
-        Console.WriteLine("[1] Pegar Billy no colo");
+        Console.WriteLine("\n[1] Pegar Billy no colo");
         Console.WriteLine("[0] Voltar");
 
         int respostaPegarBilly = validacaoInput.OpcaoValidada(1);
 
         if(respostaPegarBilly == 0) return false;
 
-        Console.WriteLine("\nBilly fica feliz ao estar no seu colo.\n");
+        Console.WriteLine("Billy fica feliz ao estar no seu colo.");
 
         jogador.BillyEncontrado = true;
 
@@ -118,7 +118,8 @@ public class MetodosDialogo
 
                 indice++;
             }
-            else if (npc.OfereceuMissao && !npc.AceitouMissao)
+
+            if (npc.OfereceuMissao && !npc.AceitouMissao)
             {
                 Console.WriteLine($"[{indice}] Ainda precisa de ajuda?");
 
@@ -130,18 +131,36 @@ public class MetodosDialogo
                 indice++;
             }
 
-            else if (npc.AceitouMissao)
+            if (npc.AceitouMissao)
             {
-                Console.WriteLine($"[{indice}] Estou trabalhando na missão.");
+                Console.WriteLine($"[{indice}] Estou trabalhando no que você pediu.");
 
                 acoesDisponiveis.Add(() => 
                 {
-                    Console.WriteLine($"{jogador.Nome}:\n— Estou trabalhando nisso.");
-                    Console.WriteLine($"{npc.Nome}:\n— Estou esperando...");
+                    Console.WriteLine($"{jogador.Nome}:\n— Estou trabalhando no que você pediu.");
+                    Console.WriteLine($"{npc.Nome}:\n— Ok, estou esperando...");
                 });
 
                 indice++;
             }
+
+            if (npc.AceitouMissao)
+            {
+                Console.WriteLine($"[{indice}] Desculpe, não posso mais te ajudar.");
+
+                acoesDisponiveis.Add(() => 
+                {
+                    Console.WriteLine($"{jogador.Nome}:\n— Desculpe, não posso mais te ajudar.");
+                    Console.WriteLine($"{npc.Nome}:\n— Ah, certo...");
+
+                    npc.AceitouMissao = false;
+
+                    jogador.MissaoAtual = null;
+                });
+
+                indice++;
+            }
+
             if (npc.DisseQuemEra && npc.ContouOqAconteceu && npc.OfereceuMissao)
             {
                 if (!jogador.NpcsConhecidos.Contains(npc))
@@ -156,11 +175,11 @@ public class MetodosDialogo
 
                 acoesDisponiveis.Add(() => 
                 {
-                    Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.\n");
+                    Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
 
                     if(npc.Dialogo.AgradecimentoMissao != null)
                     {
-                        Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}\n");
+                        Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}");
                     }
 
                     npc.MissaoJaFoiConcluida = true;
@@ -189,9 +208,9 @@ public class MetodosDialogo
         Console.WriteLine(ehCrianca ? "— Calma! Quem é você?" : "— Quem é você?");
 
         Console.WriteLine("\nPessoa desconhecida:");
-        Console.WriteLine($"— {npc.Dialogo.Cumprimento}\n");
+        Console.WriteLine($"— {npc.Dialogo.Cumprimento}");
 
-        Console.WriteLine("[1] Me chamo...");
+        Console.WriteLine("\n[1] Me chamo...");
         Console.WriteLine("[0] Voltar");
 
         int escolhaResponderNome = validacaoInput.OpcaoValidada(1);
@@ -207,7 +226,7 @@ public class MetodosDialogo
         if(npc.Dialogo.Introducao != null)
         {
             Console.WriteLine("\n" + npc.Nome);
-            Console.WriteLine("— " + npc.Dialogo.Introducao.Replace("{nome}", jogador.Nome ) + "\n");
+            Console.WriteLine("— " + npc.Dialogo.Introducao.Replace("{nome}", jogador.Nome ));
         }
 
         return true;
@@ -220,22 +239,22 @@ public class MetodosDialogo
         Console.WriteLine(JaPerguntado ? "— Pode me lembrar o que aconteceu?" : "— O que aconteceu?");
 
         Console.WriteLine("\n" + npc.Nome);
-        Console.WriteLine("— " + npc.Dialogo.Historia + "\n");
+        Console.WriteLine("— " + npc.Dialogo.Historia);
 
         if(npc.Dialogo.HistoriaContinuacao != null)
         {
-            Console.WriteLine("[1] Não sei se confio no que você diz.");
+            Console.WriteLine("\n[1] Não sei se confio no que você diz.");
             Console.WriteLine("[0] Voltar");
 
             int escolhaResponderConfianca = validacaoInput.OpcaoValidada(1);
 
             if(escolhaResponderConfianca == 0) return;
 
-            Console.WriteLine($"\n{jogador.Nome}:");
+            Console.WriteLine($"{jogador.Nome}:");
             Console.WriteLine("— Não sei se confio no que você diz.");
 
             Console.WriteLine("\n" + npc.Nome);
-            Console.WriteLine("— " + npc.Dialogo.HistoriaContinuacao + "\n");         
+            Console.WriteLine("— " + npc.Dialogo.HistoriaContinuacao);         
         }
     }
       
@@ -247,9 +266,9 @@ public class MetodosDialogo
         Console.WriteLine(JaPerguntado ? "— Do que você precisa mesmo?" : "— Precisa de ajuda?");       
 
         Console.WriteLine("\n" + npc.Nome);
-        Console.WriteLine("— " + npc.Dialogo.Missao + "\n");
+        Console.WriteLine("— " + npc.Dialogo.Missao);
 
-        Console.WriteLine("[1] Certo, posso ajudar.");
+        Console.WriteLine("\n[1] Certo, posso ajudar.");
         Console.WriteLine("[2] Desculpa, não posso ajudar.");
         Console.WriteLine("[0] Voltar");
 
@@ -261,23 +280,23 @@ public class MetodosDialogo
     }
 
     public void AceitarMissao(Boolean ehCrianca)
-    {
-        if(jogador.MissaoAtual != null)
+    {   
+        if(npc.Missao == null && !ehCrianca) return; 
+                
+        if(jogador.MissaoAtual != null && !ehCrianca)
         {
-            Console.WriteLine("\nVocê não pode aceitar outra missão enquanto a atual ainda não foi concluída.\n");
+            Console.WriteLine("Você não pode aceitar outra missão enquanto a atual ainda não foi concluída.");
 
             return;
         }
 
-        if(npc.Missao == null && !ehCrianca) return;
-
-        Console.WriteLine($"\n{jogador.Nome}:");
+        Console.WriteLine($"{jogador.Nome}:");
         Console.WriteLine("— Certo, posso ajudar.");
 
         if(npc.Dialogo.DespedidaMissaoAceitada != null)
         {
             Console.WriteLine("\n" + npc.Nome);
-            Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome) + "\n");
+            Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome));
         }
 
         if (ehCrianca)
@@ -294,10 +313,10 @@ public class MetodosDialogo
     }
     public void RecusarMissao()
     {
-        Console.WriteLine($"\n{jogador.Nome}:");
-        Console.WriteLine("— Desculpa, não posso ajudar.\n");
+        Console.WriteLine($"{jogador.Nome}:");
+        Console.WriteLine("— Desculpa, não posso ajudar.");
 
         Console.WriteLine("\n" + npc.Nome);
-        Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoRecusada + "\n");  
+        Console.WriteLine("— " + npc.Dialogo.DespedidaMissaoRecusada);  
     }
 }

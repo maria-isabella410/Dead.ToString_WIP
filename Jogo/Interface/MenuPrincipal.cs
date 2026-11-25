@@ -32,7 +32,7 @@ public class MenuPrincipal
         Console.WriteLine("[3] Abrir inventário");
         Console.WriteLine("[4] Verificar status");
         Console.WriteLine("[5] Ir para outro local");
-        Console.WriteLine("[0] Encerrar jogo");
+        Console.WriteLine("[0] Encerrar jogo (GAME OVER)");
     }
     public opcoesMenu ReceberOpcao()
     {
@@ -42,7 +42,7 @@ public class MenuPrincipal
     }
     public void AbrirMapa()
     {
-        if (!jogador.ContemMapa) Console.WriteLine("\nVocê não tem o mapa da cidade!\n");
+        if (!jogador.ContemMapa) Console.WriteLine("Você não tem o mapa da cidade!");
         else mapa.MostrarMapa();
 
     }

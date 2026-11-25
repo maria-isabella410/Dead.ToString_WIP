@@ -22,6 +22,7 @@ public class ValidacaoInput
         {
             Console.Write("\n--> ");
             string input = Console.ReadLine() ?? "";
+            Console.Write("\n");
 
             if(!ValidarInputInt(input))
             {

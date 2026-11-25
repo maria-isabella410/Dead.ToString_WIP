@@ -4,6 +4,8 @@ using rpgSala;
 using rpgChave;
 using rpgValidacaoInput;
 using rpgPorta;
+using rpgItem;
+using rpgItensDoJogo;
 
 namespace rpgNavegacao;
 
@@ -25,7 +27,7 @@ class Navegacao
     }
     public void MostrarDirecoes(Local local)
     {
-        Console.WriteLine("Para onde deseja ir?");
+        Console.WriteLine("Para onde deseja ir?\n");
 
         Boolean temMapa = jogador.ContemMapa;
 
@@ -58,8 +60,9 @@ class Navegacao
 
         while (true)
         {
-            Console.Write("--> ");
+            Console.Write("\n--> ");
             string entrada = Console.ReadLine() ?? "";
+            Console.Write("\n");
 
             if (!string.IsNullOrEmpty(entrada))
             {
@@ -82,7 +85,7 @@ class Navegacao
                 }
             }
             
-            Console.WriteLine("\nEntrada inválida! Digite apenas letras (sem números ou símbolos).\n");
+            Console.WriteLine("Entrada inválida! Digite apenas letras (sem números ou símbolos).");
         }
 
         opcoesDirecao escolhaDirecao = (opcoesDirecao)direcaoEscolhida;
@@ -92,72 +95,83 @@ class Navegacao
             case opcoesDirecao.Norte:
                 if(jogador.LocalAtual.Norte != null)
                 {
-                    jogador.LocalAtual = jogador.LocalAtual.Norte;
-                    jogador.SalaAtual = null;
-
-                    jogador.LocalAtual.FoiVisitado = true;
-
-                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
-                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
+                    TentarEntrarNoLocal(jogador.LocalAtual.Norte);
                 }                        
 
             break;
             case opcoesDirecao.Leste:
                 if(jogador.LocalAtual.Leste != null)
                 {
-                    jogador.LocalAtual = jogador.LocalAtual.Leste;
-                    jogador.SalaAtual = null;
-
-                    jogador.LocalAtual.FoiVisitado = true;
-
-                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
-                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
-                }                     
+                    TentarEntrarNoLocal(jogador.LocalAtual.Leste);
+                }
                 
             break;
             case opcoesDirecao.Oeste:
                 if(jogador.LocalAtual.Oeste != null)
                 {
-                    jogador.LocalAtual = jogador.LocalAtual.Oeste;
-                    jogador.SalaAtual = null;
-
-                    jogador.LocalAtual.FoiVisitado = true;
-
-                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
-                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
-                }           
+                    TentarEntrarNoLocal(jogador.LocalAtual.Oeste);
+                }
                 
             break;
             case opcoesDirecao.Sul:
                 if(jogador.LocalAtual.Sul != null)
                 {
-                    jogador.LocalAtual = jogador.LocalAtual.Sul;
-                    jogador.SalaAtual = null;
-
-                    jogador.LocalAtual.FoiVisitado = true;
-
-                    Console.WriteLine($"\nAgora, você está em: < {jogador.LocalAtual.Nome} >");
-                    Console.WriteLine($"< {jogador.LocalAtual.Descricao} >\n");
-                }           
+                    TentarEntrarNoLocal(jogador.LocalAtual.Sul);
+                }
         
             break;
         }
+    } 
+    private void TentarEntrarNoLocal(Local destino)
+    {
+        Porta? portaDoLocal = destino.PortaTrancada;
 
-        if(jogador.LocalAtual.Salas.Count > 0)
+        if (portaDoLocal != null && portaDoLocal.ItemNecessario != null && !portaDoLocal.Aberta)
         {
-            EscolherSala();
+            var itens = jogador.Inventario.ListarItens();
+            Boolean abriu = false;
+
+            foreach(Item item in itens)
+            {
+                if(item.tipoItem == portaDoLocal.ItemNecessario.tipoItem)
+                {
+                    portaDoLocal.Aberta = true;
+                    destino.PortaAberta = true;
+                    abriu = true;
+
+                    Console.WriteLine($"Com o {item.Nome}, você conseguiu abrir a porta! Agora você tem acesso a {destino.Nome}.");
+
+                    break;
+                }
+            }
+
+            if (!abriu)
+            {
+                Console.WriteLine($"A porta da {destino.Nome} está bloqueada. Você precisa do {portaDoLocal.ItemNecessario.Nome} para abrir.\nVocê voltou para o local em que estava anteriormente...");
+                
+                return;
+            }
         }
 
-        return;
-    } 
+        jogador.LocalAtual = destino;
+
+        jogador.SalaAtual = null;
+
+        jogador.LocalAtual.FoiVisitado = true;
+
+        Console.WriteLine($"Agora, você está em: < {jogador.LocalAtual.Nome} >");
+        Console.WriteLine($"< {jogador.LocalAtual.Descricao} >");
+
+        if(jogador.LocalAtual.Salas.Count > 0) EscolherSala();
+    }
     public void EscolherSala()
     {
         //Console.WriteLine($"[DEBUG] {jogador.LocalAtual.Nome} tem {jogador.LocalAtual.Salas.Count} salas");
         
         if(jogador.SalaAtual != null)
         {
-            Console.WriteLine($"\nSala atual: {jogador.SalaAtual.Nome}");
-            Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");
+            Console.WriteLine($"Sala atual: {jogador.SalaAtual.Nome}");
+            Console.WriteLine($"< {jogador.SalaAtual.Descricao} >");
         } 
 
         Console.WriteLine("\nPara onde deseja ir?\n");
@@ -202,7 +216,7 @@ class Navegacao
                 {
                     if(portaAtual.Abrir(chave))
                     {
-                        Console.WriteLine("\nVocê consegue abrir a porta.");
+                        Console.WriteLine("Você consegue abrir a porta.");
 
                         Console.WriteLine($"\nAgora, você tem acesso a {salaEscolhida.Nome}.\n");
 
@@ -210,24 +224,24 @@ class Navegacao
 
                         jogador.Inventario.DescartarItem(chave);
 
-                        Console.WriteLine($"{chave.Nome} foi descartada.\n");
+                        Console.WriteLine($"{chave.Nome} foi descartada.");
 
                         abriuPorta = true;
 
                         return;
-                    }                        
+                    }
                 }
 
-                if (!abriuPorta)
+                if (!abriuPorta &&portaAtual.ChaveNecessaria != null)
                 {
-                    Console.WriteLine($"\nVocê não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.\n");
+                    Console.WriteLine($"Você não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.");
                     return;
                 }
             }
             jogador.SalaAtual = salaEscolhida;
 
-            Console.WriteLine($"\nAgora, você está em: < {jogador.SalaAtual.Nome} >");
-            Console.WriteLine($"< {jogador.SalaAtual.Descricao} >\n");                
+            Console.WriteLine($"Agora, você está em: < {jogador.SalaAtual.Nome} >");
+            Console.WriteLine($"< {jogador.SalaAtual.Descricao} >");                
         
             break;
         }                 
