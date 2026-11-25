@@ -456,7 +456,7 @@ public class SalasDoJogo
         }
 
         //laboratorio
-        areaExperimentosLaboratorio.AdicionarItens(ItensDoJogo.CriarAntidoto());
+        salaDeSegurancaLaboratorio.AdicionarItens(ItensDoJogo.CriarChaveAreaExperimentos());
 
         if(Chance(40))
         {
@@ -525,7 +525,7 @@ public class SalasDoJogo
 
         //posto de gasolina
         lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarAgua());
-        // patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
+        patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
         garagemPosto.AdicionarItens(ItensDoJogo.CriarPeDeCabra());
 
         if(Chance(90))

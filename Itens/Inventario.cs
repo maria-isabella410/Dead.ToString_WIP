@@ -120,6 +120,19 @@ public class Inventario
     {
         Itens.Remove(item);
     }
+    public bool DescartarItemPorNome(string nome)
+    {
+        Item? item = Itens.FirstOrDefault(i => i.Nome == nome);
+
+        if (item == null)
+        {
+            return false;
+        }
+
+        Itens.Remove(item);
+
+        return true;
+    }
     public int RetirarMunicao(TipoMunicao tipo, int quantidadeNecessaria)
     {
         int quantidadeRestante = quantidadeNecessaria;

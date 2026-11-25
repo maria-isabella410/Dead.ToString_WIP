@@ -141,8 +141,6 @@ public class Mapa
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarAgua());
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarBandagem());
         ruaPrincipal.AdicionarItens(ItensDoJogo.CriarFaca());
-        // ruaPrincipal.AdicionarItens(ItensDoJogo.CriarPistola());
-        // ruaPrincipal.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
 
         if(Chance(40))
         {

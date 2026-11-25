@@ -13,47 +13,70 @@ public class GerenciadorMissoes
     {
         this.jogador = jogador;
     }
-    public void AtualizarMissao()
+    public Boolean AtualizarMissao()
     {
-        if(jogador.MissaoAtual == null) return;
+        if(jogador.MissaoAtual == null) return false;
 
-        if (Missao.MissaoConcluida(jogador))
+        if (!Missao.MissaoConcluida(jogador)) return false;
+
+        Missao missao = jogador.MissaoAtual;
+
+        Boolean possuiItemNecessario = missao.ItemNecessario != null && jogador.Inventario.ListarItens().Any(item => item.Nome == missao.ItemNecessario.Nome);
+
+        if(missao.Recompensa != null)
         {
-            jogador.MissaoAtual.Concluida = true;
+            Boolean inventarioCheio = jogador.Inventario.EspacosOcupados >= jogador.Inventario.Capacidade;
 
-            jogador.MissoesConcluidas.Add(jogador.MissaoAtual);
-
-            if(jogador.MissaoAtual.ItemNecessario != null)
+            if(inventarioCheio && !possuiItemNecessario)
             {
-                jogador.Inventario.DescartarItem(jogador.MissaoAtual.ItemNecessario);
+                Console.WriteLine("Seu inventário está cheio! Libere espaço para receber sua recompensa.");
+
+                return false;
             }
-
-            if(jogador.MissaoAtual.Recompensa != null)
-            {
-                if(jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, jogador))
-                {
-                    if(jogador.MissaoAtual.Recompensa.tipoItem == TipoItem.ConsumivelAntidoto)
-                    {
-                        Console.WriteLine($"\nMissão concluída! O antidoto foi adicionado ao seu inventário. Quando se sentir pronto, sabe o que deve fazer.");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"\nMissão concluída! O item de recompensa [{jogador.MissaoAtual.Recompensa.Nome}] foi adicionado ao seu inventário.");
-                    }
-                }
-            }
-                
-            if(jogador.MissaoAtual.Recompensa == null && jogador.MissaoAtual.Id == IdMissao.Enfermeira)
-            {                
-                Console.WriteLine("\nMissão concluída! A Enfermeira Grace irá tratar seus ferimentos.");
-
-                jogador.Vida = jogador.VidaMaxima;
-
-                Console.WriteLine("\nApós uma sessão de cuidados, você se sente muito melhor.");
-                Console.WriteLine($"\nHP: [{jogador.Vida} / {jogador.VidaMaxima}]");                
-            }            
-
-            jogador.MissaoAtual = null;
         }
+
+        if (possuiItemNecessario)
+        {
+            jogador.Inventario.DescartarItemPorNome(missao.ItemNecessario!.Nome);
+        }
+
+        //terminar dps
+
+        // jogador.MissaoAtual.Concluida = true;
+
+        // jogador.MissoesConcluidas.Add(jogador.MissaoAtual);
+
+        // if(jogador.MissaoAtual.ItemNecessario != null)
+        // {
+        //     jogador.Inventario.DescartarItem(jogador.MissaoAtual.ItemNecessario);
+        // }
+
+        // if(jogador.MissaoAtual.Recompensa != null)
+        // {
+        //     if(jogador.Inventario.GuardarItem(jogador.MissaoAtual.Recompensa, jogador))
+        //     {
+        //         if(jogador.MissaoAtual.Recompensa.tipoItem == TipoItem.ConsumivelAntidoto)
+        //         {
+        //             Console.WriteLine($"\nMissão concluída! O antidoto foi adicionado ao seu inventário. Quando se sentir pronto, sabe o que deve fazer.");
+        //         }
+        //         else
+        //         {
+        //             Console.WriteLine($"\nMissão concluída! O item de recompensa [{jogador.MissaoAtual.Recompensa.Nome}] foi adicionado ao seu inventário.");
+        //         }
+        //     }
+        // }
+            
+        // if(jogador.MissaoAtual.Recompensa == null && jogador.MissaoAtual.Id == IdMissao.Enfermeira)
+        // {                
+        //     Console.WriteLine("\nMissão concluída! A Enfermeira Grace irá tratar seus ferimentos.");
+
+        //     jogador.Vida = jogador.VidaMaxima;
+
+        //     Console.WriteLine("\nApós uma sessão de cuidados, você se sente muito melhor.");
+        //     Console.WriteLine($"\nHP: [{jogador.Vida} / {jogador.VidaMaxima}]");                
+        // }            
+
+        // jogador.MissaoAtual = null;
+        
     }
 }

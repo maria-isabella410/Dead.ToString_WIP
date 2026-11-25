@@ -21,7 +21,7 @@ public class SerVivo
 
     public void TomarDano(int dano)
     {
-        Vida -= dano;
+        Vida = Math.Max(0, Vida - dano);
     }
     public Boolean EstaVivo()
     {
