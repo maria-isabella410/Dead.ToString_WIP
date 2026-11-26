@@ -6,6 +6,7 @@ using rpgValidacaoInput;
 using rpgPorta;
 using rpgItem;
 using rpgExploracao;
+using rpgPortasDoJogo;
 
 namespace rpgNavegacao;
 
@@ -220,6 +221,15 @@ class Navegacao
             if(salaEscolhida.PortaTrancada != null && !salaEscolhida.PortaTrancada.Aberta)
             {
                 Porta portaAtual = salaEscolhida.PortaTrancada;
+
+                bool ehPortaSalaDeArmas = salaEscolhida.Nome.Equals("Sala de armas", StringComparison.OrdinalIgnoreCase) || (portaAtual.SalaPertencente?.Nome.Equals("Sala de armas", StringComparison.OrdinalIgnoreCase) ?? false);
+
+                if (ehPortaSalaDeArmas)
+                {
+                    Console.WriteLine("Você não pode abrir essa porta, pois a chave deve ser entregue ao policial Ethan.");
+
+                    continue;
+                }
 
                 List<Chave> chaves = jogador.Inventario.ListarChaves();
 

@@ -200,7 +200,7 @@ public class InteracaoInventario
                     
                     Console.WriteLine($"\nInventário: [{jogador.Inventario.EspacosOcupados} / {jogador.Inventario.Capacidade}]\n");
 
-                    break;
+                    return false;
                 case opcoesInventario.EquiparArma:
                     if (EquiparArma())
                     {

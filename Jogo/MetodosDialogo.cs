@@ -182,19 +182,31 @@ public class MetodosDialogo
 
                 acoesDisponiveis.Add(() => 
                 {
-                    Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
-
-                    if(npc.Dialogo.AgradecimentoMissao != null)
+                    if (gerenciadorMissoes.AtualizarMissao())
                     {
-                        Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}");
-                    }
+                        Console.WriteLine($"{jogador.Nome}:\n— Conclui o que eu estava fazendo.");
 
-                    npc.MissaoJaFoiConcluida = true;
+                        if(npc.Dialogo.AgradecimentoMissao != null)
+                        {
+                            Console.WriteLine($"{npc.Nome}:\n—{npc.Dialogo.AgradecimentoMissao.Replace("{nome}", jogador.Nome)}");
+                        }
 
-                    gerenciadorMissoes.AtualizarMissao();
-                });
+                        if(npc.Missao?.Id == IdMissao.Policial)
+                        {
+                            var salaArmas = jogador.LocalAtual.Salas.FirstOrDefault(sala => sala.Nome.Equals("Sala de armas", StringComparison.OrdinalIgnoreCase));
 
-                indice++;                
+                            if (salaArmas?.PortaTrancada != null)
+                            {
+                                salaArmas.PortaTrancada.Aberta = true;
+
+                                Console.WriteLine("\nA porta da Sala de armas agora está aberta!");
+                            }
+                        }
+                        
+                        npc.MissaoJaFoiConcluida = true;
+                    }            
+                    
+                });         
             }
 
             Console.WriteLine("[0] Sair da conversa");

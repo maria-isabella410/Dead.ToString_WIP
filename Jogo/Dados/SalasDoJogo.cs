@@ -396,10 +396,6 @@ public class SalasDoJogo
         //mercado
         corredoresMercado.AdicionarItens(ItensDoJogo.CriarAgua());
         corredoresMercado.AdicionarItens(ItensDoJogo.CriarComidaEnlatada());
-        corredoresMercado.AdicionarItens(ItensDoJogo.CriarPistola());
-        corredoresMercado.AdicionarItens(ItensDoJogo.CriarShotgun());
-        corredoresMercado.AdicionarItens(ItensDoJogo.CriarMunicaoShotgun());
-        corredoresMercado.AdicionarItens(ItensDoJogo.CriarMunicaoPistola());
 
         if(Chance(70))
         {
@@ -527,6 +523,7 @@ public class SalasDoJogo
         lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarAgua());
         patioPosto.AdicionarItens(ItensDoJogo.CriarMapaDaCidade());
         garagemPosto.AdicionarItens(ItensDoJogo.CriarPeDeCabra());
+        lojaConvenienciaPosto.AdicionarItens(ItensDoJogo.CriarChaveSalaDeArmas());
 
         if(Chance(90))
         {
