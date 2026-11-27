@@ -16,15 +16,15 @@ public class ItensDoJogo
     //armas
     public static Arma CriarPistola()
     {
-        return new Arma("Pistola", "Uma arma eficiente contra inimigos. (Causa 10 de dano)", 10, TipoArma.Pistola, TipoMunicao.MunicaoPistola, 12, 12);
+        return new Arma("Pistola", "Uma arma eficiente contra inimigos. (Causa 10 de dano)", 10, TipoArma.Pistola, TipoMunicao.MunicaoPistola, 12, 12, ["Você dispara com a pistola e acerta o peito do zombie", "Você atira com precisão e acerta o rosto do zombie", "Você desfere um disparo rápido com a pistola no tronco do zombie", "Você dispara rapidamente com a pistola e atinge o ombro do zombie", "Você acerta um tiro direto com a pistola no peito do zombie"]);
     }
     public static Arma CriarShotgun()
     {
-        return new Arma("Shotgun", "Uma arma poderosa que faz um bom estrago. (Causa 20 de dano)", 20, TipoArma.Shotgun, TipoMunicao.MunicaoShotgun, 8, 8);
+        return new Arma("Shotgun", "Uma arma poderosa que faz um bom estrago. (Causa 20 de dano)", 20, TipoArma.Shotgun, TipoMunicao.MunicaoShotgun, 8, 8, ["Você dispara a shotgun à queima-roupa e atinge o peito do zombie", "Você atira com a shotgun e joga o zombie para trás com o impacto", "Você puxa o gatilho da shotgun e acerta um tiro pesado no tronco do zombie", "Você acerta um disparo devastador de shotgun no peito do zombie", "Você atira com a shotgun e atinge a lateral do zombie com força total"]);
     }
     public static Arma CriarFaca()
     {
-        return new Arma("Faca", "Uma arma pequena. (Causa 5 de dano)", 5, TipoArma.Faca, null, null, null);
+        return new Arma("Faca", "Uma arma pequena. (Causa 5 de dano)", 5, TipoArma.Faca, null, null, null, ["Você acerta um golpe seco com a faca na lateral da cabeça do zombie", "Você avança com firmeza e crava a lâmina da faca na testa do zombie", "Você acerta o crânio do zombie com um golpe direto da faca", "Você golpeia o topo da cabeça do zombie com firmeza usando a faca", "Você atinge a têmpora do zombie com um golpe firme da faca"]);
     }
 
     //consumiveis

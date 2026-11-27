@@ -14,22 +14,29 @@ public class Arma : Item
     public TipoMunicao? TipoMunicao {get; private set;}
     public int? CapacidadeMunicao {get; private set;} = null;
     public int? Municao {get; private set;} = null;
+    List<string> DescricoesAtaque = new List<string>();
 
-    public Arma(String nome, String descricao, int dano, TipoArma tipo, TipoMunicao? tipomunicao, int? capacidademunicao, int? municao) : base(nome, descricao, TipoItem.Arma)
+    public Arma(String nome, String descricao, int dano, TipoArma tipo, TipoMunicao? tipomunicao, int? capacidademunicao, int? municao, List<string> descricoesataque) : base(nome, descricao, TipoItem.Arma)
     {
         this.Dano = dano;
         this.Tipo = tipo;
         this.TipoMunicao = tipomunicao;
         this.CapacidadeMunicao = capacidademunicao;
         this.Municao = municao;
+        this.DescricoesAtaque = descricoesataque;
     }
-
+    public string ObterDescAtaque(Random random)
+    {
+        if (DescricoesAtaque.Count == 0) return $"Você ataca com a {Nome}";
+        
+        return DescricoesAtaque[random.Next(DescricoesAtaque.Count)];
+    }
     public Boolean TemMunicao()
     {
         if(Municao == 0) return false;
         else return true;
     }
-    public void GastarMunicao(Random random)
+    public void GastarMunicao()
     {
         Municao--;
 

@@ -224,9 +224,15 @@ class Navegacao
 
                 bool ehPortaSalaDeArmas = salaEscolhida.Nome.Equals("Sala de armas", StringComparison.OrdinalIgnoreCase) || (portaAtual.SalaPertencente?.Nome.Equals("Sala de armas", StringComparison.OrdinalIgnoreCase) ?? false);
 
-                if (ehPortaSalaDeArmas)
+                if (ehPortaSalaDeArmas && jogador.MissaoAtual?.Id == rpgMissao.IdMissao.Policial)
                 {
-                    Console.WriteLine("Você não pode abrir essa porta, pois a chave deve ser entregue ao policial Ethan.");
+                    Console.WriteLine("Você não pode abrir essa porta, pois a chave deve ser entregue ao policial Ethan.\n");
+
+                    continue;
+                }
+                else if (ehPortaSalaDeArmas)
+                {
+                    Console.WriteLine("Essa sala está trancada.\n");
 
                     continue;
                 }
@@ -255,7 +261,7 @@ class Navegacao
                     }
                 }
 
-                if (!abriuPorta &&portaAtual.ChaveNecessaria != null)
+                if (!abriuPorta && portaAtual.ChaveNecessaria != null)
                 {
                     Console.WriteLine($"Você não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.");
 

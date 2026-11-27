@@ -47,7 +47,7 @@ public class InteracaoInventario
                 Console.WriteLine($"— {i + 1} — {armas[i].Nome}");
             }
 
-            Console.WriteLine("Qual arma deseja equipar? (0 para Voltar)");
+            Console.WriteLine("\nQual arma deseja equipar? (0 para Voltar)");
 
             int opcaoArma = validacaoInput.OpcaoValidada(armas.Count);
 
@@ -107,12 +107,12 @@ public class InteracaoInventario
             switch (escolha)
             {
                 case opcoesInventario.InspecionarItem:
-                    Console.WriteLine("Qual item deseja inspecionar? (0 para Voltar)\n");
-
                     for(int i = 0; i < itens.Count; i++)
                     {
                         Console.WriteLine($"— {i + 1} — {itens[i].Nome}");
                     }
+
+                    Console.WriteLine("\nQual item deseja inspecionar? (0 para Voltar)");
 
                     int idInspecao = validacaoInput.OpcaoValidada(itens.Count);
 
@@ -140,12 +140,12 @@ public class InteracaoInventario
                         break;
                     }
 
-                    Console.WriteLine("Qual item deseja consumir? (0 para Voltar)\n");
-
                     for(int i = 0; i < consumiveis.Count; i++)
                     {
                         Console.WriteLine($"— {i + 1} — {consumiveis[i].Nome}");
                     }
+
+                    Console.WriteLine("\nQual item deseja consumir? (0 para Voltar)");
 
                     int escolhaConsumivel = validacaoInput.OpcaoValidada(consumiveis.Count);
 
@@ -178,13 +178,13 @@ public class InteracaoInventario
 
                     break;
                 case opcoesInventario.DescartarItem:
-                    Console.WriteLine("Qual item deseja descartar? (0 para Voltar)\n");
-
                     for(int i = 0; i < itens.Count; i++)
                     {
                         Console.WriteLine($"— {i + 1} — {itens[i].Nome}");
                     }
-                    
+
+                    Console.WriteLine("\nQual item deseja descartar? (0 para Voltar)");
+
                     int idDescarte = validacaoInput.OpcaoValidada(itens.Count);
 
                     if(idDescarte == 0)

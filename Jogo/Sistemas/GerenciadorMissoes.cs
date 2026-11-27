@@ -21,7 +21,9 @@ public class GerenciadorMissoes
 
         Missao missao = jogador.MissaoAtual;
 
-        Boolean possuiItemNecessario = missao.ItemNecessario != null && jogador.Inventario.ListarItens().Any(item => item.Nome == missao.ItemNecessario.Nome);
+        Boolean missaoPossuiItemNecessario = missao.ItemNecessario != null;
+
+        Boolean possuiItemNecessario = missaoPossuiItemNecessario && jogador.Inventario.ListarItens().Any(item => item.Nome == missao.ItemNecessario!.Nome);
 
         if(missao.Recompensa != null)
         {
@@ -33,15 +35,12 @@ public class GerenciadorMissoes
 
                 return false;
             }
-        }
+            
+            if (possuiItemNecessario)
+            {
+                jogador.Inventario.DescartarItemPorNome(missao.ItemNecessario!.Nome);
+            }
 
-        if (possuiItemNecessario)
-        {
-            jogador.Inventario.DescartarItemPorNome(missao.ItemNecessario!.Nome);
-        }
-
-        if(missao.Recompensa != null)
-        {
             jogador.Inventario.GuardarItem(missao.Recompensa, jogador);
 
             if(missao.Recompensa.tipoItem == TipoItem.ConsumivelAntidoto)
@@ -52,7 +51,7 @@ public class GerenciadorMissoes
             {
                 Console.WriteLine($"\nMissão concluída! O item de recompensa [{missao.Recompensa.Nome}] foi adicionado ao seu inventário.");
             }
-        }
+        }        
 
         if(missao.Recompensa == null && missao.Id == IdMissao.Enfermeira)
         {

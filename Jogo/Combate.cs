@@ -44,12 +44,12 @@ public class Combate
                 {
                     Jogador.MatouBoss = true;
                 }
-                Console.WriteLine("\nVocê matou o zombie!");
+                Console.WriteLine("Você matou o zombie!");
 
                 return true;
             }
 
-            TurnoZombie();
+            TurnoZombie(Zombie);
         }
                     
         if (!Jogador.EstaVivo())
@@ -152,18 +152,17 @@ public class Combate
 
                     if (Jogador.ArmaEquipada.PodeRecarregar())
                     {
-                        Jogador.ArmaEquipada.GastarMunicao(random);
+                        Jogador.ArmaEquipada.GastarMunicao();
                     }                    
 
                     int danoCausado = CalcularDano(Jogador.ArmaEquipada, Jogador, Zombie);
 
                     Zombie.TomarDano(danoCausado);
 
-                    Console.WriteLine("Você atacou o zombie!");
-
-                    Console.WriteLine($"\nVocê deu {danoCausado} de dano!");
-
+                    Console.WriteLine(Jogador.ArmaEquipada.ObterDescAtaque(random) + $", causando {danoCausado} de dano!\n");
+                    
                     acaoValida = true;
+
                     break;
                 case opcoesMenu.EquiparArma:
                     Boolean jaTinhaArma = Jogador.ArmaEquipada != null;
@@ -185,6 +184,7 @@ public class Combate
                     {
                         Console.WriteLine("Não é possível recarregar!");
                     }
+
                     break;
                 case opcoesMenu.AbrirInventario:
                     Boolean tinhaArmaAntesDoInventario = Jogador.ArmaEquipada != null;
@@ -195,23 +195,22 @@ public class Combate
 
                         if(!equipouPrimeiraArma) acaoValida = true;
                     } 
+
                     break;
             }           
         }
 
         return false;
     }
-    private void TurnoZombie()
+    private void TurnoZombie(Zombie zombie)
     {
         int danoTomado = 0;
-
-        Console.WriteLine("O zombie te atacou!");
 
         danoTomado = CalcularDano(null, Zombie, Jogador);
 
         Jogador.TomarDano(danoTomado);
 
-        Console.WriteLine($"\nVocê tomou {danoTomado} de dano!");
+        Console.WriteLine(zombie.ObterDescAtaque(random) + $", causando {danoTomado} de dano!");
     }
     private int CalcularDano(Arma? arma, SerVivo atacante, SerVivo defensor)
     {
@@ -231,6 +230,11 @@ public class Combate
         double reducaoPercentual = Math.Min(0.50, defensor.Defesa * 0.02);
 
         int danoFinal = (int)Math.Round(danoBase * (1.0 - reducaoPercentual));
+
+        if(danoFinal > defensor.Vida)
+        {
+            return defensor.Vida;
+        }
 
         return Math.Max(1, danoFinal);
     }

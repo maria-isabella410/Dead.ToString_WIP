@@ -51,7 +51,7 @@ public class Missao
         {
             Console.WriteLine("\n\n< Você aceitou uma missão! >\n");
             Console.WriteLine($"Missão: [ {jogador.MissaoAtual.NomeDaMissao} ]\n");
-            Console.Write($"Objetivo: {jogador.MissaoAtual.Descricao}");
+            Console.Write($"Objetivo: {jogador.MissaoAtual.Descricao}\n");
         }
         
     }
