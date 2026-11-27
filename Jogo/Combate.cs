@@ -130,6 +130,8 @@ public class Combate
                 Console.WriteLine("Você não conseguiu fugir!");
 
                 acaoValida = true;
+
+                break;
             }
 
             opcoesMenu escolha = (opcoesMenu)escolhaCombate;

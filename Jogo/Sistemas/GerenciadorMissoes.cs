@@ -35,12 +35,15 @@ public class GerenciadorMissoes
 
                 return false;
             }
-            
-            if (possuiItemNecessario)
-            {
-                jogador.Inventario.DescartarItemPorNome(missao.ItemNecessario!.Nome);
-            }
+        }
 
+        if (possuiItemNecessario)
+        {
+            jogador.Inventario.DescartarItemPorNome(missao.ItemNecessario!.Nome);
+        }
+        
+        if(missao.Recompensa != null)
+        {
             jogador.Inventario.GuardarItem(missao.Recompensa, jogador);
 
             if(missao.Recompensa.tipoItem == TipoItem.ConsumivelAntidoto)
@@ -51,9 +54,8 @@ public class GerenciadorMissoes
             {
                 Console.WriteLine($"\nMissão concluída! O item de recompensa [{missao.Recompensa.Nome}] foi adicionado ao seu inventário.");
             }
-        }        
-
-        if(missao.Recompensa == null && missao.Id == IdMissao.Enfermeira)
+        }
+        else if(missao.Recompensa == null && missao.Id == IdMissao.Enfermeira)
         {
             Console.WriteLine("\nMissão concluída! A Enfermeira Grace irá tratar seus ferimentos.");
 

@@ -302,9 +302,9 @@ public class MetodosDialogo
 
     public Boolean AceitarMissao(Boolean ehCrianca)
     {   
-        if(npc.Missao == null && !ehCrianca) return false; 
+        if(!ehCrianca && npc.Missao == null) return false; 
                 
-        if(jogador.MissaoAtual != null && !ehCrianca)
+        if(!ehCrianca && jogador.MissaoAtual != null)
         {
             Console.WriteLine("Você não pode aceitar outra missão enquanto a atual ainda não foi concluída.");
 
@@ -318,11 +318,15 @@ public class MetodosDialogo
         {
             Console.WriteLine("\n" + npc.Nome);
             Console.Write("— " + npc.Dialogo.DespedidaMissaoAceitada.Replace("{nome}", jogador.Nome));
-
+        }
+        
+        if(npc.Missao != null)
+        {
             jogador.MissaoAtual = npc.Missao;
+            
             npc.AceitouMissao = true;
 
-            Missao.MissaoAceita(jogador);
+            Missao.MissaoAceita(jogador);            
         }
 
         if (ehCrianca)
