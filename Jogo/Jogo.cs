@@ -69,7 +69,7 @@ public class Jogo
 
         while (emExecucao)
         {
-            if(Jogador.FinalizouJogo(Jogador.MatouBoss, Jogador.ConseguiuCura)) break;
+            if(Jogador.FinalizouJogo(Jogador.MatouBoss, Jogador.ConseguiuCura)) emExecucao = false;
 
             menuPrincipal.MostrarMenuPrincipal();
 

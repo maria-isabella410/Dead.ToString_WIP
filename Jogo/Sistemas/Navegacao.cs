@@ -31,7 +31,7 @@ class Navegacao
     }
     public void MostrarDirecoes(Local local)
     {
-        Console.WriteLine("Para onde deseja ir?\n");
+        Console.WriteLine($"Para onde deseja ir? (Local atual: {jogador.LocalAtual.Nome})\n");
 
         Boolean temMapa = jogador.ContemMapa;
 
@@ -94,7 +94,7 @@ class Navegacao
                         return;
                     }
 
-                    Console.WriteLine("Não há caminho ao Norte.");
+                    Console.WriteLine("Não há caminho ao Norte.\n");
 
                     break;
                 case opcoesDirecao.Leste:
@@ -105,7 +105,7 @@ class Navegacao
                         return;
                     }
 
-                    Console.WriteLine("Não há caminho ao Leste.");
+                    Console.WriteLine("Não há caminho ao Leste.\n");
 
                     break;                    
                 case opcoesDirecao.Oeste:
@@ -115,7 +115,7 @@ class Navegacao
                         
                         return;
                     }
-                    Console.WriteLine("Não há caminho ao Oeste.");
+                    Console.WriteLine("Não há caminho ao Oeste.\n");
 
                     break;
                 case opcoesDirecao.Sul:
@@ -125,7 +125,7 @@ class Navegacao
                         
                         return;
                     }
-                    Console.WriteLine("Não há caminho ao Sul.");
+                    Console.WriteLine("Não há caminho ao Sul.\n");
 
                     break;                
                 case opcoesDirecao.Voltar:
@@ -151,7 +151,7 @@ class Navegacao
                     destino.PortaAberta = true;
                     abriu = true;
 
-                    Console.WriteLine($"Com o {item.Nome}, você conseguiu abrir a porta! Agora você tem acesso a {destino.Nome}.");
+                    Console.WriteLine($"Com o {item.Nome}, você conseguiu abrir a porta! Agora você tem acesso a {destino.Nome}.\n");
 
                     break;
                 }
@@ -245,15 +245,15 @@ class Navegacao
                 {
                     if(portaAtual.Abrir(chave))
                     {
-                        Console.WriteLine("Você consegue abrir a porta.");
+                        Console.WriteLine("Você consegue abrir a porta.\n");
 
-                        Console.WriteLine($"\nAgora, você tem acesso a {salaEscolhida.Nome}.\n");
+                        Console.WriteLine($"Agora, você tem acesso a {salaEscolhida.Nome}.\n");
 
                         portaAtual.Aberta = true;
 
                         jogador.Inventario.DescartarItem(chave);
 
-                        Console.WriteLine($"{chave.Nome} foi descartada.");
+                        Console.WriteLine($"{chave.Nome} foi descartada.\n");
 
                         abriuPorta = true;
 
@@ -263,7 +263,7 @@ class Navegacao
 
                 if (!abriuPorta && portaAtual.ChaveNecessaria != null)
                 {
-                    Console.WriteLine($"Você não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.");
+                    Console.WriteLine($"Você não pode entrar nessa sala sem a {portaAtual.ChaveNecessaria.Nome}.\n");
 
                     continue;
                 }
